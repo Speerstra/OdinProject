@@ -1,0 +1,200 @@
+
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: Verdana, Helvetica, sans-serif;
+  }
+
+/* HEADER --------- */
+.header {
+    background-color: #1F2937;
+    padding: 3em;
+}
+
+.header ul {
+    list-style-type: none;
+    align-items: baseline;
+    padding: 0px;
+    margin: 0;
+    display: flex;
+    color: #F9FAF8;
+}
+
+li.logo {
+    margin-right: auto;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+ul a {
+    color: inherit;
+    text-decoration: none;
+    margin: 1em;
+  }
+
+.logo a {
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+
+
+/* HERO --------- */
+.hero-section {
+    background-color: #1F2937;
+    display: flex;
+    gap: 2em;
+    flex-wrap: wrap-reverse;
+
+    padding: 3em;
+}
+
+.hero-image {
+    background-color: gray;
+    height: 50vh;
+    flex-basis: 24em;
+    flex-grow: 4;  /* default: 0 (minimum comfortable size); 1 (take up entire screen width) */ 
+    flex-shrink: 1; /* default: 1 (shrink at regular rate); 0 (opt out of shrinking) */
+}
+
+.hero-text {
+    color: #E5E7EB;
+    font-size: 18px;
+    flex-basis: 24em;
+    flex-grow: 1;  /* 0 minimum comfortable size; 1 take up entire screen width */ 
+    flex-shrink: 1;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bolder;
+    color: #F9FAF8;
+}
+
+button {
+    background-color: #3382F6;
+    border-radius: 0.5em;
+    color: #F9FAF8;
+    font-size: 18px;
+    font-weight: 700;
+
+    text-decoration: none;
+    border: 2px solid #3382F6;
+    margin: 1em 0em;
+    padding: 0.4em 1.5em;
+}
+
+button a {
+    font-size: 18px;
+    font-weight: 700;
+    color: inherit;
+    text-decoration: none;
+  }
+
+/* CARDS --------- */
+.cards-section {
+    background-color: #F9FAF8;
+    padding: 3em;
+}
+
+.cards-title {
+    font-size: 36px;
+    color: #1F2937;
+    font-weight: 800;
+    margin: 0 3em 2em;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4em;
+    justify-content: center;
+}
+.card-image {
+    height: 20vh;
+    width: 20vh;
+    border: 4px solid #3382F6;
+    border-radius: 2em;
+    background-color: #F9FAF8;
+}
+
+.card-text {
+    width: 20vh;
+    font-size: 14px;
+    color: #1F2937;
+    text-align: center;
+    padding: 1em 0;
+}
+
+/* QUOTE --------- */
+.quote-section {
+    background-color: #E5E7EB;
+    padding: 5em;
+}
+
+.quote {
+    font-size: 36px;
+    font-style: italic;
+    font-weight: 200;
+    text-align: center;
+}
+
+.quote-signature {
+    padding: 2em;
+    font-size: 20px;
+    font-weight: 900;
+    text-align: right;
+}
+
+
+/* CALL-TO-ACTION --------- */
+.call-to-action-section {
+    background-color: white;
+
+}
+
+.call-to-action-banner {
+    background-color: #3382F6;
+    border-radius: 0.5em;
+    padding: 2em;
+    margin: 3em 12em;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.call-to-action-text {
+    align-self: center;
+}
+
+.call-to-action-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #E5E7EB;
+}
+
+.call-to-action-subtext {
+    font-size: 16px;
+    font-weight: 300;
+    color: #E5E7EB;
+}
+
+.call-to-action-button {
+    background-color: #3382F6;
+    border-radius: 0.5em;
+    color: #F9FAF8;
+    font-size: 18px;
+    font-weight: 700;
+    border: 2px solid #F9FAF8;
+    padding: 0.5em 1.5em;
+}
+
+/* FOOTER --------- */
+.footer {
+    background-color: #1F2937;
+    color: #F9FAF8;
+    text-align: center;
+    margin: 2em;
+    padding: 2em;
+}
