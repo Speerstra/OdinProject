@@ -54,14 +54,15 @@ function game() {
             console.log(`Tie on ${playerSelection}. Let's play again.`)
         } else if (isPlayerWinner === true) {
             playerScore++;
-            console.log(`You won! ${playerSelection} beats ${computerSelection}.`)
             gamesPlayed++;
+            console.log(`You won! ${playerSelection} beats ${computerSelection}.`)
+            
         } else {
             console.log(`You lost! ${playerSelection} lost to ${computerSelection}.`)
             gamesPlayed++;
         }  
     }
-    console.log(`All done! You won ${player_score} out of 5 games.`)
+    console.log(`All done! You won ${playerScore} out of 5 games.`)
 }
 
 game()
