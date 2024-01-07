@@ -2,66 +2,66 @@
 const choices = ["rock", "paper", "scissors"];
 
 function getComputerChoice(choices) {
+    /* 
+    * Takes an array of choices as input
+    * Returns one random selection of the choices as a string
+    */
     let index = Math.floor(Math.random() * choices.length);
-    console.log(choices[index]);
     return choices[index];
 }
 
-getComputerChoice(choices)
-
 function playRound(playerSelection, computerSelection) {
-
+    /*
+    * Input parameters - player and computer selections as strings
+    * Returns NULL if tie.
+    * Returns true if player wins
+    * Returns false if player loses
+    */
     if (playerSelection === computerSelection) {
-        console.log("tie.");
+        return null;
     } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        console.log("PLAYER WINS");
+        return true;
     } else if (playerSelection === "paper" && computerSelection === "rock") {
-        console.log("PLAYER WINS");
+        return true;
     } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        console.log("PLAYER WINS");
+        return true;
     } else {
-        console.log("PLAYER LOSES");
+        return false;
     }
 }
-playRound("paper", getComputerChoice(choices))
+
 
 function game() {
-    let games_played = 0
-    while (games_played < 5) {
+    /*
+    * Plays the game until gamesPlayed is equal to roundsToPlay
+    * Increments playerScore if player wins a round
+    * Round is replayed in case of a tie
+     */
+    let gamesPlayed = 0;
+    let playerScore = 0;
+    const roundsToPlay = 5;
+
+    while (gamesPlayed < roundsToPlay) {
         playerSelection = prompt("Rock, Paper, Scissors?").toLowerCase()
+        
         if (!choices.includes(playerSelection)) {
             continue
         } 
-        computerSelection = getComputerChoice(choices)
-        winner = playRound(playerSelection, computerSelection)
-        console.log(winner)
-        
+
+        computerSelection = getComputerChoice(choices);
+        isPlayerWinner = playRound(playerSelection, computerSelection);
+        if (isPlayerWinner === null) {
+            console.log(`Tie on ${playerSelection}. Let's play again.`)
+        } else if (isPlayerWinner === true) {
+            playerScore++;
+            console.log(`You won! ${playerSelection} beats ${computerSelection}.`)
+            gamesPlayed++;
+        } else {
+            console.log(`You lost! ${playerSelection} lost to ${computerSelection}.`)
+            gamesPlayed++;
+        }  
     }
+    console.log(`All done! You won ${player_score} out of 5 games.`)
 }
 
 game()
-/*
-function game() {
-    let playerScore = 0
-    let computerScore = 0
-
-    while n_games < 5:
-        playerSelection = prompt("Player input").toLowerCase()
-        computerSelection = getComputerChoice()
-        winner = playRound(playerSelection, computerSelection)
-
-        if winner == player:
-            print(f"You won! {playerSelection} beat {computerSelection}")
-            playerScore ++
-            n_games++
-        if winner == computer:
-            print(f"You lost! {playerSelection} lost to {computerSelection}")
-            computerScore ++
-            n_games++
-        else:
-            playerSelection
-
-        
-}
-
-*/
