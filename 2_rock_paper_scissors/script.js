@@ -1,15 +1,18 @@
 
 const CHOICES = ["rock", "paper", "scissors"];
 const roundsPerGame = 5
-var roundsPlayed = 0
+let roundsPlayed = 0
+let playerScore = 0
+let computerScore = 0
 
 const selectionButtons = document.querySelectorAll('.selection-button');
+let gameWinnerDiv = document.querySelector('.game-winner')
 
 selectionButtons.forEach(button => {
     button.addEventListener('click', (e) => getPlayerSelection(e));
 });
 
-function isGameOver(roundsPlayed) {
+function isGameOver(roundsPlayed, roundsPerGame) {
     if (roundsPlayed > roundsPerGame) {
         return true;
     }
@@ -41,8 +44,17 @@ function getRoundWinner(playerSelection, computerSelection) {
 }
 
 function incrementRoundsPlayed() {
-    roundsPlayed = roundsPlayed+=1
+    roundsPlayed+=1
     return roundsPlayed
+}
+
+function updateScore(winner) {
+    if (winner === 'computer') {
+        computerScore +=1
+    } else if (winner === 'player') {
+        playerScore += 1
+        console.log(playerScore)
+    }
 }
 
 function displayRoundWinner(roundWinner) {
@@ -56,16 +68,16 @@ function displayRoundWinner(roundWinner) {
 }
 
 function displayGameWinner(winner) {
-    console.log('YAAYYY')
+    gameWinnerDiv.innerHTML = `${winner} won the game!`
 }
 
 function game(playerSelection) {
-    let computerSelection = getComputerSelection(CHOICES)
-    
+    const computerSelection = getComputerSelection(CHOICES)
     const roundWinner = getRoundWinner(playerSelection, computerSelection)
     displayRoundWinner(roundWinner)
     incrementRoundsPlayed(roundsPlayed)
-    if (isGameOver(roundsPlayed)) {
+    updateScore(roundWinner)
+    if (isGameOver(roundsPlayed, roundsPerGame)) {
         displayGameWinner(roundWinner)
     }
 }
