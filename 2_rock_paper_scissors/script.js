@@ -20,7 +20,6 @@ function getComputerSelection(CHOICES) {
     return CHOICES[index];
 }
 
-
 function getPlayerSelection(button) {
     let playerSelection = button.target.id;
     console.log(playerSelection)
@@ -56,19 +55,19 @@ function displayRoundWinner(roundWinner) {
     
 }
 
-// function displayGameWinner(winner) {
-
-// }
+function displayGameWinner(winner) {
+    console.log('YAAYYY')
+}
 
 function game(playerSelection) {
     let computerSelection = getComputerSelection(CHOICES)
     
     const roundWinner = getRoundWinner(playerSelection, computerSelection)
     displayRoundWinner(roundWinner)
-    console.log(winner)
     incrementRoundsPlayed(roundsPlayed)
-    console.log(roundsPlayed)
-    // if (isGameOver(roundsPlayed)) {return}
+    if (isGameOver(roundsPlayed)) {
+        displayGameWinner(roundWinner)
+    }
 }
     
 
