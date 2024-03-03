@@ -9,6 +9,7 @@ const selectionButtons = document.querySelectorAll('.selection-button');
 const resetButton = document.querySelector('#reset-button')
 const playerScoreDiv = document.querySelector('#player-score')
 const computerScoreDiv = document.querySelector('#computer-score')
+const computerSelection = document.querySelector('.computer-selection-hi')
 document.querySelector('#reset-view').style.display = 'none';
 document.querySelector('#game-view').style.display = 'block';
 
@@ -27,7 +28,21 @@ function isGameOver(roundsPlayed, roundsPerGame) {
 
 function getComputerSelection(CHOICES) {
     const index = Math.floor(Math.random() * CHOICES.length);
-    return CHOICES[index];
+    computerSelectionhi = CHOICES[index]
+    if (computerSelectionhi === 'rock') {
+        document.querySelector('#computer-selection-rock').style.display = 'block'
+        document.querySelector('#computer-selection-paper').style.display = 'none'
+        document.querySelector('#computer-selection-scissors').style.display = 'none'
+    } else if (computerSelectionhi === 'paper') {
+        document.querySelector('#computer-selection-rock').style.display = 'none'
+        document.querySelector('#computer-selection-paper').style.display = 'block'
+        document.querySelector('#computer-selection-scissors').style.display = 'none'
+    } else {
+        document.querySelector('#computer-selection-rock').style.display = 'none'
+        document.querySelector('#computer-selection-paper').style.display = 'none'
+        document.querySelector('#computer-selection-scissors').style.display = 'block'
+    }
+    return computerSelectionhi;
 }
 
 function getPlayerSelection(button) {
