@@ -7,12 +7,11 @@ let computerScore = 0
 
 const selectionButtons = document.querySelectorAll('.selection-button');
 const resetButton = document.querySelector('#reset-button')
-
+const playerScoreDiv = document.querySelector('#player-score')
+const computerScoreDiv = document.querySelector('#computer-score')
 document.querySelector('#reset-view').style.display = 'none';
 document.querySelector('#game-view').style.display = 'block';
 
-
-let gameWinnerDiv = document.querySelector('.game-winner')
 
 selectionButtons.forEach(button => {
     button.addEventListener('click', (e) => getPlayerSelection(e));
@@ -53,34 +52,36 @@ function getRoundWinner(playerSelection, computerSelection) {
 
 function updateScore(winner) {
     roundsPlayed+=1
+    const node = document.createElement("div");
+    node.innerHTML= '⭐'
     if (winner === 'computer') {
         computerScore +=1
+        computerScoreDiv.appendChild(node)
     } else if (winner === 'player') {
         playerScore += 1
-        console.log(playerScore)
+        playerScoreDiv.appendChild(node)
     }
 }
 
 function displayRoundWinner(roundWinner) {
     const result = document.querySelector('.result');
-    
     if (roundWinner === 'tie') {
-        result.innerHTML = `It's a tie!`
+        result.innerHTML = `Tie!`
     } else {
         result.innerHTML = `${roundWinner} won!`
     }
 }
 
 function displayGameWinner(playerScore, computerScore) {
-    const result = document.querySelector('.result');
+    gameWinnerDiv = document.querySelector('.game-winner');
     document.querySelector('#reset-view').style.display = 'block';
     document.querySelector('#game-view').style.display = 'none';
     if (playerScore === computerScore) {
-        result.innerHTML = `Its a tie ${resetButton}`
+        gameWinnerDiv.innerHTML = `Its a tie`
     } else if (playerScore > computerScore) {
-        result.innerHTML = `Yay, you won! ${resetButton}`
+        gameWinnerDiv.innerHTML = `Yay, you won!`
     } else {
-        result.innerHTML = `Ah, the computer won. ${resetButton}`
+        gameWinnerDiv.innerHTML = `Ah, the computer won.`
     }
 }
 
@@ -90,8 +91,9 @@ function resetGame() {
     computerScore = 0;
     document.querySelector('#reset-view').style.display = 'none';
     document.querySelector('#game-view').style.display = 'block';
+    computerScoreDiv.innerHTML = ``
+    playerScoreDiv.innerHTML = ``
 }
-
 
 function game(playerSelection) {
     const computerSelection = getComputerSelection(CHOICES)
