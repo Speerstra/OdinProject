@@ -32,6 +32,41 @@ body {
         transform: translateY(-10px);
 }
 
+#computer-selection {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3rem;
+}
+
+.computer {
+        font-size: 12em;
+        cursor: pointer;
+        transition: transform 250ms;
+        width: 15rem;
+        height: 15rem;
+        border-width: 0;
+        opacity: 0;
+        
+}
+
+@keyframes fade {
+        0%   {opacity: 0}
+        50%  {opacity: 1}
+        80%  {opacity: 1}
+        100% {opacity: 0}
+}
+
+.computer.animate  {
+        animation-fill-mode: forwards;
+}
+
+.fade-out {
+        opacity: 0;
+        transition: opacity 1s;
+}
+
 .score {
         background-color: rgb(225, 213, 227);
         opacity: 0.3;

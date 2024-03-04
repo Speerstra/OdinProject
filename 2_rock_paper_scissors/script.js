@@ -28,21 +28,17 @@ function isGameOver(roundsPlayed, roundsPerGame) {
 
 function getComputerSelection(CHOICES) {
     const index = Math.floor(Math.random() * CHOICES.length);
-    computerSelectionhi = CHOICES[index]
-    if (computerSelectionhi === 'rock') {
-        document.querySelector('#computer-selection-rock').style.display = 'block'
-        document.querySelector('#computer-selection-paper').style.display = 'none'
-        document.querySelector('#computer-selection-scissors').style.display = 'none'
-    } else if (computerSelectionhi === 'paper') {
-        document.querySelector('#computer-selection-rock').style.display = 'none'
-        document.querySelector('#computer-selection-paper').style.display = 'block'
-        document.querySelector('#computer-selection-scissors').style.display = 'none'
-    } else {
-        document.querySelector('#computer-selection-rock').style.display = 'none'
-        document.querySelector('#computer-selection-paper').style.display = 'none'
-        document.querySelector('#computer-selection-scissors').style.display = 'block'
-    }
-    return computerSelectionhi;
+    animateComputerSelection(index)
+    return CHOICES[index];
+}
+
+function animateComputerSelection(index) {
+    const computerSelections = document.querySelectorAll('.computer')
+    computerSelections.forEach(button => {
+        button.style.animation = '';
+    });
+    const selection = document.querySelector(`.computer:nth-of-type(${index + 1})`);
+    selection.style.animation = 'fade 2.5s linear';
 }
 
 function getPlayerSelection(button) {
