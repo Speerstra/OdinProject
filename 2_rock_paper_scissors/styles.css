@@ -1,7 +1,10 @@
 body {
-        background-image: linear-gradient(rgb(188, 170, 237), rgb(125, 75, 200));
+        background-image: linear-gradient(rgb(107, 66, 222), rgb(172, 138, 223));
         height: 100vh;
         width: 100vw;
+        font-family: "Lucida Console", "Courier New", monospace;
+        color: rgb(211, 181, 11);
+        font: 800;
 }
 
 #main {
@@ -37,13 +40,11 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 3rem;
+        margin-top: 1rem;
 }
 
 .computer {
         font-size: 12em;
-        cursor: pointer;
-        transition: transform 250ms;
         width: 15rem;
         height: 15rem;
         border-width: 0;
@@ -58,42 +59,52 @@ body {
         100% {opacity: 0}
 }
 
-.computer.animate  {
-        animation-fill-mode: forwards;
-}
-
-.fade-out {
-        opacity: 0;
-        transition: opacity 1s;
-}
-
-.score {
-        background-color: rgb(225, 213, 227);
-        opacity: 0.3;
+.scores {
+        font-size: 3em;
         border-radius: 3rem;  
-        display: flex;
-        flex-direction: column;
-        grid-template-columns: repeat(5, 1fr);
-        justify-items: center;
-        align-content: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
 }
 
-#player-score {
+.player-score {
         display: flex;
         flex-direction: row;
 }
 
-#computer-score {
+.computer-score {
         display: flex;
         flex-direction: row;
 }
-.player{
-        grid-column: 1 / span 5;
+
+.selections {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
 }
-.player-selection {
-        background-color: rgb(247, 247, 247); 
-        border-radius: 50%;
-        height: 5em;
-        width: 5em;
-        margin: 1em;
+
+#reset-view {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+}
+
+#reset-text {
+        font-size: 6em;
+        text-align: center;
+}
+
+#reset-button {
+        font-size: 3em;
+        color: rgb(95, 40, 40);
+        background-image: linear-gradient(to bottom right, rgb(255, 196, 0), rgb(255, 140, 0));
+        border-radius: 0.5em;
+        border-width: 0;
+        padding: 0.5em;
+        font-family: 'Courier New', Courier, monospace;
+
+
 }
