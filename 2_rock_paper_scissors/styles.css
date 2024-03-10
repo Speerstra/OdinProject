@@ -35,46 +35,21 @@ body {
         transform: translateY(-10px);
 }
 
-#computer-selection {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1rem;
-}
-
-.computer {
-        font-size: 12em;
-        width: 15rem;
-        height: 15rem;
-        border-width: 0;
-        opacity: 0;
-        
-}
-
-@keyframes fade {
-        0%   {opacity: 0}
-        50%  {opacity: 1}
-        80%  {opacity: 1}
-        100% {opacity: 0}
-}
-
 .scores {
         font-size: 3em;
         border-radius: 3rem;  
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         justify-content: center;
+        
 }
 
-.player-score {
+.score {
         display: flex;
         flex-direction: row;
-}
+        min-height: 2em;
 
-.computer-score {
-        display: flex;
-        flex-direction: row;
+        
 }
 
 .selections {

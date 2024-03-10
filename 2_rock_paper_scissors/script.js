@@ -1,11 +1,11 @@
 
 const CHOICES = [
     {name: "rock",
-     symbol: '✊'}, 
+     icon: '✊'}, 
     {name: "paper",
-    symbol: '✋'}, 
+    icon: '✋'}, 
     {name: "scissors",
-    symbol: '✌️'}];
+    icon: '✌️'}];
 
 
 const roundsPerGame = 5
@@ -15,8 +15,8 @@ let computerScore = 0
 
 const selectionButtons = document.querySelectorAll('.selection-button');
 const resetButton = document.querySelector('#reset-button');
-const playerScoreDiv = document.querySelector('.player-score');
-const computerScoreDiv = document.querySelector('.computer-score');
+const playerScoreDiv = document.querySelector('#player-score');
+const computerScoreDiv = document.querySelector('#computer-score');
 const playerSelectionDiv = document.querySelector('.player-selection');
 const computerSelectionDiv = document.querySelector('.computer-selection');
 const resultDiv = document.querySelector('.result');
@@ -40,7 +40,15 @@ function isGameOver(roundsPlayed, roundsPerGame) {
 function getComputerSelection(CHOICES) {
     const index = Math.floor(Math.random() * CHOICES.length);
     return CHOICES[index].name;
-    
+}
+
+function getSymbol(selection) {
+    for (const choice of CHOICES) {
+        if (choice.name === selection) {
+            return choice.icon;
+        }
+    }
+    return null;
 }
 
 function getRoundWinner(playerSelection, computerSelection) {
@@ -73,20 +81,20 @@ function updateScore(winner) {
 
 function displayRoundWinner(roundWinner) {
     if (roundWinner === 'tie') {
-        resultDiv.innerHTML = `Tie!`
+        resultDiv.innerText = `Tie!`
     } else {
-        resultDiv.innerHTML = `${roundWinner} won!`
+        resultDiv.innerText = `${roundWinner.charAt(0).toUpperCase() + roundWinner.slice(1)} won!`
     }
 }
 
 function displaySelections(playerSelection, computerSelection) {
     playerSelectionIcon = document.createElement('div')
-    playerSelectionIcon.innerText = playerSelection
-    playerSelectionDiv.after(playerSelectionIcon)
+    playerSelectionIcon.innerText = getSymbol(playerSelection)
+    playerSelectionDiv.prepend(playerSelectionIcon)
 
     computerSelectionIcon = document.createElement('div')
-    computerSelectionIcon.innerText = computerSelection
-    computerSelectionDiv.after(computerSelectionIcon)
+    computerSelectionIcon.innerText = getSymbol(computerSelection)
+    computerSelectionDiv.prepend(computerSelectionIcon)
 }
 
 function game(button) {
@@ -105,10 +113,20 @@ function resetGame() {
     roundsPlayed = 0;
     playerScore = 0;
     computerScore = 0;
+    resultDiv.innerHTML = ''
+    clearDiv(computerScoreDiv)
+    clearDiv(playerScoreDiv)
+    clearDiv(playerSelectionDiv)
+    clearDiv(computerSelectionDiv)
+
     document.querySelector('#reset-view').style.display = 'none';
     document.querySelector('#game-view').style.display = 'block';
-    computerScoreDiv.innerHTML = ``
-    playerScoreDiv.innerHTML = ``
+}
+
+function clearDiv(div) {
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
 }
 
 function displayGameWinner(playerScore, computerScore) {
@@ -116,10 +134,10 @@ function displayGameWinner(playerScore, computerScore) {
     document.querySelector('#reset-view').style.display = 'block';
     document.querySelector('#game-view').style.display = 'none';
     if (playerScore === computerScore) {
-        gameWinnerDiv.innerHTML = `Its a tie`
+        gameWinnerDiv.innerText = `Its a tie`
     } else if (playerScore > computerScore) {
-        gameWinnerDiv.innerHTML = `Yay, you won!`
+        gameWinnerDiv.innerText = `Yay, you won!`
     } else {
-        gameWinnerDiv.innerHTML = `Ah, the computer won.`
+        gameWinnerDiv.innerText = `Ah, the computer won.`
     }
 }
