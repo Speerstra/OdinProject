@@ -1,11 +1,14 @@
 
 const CHOICES = [
     {name: "rock",
-     icon: '✊'}, 
+     icon: '✊', 
+     beats: "scissors"}, 
     {name: "paper",
-    icon: '✋'}, 
+     icon: '✋',
+     beats: "rock"}, 
     {name: "scissors",
-    icon: '✌️'}];
+     icon: '🤟',
+     beats: "paper"}];
 
 
 const roundsPerGame = 5
@@ -17,13 +20,12 @@ const selectionButtons = document.querySelectorAll('.selection-button');
 const resetButton = document.querySelector('#reset-button');
 const playerScoreDiv = document.querySelector('#player-score');
 const computerScoreDiv = document.querySelector('#computer-score');
-const playerSelectionDiv = document.querySelector('.player-selection');
-const computerSelectionDiv = document.querySelector('.computer-selection');
+const playerSelectionDiv = document.querySelector('#player-selection');
+const computerSelectionDiv = document.querySelector('#computer-selection');
 const resultDiv = document.querySelector('.result');
 
 document.querySelector('#reset-view').style.display = 'none';
 document.querySelector('#game-view').style.display = 'block';
-
 
 selectionButtons.forEach(selection => {
     selection.addEventListener('click', (e) => game(e));
@@ -65,6 +67,13 @@ function getRoundWinner(playerSelection, computerSelection) {
     }
 }
 
+function isWinner(selectionOne, selectionTwo) {
+    const selectionOneObj = CHOICES.find(choice => choice.name === selectionOne);
+    const selectionTwoObj = CHOICES.find(choice => choice.name === selectionTwo);
+
+    return selectionOneObj.beats === selectionTwoObj.name;
+}
+
 function updateScore(winner) {
     roundsPlayed+=1
     const star = document.createElement("div");
@@ -72,7 +81,6 @@ function updateScore(winner) {
     if (winner === 'player') {
         playerScore +=1
         playerScoreDiv.appendChild(star)
-
     } else if (winner === 'computer') {
         computerScore += 1
         computerScoreDiv.appendChild(star)
@@ -90,10 +98,16 @@ function displayRoundWinner(roundWinner) {
 function displaySelections(playerSelection, computerSelection) {
     playerSelectionIcon = document.createElement('div')
     playerSelectionIcon.innerText = getSymbol(playerSelection)
+    if (isWinner(playerSelection, computerSelection)) {
+        playerSelectionIcon.classList.add('winner')
+    }
     playerSelectionDiv.prepend(playerSelectionIcon)
 
     computerSelectionIcon = document.createElement('div')
     computerSelectionIcon.innerText = getSymbol(computerSelection)
+    if (isWinner(computerSelection, playerSelection)) {
+        computerSelectionIcon.classList.add('winner')
+    }
     computerSelectionDiv.prepend(computerSelectionIcon)
 }
 
