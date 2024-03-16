@@ -16,7 +16,8 @@ let roundsPlayed = 0
 let playerScore = 0
 let computerScore = 0
 
-const selectionButtons = document.querySelectorAll('.selection-button');
+
+const buttonsDiv = document.querySelector('.buttons');
 const resetButton = document.querySelector('#reset-button');
 const playerScoreDiv = document.querySelector('#player-score');
 const computerScoreDiv = document.querySelector('#computer-score');
@@ -27,12 +28,27 @@ const resultDiv = document.querySelector('.result');
 document.querySelector('#reset-view').style.display = 'none';
 document.querySelector('#game-view').style.display = 'block';
 
+
+
+resetButton.addEventListener('click', () => resetGame())
+generateChoiceButtons()
+
+function generateChoiceButtons()
+	{
+	   for(var i=0; i<CHOICES.length; i++)
+	   {
+        var choice = CHOICES[i];
+        var btn = document.createElement("BUTTON");
+        btn.setAttribute("class",'selection-button');
+        btn.setAttribute("id",choice.name);
+        btn.innerHTML = choice.icon;
+        buttonsDiv.appendChild(btn);
+    	}
+    };
+const selectionButtons = document.querySelectorAll('.selection-button');
 selectionButtons.forEach(selection => {
     selection.addEventListener('click', (e) => game(e));
 });
-
-resetButton.addEventListener('click', () => resetGame())
-
 function isGameOver(roundsPlayed, roundsPerGame) {
     if (roundsPlayed > roundsPerGame) {
         return true;
@@ -111,8 +127,10 @@ function displaySelections(playerSelection, computerSelection) {
     computerSelectionDiv.prepend(computerSelectionIcon)
 }
 
+
 function game(button) {
     let playerSelection = button.target.id;
+
     const computerSelection = getComputerSelection(CHOICES)
     const roundWinner = getRoundWinner(playerSelection, computerSelection)
     displayRoundWinner(roundWinner)
