@@ -56,20 +56,14 @@ body {
 }
 
 .selection {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        justify-content: center;  
         align-items: center;
-        opacity: 0.7;
-        width: 8rem;
+        width: 12rem;
         height: 6rem;
 }
 
-.winner {
-        border-radius: 20%;
 
-        opacity: 1;
-        background-color: rgb(209, 51, 227);
-}
 
 #reset-view {
         margin: 0;

@@ -1,4 +1,3 @@
-
 const CHOICES = [
     {name: "rock",
      icon: '✊', 
@@ -10,12 +9,10 @@ const CHOICES = [
      icon: '🤟',
      beats: "paper"}];
 
-
 const roundsPerGame = 5
 let roundsPlayed = 0
 let playerScore = 0
 let computerScore = 0
-
 
 const buttonsDiv = document.querySelector('.buttons');
 const resetButton = document.querySelector('#reset-button');
@@ -27,12 +24,9 @@ const resultDiv = document.querySelector('.result');
 
 document.querySelector('#reset-view').style.display = 'none';
 document.querySelector('#game-view').style.display = 'block';
-
-
-
 resetButton.addEventListener('click', () => resetGame())
-generateChoiceButtons()
 
+generateChoiceButtons()
 function generateChoiceButtons()
 	{
 	   for(var i=0; i<CHOICES.length; i++)
@@ -42,15 +36,14 @@ function generateChoiceButtons()
         btn.setAttribute("class",'selection-button');
         btn.setAttribute("id",choice.name);
         btn.innerHTML = choice.icon;
+        btn.addEventListener('click', (e) => game(e));
         buttonsDiv.appendChild(btn);
     	}
     };
-const selectionButtons = document.querySelectorAll('.selection-button');
-selectionButtons.forEach(selection => {
-    selection.addEventListener('click', (e) => game(e));
-});
+
+
 function isGameOver(roundsPlayed, roundsPerGame) {
-    if (roundsPlayed > roundsPerGame) {
+    if (roundsPlayed === roundsPerGame) {
         return true;
     }
 }
@@ -113,6 +106,7 @@ function displayRoundWinner(roundWinner) {
 
 function displaySelections(playerSelection, computerSelection) {
     playerSelectionIcon = document.createElement('div')
+    playerSelectionIcon.classList.add('selections')
     playerSelectionIcon.innerText = getSymbol(playerSelection)
     if (isWinner(playerSelection, computerSelection)) {
         playerSelectionIcon.classList.add('winner')
@@ -133,7 +127,6 @@ function game(button) {
 
     const computerSelection = getComputerSelection(CHOICES)
     const roundWinner = getRoundWinner(playerSelection, computerSelection)
-    displayRoundWinner(roundWinner)
     displaySelections(playerSelection, computerSelection)
     updateScore(roundWinner)
     if (isGameOver(roundsPlayed, roundsPerGame)) {
@@ -150,9 +143,9 @@ function resetGame() {
     clearDiv(playerScoreDiv)
     clearDiv(playerSelectionDiv)
     clearDiv(computerSelectionDiv)
+    clearDiv(buttonsDiv)
+    generateChoiceButtons()
 
-    document.querySelector('#reset-view').style.display = 'none';
-    document.querySelector('#game-view').style.display = 'block';
 }
 
 function clearDiv(div) {
@@ -161,15 +154,12 @@ function clearDiv(div) {
     }
 }
 
+
 function displayGameWinner(playerScore, computerScore) {
-    gameWinnerDiv = document.querySelector('.game-winner');
-    document.querySelector('#reset-view').style.display = 'block';
-    document.querySelector('#game-view').style.display = 'none';
-    if (playerScore === computerScore) {
-        gameWinnerDiv.innerText = `Its a tie`
-    } else if (playerScore > computerScore) {
-        gameWinnerDiv.innerText = `Yay, you won!`
-    } else {
-        gameWinnerDiv.innerText = `Ah, the computer won.`
-    }
+    clearDiv(buttonsDiv)
+    var resetbtn = document.createElement("BUTTON");
+    resetbtn.setAttribute("id", 'reset-button');
+    resetbtn.innerHTML = 'Play again!';
+    resetbtn.addEventListener('click', (e) => resetGame(e));
+    buttonsDiv.appendChild(resetbtn);
 }
