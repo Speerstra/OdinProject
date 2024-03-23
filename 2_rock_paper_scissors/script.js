@@ -1,12 +1,12 @@
 const CHOICES = [
     {name: "rock",
-     icon: '✊', 
+     icon: '🪨', 
      beats: "scissors"}, 
     {name: "paper",
-     icon: '✋',
+     icon: '📋',
      beats: "rock"}, 
     {name: "scissors",
-     icon: '🤟',
+     icon: '✂️',
      beats: "paper"}];
 
 const roundsPerGame = 5
@@ -20,13 +20,10 @@ const playerScoreDiv = document.querySelector('#player-score');
 const computerScoreDiv = document.querySelector('#computer-score');
 const playerSelectionDiv = document.querySelector('#player-selection');
 const computerSelectionDiv = document.querySelector('#computer-selection');
+const messageDiv = document.querySelector('.message')
 const resultDiv = document.querySelector('.result');
 
-document.querySelector('#reset-view').style.display = 'none';
-document.querySelector('#game-view').style.display = 'block';
-resetButton.addEventListener('click', () => resetGame())
 
-generateChoiceButtons()
 function generateChoiceButtons()
 	{
 	   for(var i=0; i<CHOICES.length; i++)
@@ -41,10 +38,15 @@ function generateChoiceButtons()
     	}
     };
 
+generateChoiceButtons()
 
-function isGameOver(roundsPlayed, roundsPerGame) {
-    if (roundsPlayed === roundsPerGame) {
-        return true;
+function game(button) {
+    let playerSelection = button.target.id;
+    const computerSelection = getComputerSelection(CHOICES)
+    const roundWinner = getRoundWinner(playerSelection, computerSelection)
+    updateScore(roundWinner)
+    if (isGameOver(roundsPlayed, roundsPerGame)) {
+        displayGameWinner(playerScore, computerScore)
     }
 }
 
@@ -53,40 +55,26 @@ function getComputerSelection(CHOICES) {
     return CHOICES[index].name;
 }
 
-function getSymbol(selection) {
-    for (const choice of CHOICES) {
-        if (choice.name === selection) {
-            return choice.icon;
-        }
-    }
-    return null;
-}
-
 function getRoundWinner(playerSelection, computerSelection) {
+    playerSelectionObj = CHOICES.find(choice => choice.name === playerSelection)
+    computerSelectionObj = CHOICES.find(choice => choice.name === computerSelection)
     if (playerSelection === computerSelection) {  
+        messageDiv.innerHTML = `Tie on ${playerSelectionObj.icon}`
         return 'tie';
-    } else if (playerSelection === CHOICES[0].name && computerSelection === CHOICES[2].name) {
-        return 'player';
-    } else if (playerSelection === CHOICES[1].name && computerSelection === CHOICES[0].name) {
-        return 'player';
-    } else if (playerSelection === CHOICES[2].name && computerSelection === CHOICES[1].name) {
+    } else if (playerSelectionObj.beats === computerSelectionObj.name) {
+        messageDiv.innerHTML = `${playerSelectionObj.icon} beats ${computerSelectionObj.icon}`
         return 'player';
     } else {
+        messageDiv.innerHTML = `${playerSelectionObj.icon} lost to ${computerSelectionObj.icon}`
         return 'computer';
     }
-}
-
-function isWinner(selectionOne, selectionTwo) {
-    const selectionOneObj = CHOICES.find(choice => choice.name === selectionOne);
-    const selectionTwoObj = CHOICES.find(choice => choice.name === selectionTwo);
-
-    return selectionOneObj.beats === selectionTwoObj.name;
 }
 
 function updateScore(winner) {
     roundsPlayed+=1
     const star = document.createElement("div");
     star.innerText= '⭐'
+    star.setAttribute("class",'star');
     if (winner === 'player') {
         playerScore +=1
         playerScoreDiv.appendChild(star)
@@ -96,53 +84,21 @@ function updateScore(winner) {
     }
 }
 
-function displayRoundWinner(roundWinner) {
-    if (roundWinner === 'tie') {
-        resultDiv.innerText = `Tie!`
-    } else {
-        resultDiv.innerText = `${roundWinner.charAt(0).toUpperCase() + roundWinner.slice(1)} won!`
+function isGameOver(roundsPlayed, roundsPerGame) {
+    if (roundsPlayed === roundsPerGame) {
+        return true;
     }
 }
 
-function displaySelections(playerSelection, computerSelection) {
-    playerSelectionIcon = document.createElement('div')
-    playerSelectionIcon.classList.add('selections')
-    playerSelectionIcon.innerText = getSymbol(playerSelection)
-    if (isWinner(playerSelection, computerSelection)) {
-        playerSelectionIcon.classList.add('winner')
-    }
-    playerSelectionDiv.prepend(playerSelectionIcon)
-
-    computerSelectionIcon = document.createElement('div')
-    computerSelectionIcon.innerText = getSymbol(computerSelection)
-    if (isWinner(computerSelection, playerSelection)) {
-        computerSelectionIcon.classList.add('winner')
-    }
-    computerSelectionDiv.prepend(computerSelectionIcon)
-}
-
-
-function game(button) {
-    let playerSelection = button.target.id;
-
-    const computerSelection = getComputerSelection(CHOICES)
-    const roundWinner = getRoundWinner(playerSelection, computerSelection)
-    displaySelections(playerSelection, computerSelection)
-    updateScore(roundWinner)
-    if (isGameOver(roundsPlayed, roundsPerGame)) {
-        displayGameWinner(playerScore, computerScore)
-    }
-}
-    
 function resetGame() {
     roundsPlayed = 0;
     playerScore = 0;
     computerScore = 0;
-    resultDiv.innerHTML = ''
+    messageDiv.innerHTML = ''
     clearDiv(computerScoreDiv)
     clearDiv(playerScoreDiv)
-    clearDiv(playerSelectionDiv)
-    clearDiv(computerSelectionDiv)
+    // clearDiv(playerSelectionDiv)
+    // clearDiv(computerSelectionDiv)
     clearDiv(buttonsDiv)
     generateChoiceButtons()
 
@@ -154,12 +110,18 @@ function clearDiv(div) {
     }
 }
 
-
 function displayGameWinner(playerScore, computerScore) {
     clearDiv(buttonsDiv)
+    if (playerScore > computerScore) {
+        messageDiv.innerHTML = 'You won!'
+    } else if (playerScore === computerScore){
+        messageDiv.innerHTML = 'You tied'
+    } else {
+        messageDiv.innerHTML = 'You lost!'
+    }
     var resetbtn = document.createElement("BUTTON");
     resetbtn.setAttribute("id", 'reset-button');
-    resetbtn.innerHTML = 'Play again!';
+    resetbtn.innerHTML = 'Play again';
     resetbtn.addEventListener('click', (e) => resetGame(e));
     buttonsDiv.appendChild(resetbtn);
 }
