@@ -1,21 +1,37 @@
 body {
-        background-image: linear-gradient(rgb(188, 170, 237), rgb(125, 75, 200));
+        background-image: linear-gradient(rgb(66, 84, 222), rgb(172, 138, 223));
         height: 100vh;
         width: 100vw;
+        font-family: Gill Sans;
+        color: rgb(211, 181, 11);
+        font: 800;
 }
 
-.main {
+.container {
+        margin: 3rem;
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        grid-template-columns: 1fr 2.5fr 1fr;
+
+}
+
+.message {
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         align-items: center;
-}
-
-.buttons {
-        display: flex;
         justify-content: center;
-        align-items: center;
-        margin-top: 3rem;
+        height: 20vh;
+        font-size: 4rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 2rem;
+
+}
+.buttons {
+        height: 80vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-content: center;
+        justify-items: center;
 }
 
 .selection-button {
@@ -28,41 +44,15 @@ body {
         background-color: transparent;
 }
 
-<<<<<<< HEAD
-=======
 .selection-button:last-of-type {
         grid-column: span 2;
         justify-self: center;
 }
 
->>>>>>> rps-ui
 .selection-button:hover {
         transform: translateY(-10px);
 }
 
-<<<<<<< HEAD
-.result {
-        width: 50vw;
-        height: 35vh;
-        background-color: rgb(225, 213, 227);
-        opacity: 0.3;
-        border-radius: 3rem;  
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        justify-items: center;
-        align-items: center;
-}
-
-.player{
-        grid-column: 1 / span 5;
-}
-.player-selection {
-        background-color: rgb(247, 247, 247); 
-        border-radius: 50%;
-        height: 5em;
-        width: 5em;
-        margin: 1em;
-=======
 .score {
         display: flex;
         flex-direction: column;
@@ -87,5 +77,4 @@ body {
         border-width: 0;
         padding: 1em;
         grid-column: span 2;
->>>>>>> rps-ui
 }
