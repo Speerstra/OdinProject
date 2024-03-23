@@ -9,19 +9,17 @@ const CHOICES = [
      icon: '✂️',
      beats: "paper"}];
 
+
 const roundsPerGame = 5
 let roundsPlayed = 0
 let playerScore = 0
 let computerScore = 0
 
 const buttonsDiv = document.querySelector('.buttons');
-const resetButton = document.querySelector('#reset-button');
 const playerScoreDiv = document.querySelector('#player-score');
 const computerScoreDiv = document.querySelector('#computer-score');
-const playerSelectionDiv = document.querySelector('#player-selection');
-const computerSelectionDiv = document.querySelector('#computer-selection');
 const messageDiv = document.querySelector('.message')
-const resultDiv = document.querySelector('.result');
+const resetButton = document.querySelector('#reset-button');
 
 
 function generateChoiceButtons()
@@ -30,9 +28,9 @@ function generateChoiceButtons()
 	   {
         var choice = CHOICES[i];
         var btn = document.createElement("BUTTON");
+        btn.innerHTML = choice.icon;
         btn.setAttribute("class",'selection-button');
         btn.setAttribute("id",choice.name);
-        btn.innerHTML = choice.icon;
         btn.addEventListener('click', (e) => game(e));
         buttonsDiv.appendChild(btn);
     	}
@@ -90,26 +88,6 @@ function isGameOver(roundsPlayed, roundsPerGame) {
     }
 }
 
-function resetGame() {
-    roundsPlayed = 0;
-    playerScore = 0;
-    computerScore = 0;
-    messageDiv.innerHTML = ''
-    clearDiv(computerScoreDiv)
-    clearDiv(playerScoreDiv)
-    // clearDiv(playerSelectionDiv)
-    // clearDiv(computerSelectionDiv)
-    clearDiv(buttonsDiv)
-    generateChoiceButtons()
-
-}
-
-function clearDiv(div) {
-    while (div.firstChild) {
-        div.removeChild(div.firstChild);
-    }
-}
-
 function displayGameWinner(playerScore, computerScore) {
     clearDiv(buttonsDiv)
     if (playerScore > computerScore) {
@@ -124,4 +102,21 @@ function displayGameWinner(playerScore, computerScore) {
     resetbtn.innerHTML = 'Play again';
     resetbtn.addEventListener('click', (e) => resetGame(e));
     buttonsDiv.appendChild(resetbtn);
+}
+
+function resetGame() {
+    roundsPlayed = 0;
+    playerScore = 0;
+    computerScore = 0;
+    messageDiv.innerHTML = ''
+    clearDiv(computerScoreDiv)
+    clearDiv(playerScoreDiv)
+    clearDiv(buttonsDiv)
+    generateChoiceButtons()
+}
+
+function clearDiv(div) {
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
 }
