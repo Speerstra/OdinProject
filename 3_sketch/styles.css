@@ -1,7 +1,6 @@
-
 .canvas {
-        width: 70vh;
-        height: 70vh;
+        width: 660px;
+        height: 660px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -12,10 +11,22 @@
 .row {
         display: flex;
         flex-grow: 1;
+        border: 0px;
 }
+
 .cell {
         border: 0px;
         flex-grow: 1;
         background-color: white;
         cursor: pointer;
+        border: 0px;
+}
+
+.button {
+        background-color: rgb(222, 215, 215);
+        border: 0px;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin: 1rem;
+        font-size: 2rem;
 }

@@ -1,11 +1,11 @@
-
 const INITIAL_SIZE = 32;
 const INITIAL_OPACITY = 0.1
 
-var mainDiv = document.querySelector('.canvas')
-let resetButton = document.querySelector('.reset-button')
+let mainDiv = document.querySelector('.canvas')
+let resetButton = document.querySelector('#reset-button')
+let sizeButton = document.querySelector('#size-button')
+
 resetButton.addEventListener('click', resetCanvas);
-let sizeButton = document.querySelector('.size-button')
 sizeButton.addEventListener('click', resizeCanvas);
 
 function generateCanvas(size)
@@ -15,7 +15,7 @@ function generateCanvas(size)
                         var rowDiv = document.createElement('div');
                         rowDiv.setAttribute('class', 'row');
                         for (var j=0; j<size; j++) {
-                                var cell = document.createElement('BUTTON');
+                                var cell = document.createElement('div');
                                 cell.setAttribute('class', 'cell');
                                 cell.setAttribute('id', `${i}, ${j}`);
                                 cell.style.opacity = INITIAL_OPACITY;
@@ -53,10 +53,16 @@ function resetCanvas() {
 };
 
 function resizeCanvas() {
-        var newSize = parseFloat(prompt("Enter a Value", INITIAL_SIZE));
+        input = parseInt(prompt('How many pixels per row? ', INITIAL_SIZE)) 
+        if (input > 100) {
+                input = parseInt(prompt('No more than 100, please! ', INITIAL_SIZE)) 
+        } else {
+                newSize = input
+        }
+
         while (mainDiv.firstChild) {
                 mainDiv.removeChild(mainDiv.firstChild);
-            }
+        }
+
         generateCanvas(newSize)
 }
-
