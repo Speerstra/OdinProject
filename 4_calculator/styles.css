@@ -1,0 +1,71 @@
+* {
+        font-family: Gotham Rounded, sans-serif;
+}
+
+body {background-color: blanchedalmond;}
+
+.container {
+        display: grid;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(68, 64, 59);
+        padding: 1rem;
+        border-radius: 1rem;
+        min-height: 70vh;
+        width: 30vw;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: minmax(120px, auto) repeat(5, 1fr);
+}
+
+.screen {
+        grid-column: span 4;
+        background-color: rgb(98, 91, 69);
+        border-radius: 1rem;
+        margin: 0.2rem;
+        color: blanchedalmond;
+        display: grid;
+        grid-template-rows: 1fr 2fr;
+        justify-content: end;
+        align-items: center;
+        padding: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+}
+
+.screen-previous {
+        font-size: 1.5rem;
+        text-align: right;
+}
+
+.screen-current {
+        font-size: 3rem;
+        text-align: right;
+}
+
+.digit, .operator {
+        cursor: pointer;
+        font-size: 2rem;
+        border-radius: 1rem;
+        outline: none;
+        border: 0px;
+        margin: 0.2rem;
+}
+
+.digit {
+        background-color: grey;
+        color: blanchedalmond;
+}
+
+.operator {
+        background-color: orange;
+}
+
+.digit:hover, .operator:hover {
+        opacity: 0.8;
+}
+
+#ac, #equal {
+        grid-column: span 2;
+}
