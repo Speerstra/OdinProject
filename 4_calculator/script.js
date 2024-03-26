@@ -15,9 +15,9 @@ class Calculator {
         }
 
         clear() {
-                this.previousOperand = ''
-                this.currentOpperand = ''
-                this.operator = undefined
+                this.previousOperand = '';
+                this.currentOpperand = '';
+                this.operator = undefined;
         }
 
         delete() {
@@ -70,7 +70,7 @@ class Calculator {
                         
                         case '/':
                                 if (current === 0) {
-                                        answer = 'Bah!'
+                                        answer = 'Bah!';
                                         break;
                                 }
                                 answer = previous / current;
@@ -79,16 +79,14 @@ class Calculator {
                         default:
                                 return;
                 }
-                
+
                 this.currentOpperand = answer;
                 this.previousOperand = '';
                 this.operator = '';
-                
-
         }
 }
 
-let calculator = new Calculator(previousDisplay, currentDisplay)
+let calculator = new Calculator(previousDisplay, currentDisplay);
 
 digitButtons.forEach(function(button) {
         button.addEventListener('click', function() {
