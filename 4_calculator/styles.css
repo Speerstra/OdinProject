@@ -29,6 +29,7 @@ body {background-color: blanchedalmond;}
         grid-template-rows: 1fr 2fr;
         justify-content: end;
         align-items: center;
+        min-height: 6rem;
         padding: 1rem;
         margin-top: 1rem;
         margin-bottom: 1.5rem;
@@ -44,7 +45,7 @@ body {background-color: blanchedalmond;}
         text-align: right;
 }
 
-.digit, .operator {
+button {
         cursor: pointer;
         font-size: 2rem;
         border-radius: 1rem;
@@ -58,7 +59,7 @@ body {background-color: blanchedalmond;}
         color: blanchedalmond;
 }
 
-.operator {
+.operator, #equal, #ac, #del, #dot {
         background-color: orange;
 }
 
