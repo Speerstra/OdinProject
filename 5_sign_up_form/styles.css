@@ -105,16 +105,17 @@ input {
         font-family: ubuntubold;    
 }
 
-input:valid {
-        border: rgb(209, 212, 200) solid 1px;
+input:focus {
+        border: rgb(103, 53, 95) solid 1px;
 }
 
-.invalid {
-        border: 1px solid red;
+input:invalid:focus {
+        border: rgb(75, 45, 63) solid 2px;
 }
 
 #password-message {
         font-family: ubuntu;
+        color: red;
         margin: 0;
 }
 
@@ -141,6 +142,10 @@ button {
 button:hover {
         opacity: 0.9;   
         cursor: pointer;
+}
+
+button:disabled {
+        opacity: 0.4;
 }
 
 .login {
