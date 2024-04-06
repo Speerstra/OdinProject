@@ -1,0 +1,124 @@
+@font-face {
+        font-family: ubuntu;
+        src: url('statics/fonts/Ubuntu-Regular.ttf');
+      }
+
+@font-face {
+        font-family: ubuntubold;
+        src: url('statics/fonts/Ubuntu-Bold.ttf');
+      }
+
+body { 
+        margin: 0;
+        padding: 0;
+}
+
+.layout {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        margin: 0;
+        
+}
+
+.photo {
+        height: 100%;
+        position: relative;
+        display:grid;
+}
+
+.photo img { 
+        max-width: 100%;
+        max-height:100%;
+        height: 100%;
+        width: 100%;
+}
+
+.credit {
+        position: absolute;
+        text-align: center;
+        color: rgb(209, 212, 200);
+        font-family: ubuntu;
+        bottom: 3vw;
+        left: 50%;
+        transform: translate(-50%, -2vw);
+        font-size: 0.8rem;
+      }
+
+.credit > a {
+        color: rgb(209, 212, 200);
+}
+.main {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        height: 100vh;
+}
+
+.text {
+        background-color: rgb(238, 240, 240);
+        padding: 3rem;
+        font-size: 25px;
+        font-family: ubuntu;
+}
+
+.form {
+        background-color: rgb(253, 253, 253);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2em;
+        padding: 3rem;
+        box-shadow: 0 8px 5px 0 rgb(223, 226, 229);
+        z-index: 1;
+}
+
+input {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: rgb(209, 212, 200) solid 1px;
+        font-family: ubuntubold;
+        text-transform: uppercase;
+}
+
+#password-message {
+        font-family: ubuntu;
+        margin: 0;
+}
+
+.buttons {
+        background-color: rgb(241, 241, 241);
+        padding: 3rem;
+}
+
+.buttons {
+        background-color: rgb(238, 240, 240);
+}
+button {
+        border: none;
+        background-color: rgb(25, 106, 173);
+        color: rgb(226, 235, 248);
+        box-shadow: 0 2px 5px 0 #ccc;
+        font-size: 1rem;
+        padding: 1rem 2rem;
+        margin: 1rem 0;
+        border-radius: 0.5rem;
+        font-family: ubuntubold;
+}
+
+button:hover {
+        opacity: 0.9;   
+        cursor: pointer;
+}
+
+.login {
+        font-family: ubuntu;
+        font-size: 1.2rem;
+}
+
+.login > a {
+        font-family: ubuntubold;
+        color: rgb(25, 106, 173);
+}
+
+.login > a:hover {
+        cursor: pointer;
+}

@@ -8,6 +8,31 @@
         <script src="script.js" defer></script>
 </head>
 <body>
-        
+        <div class="layout">
+                <div class="photo">
+                        <img src="statics/images/mountain_flowers.jpg">
+                        <div class="credit">Photo by <a href="https://unsplash.com/s/photos/Daniel-J.-Schwarz">Daniel J. Schwarz</a> on <a href="https://unsplash.com/">Upsplash</a></div>
+                </div>
+                <div class="main">
+                        <div class="text">
+                                <p>This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams. Sign up now to get you started.</i></p>
+                                <p>You know you want to!</p>
+                        </div>
+                        <div class="form">
+
+                                <input placeholder="First Name" type="text" required="">
+                                <input placeholder="Last Name" type="text" required="">
+                                <input placeholder="Email" type="email" required="" >
+                                <input placeholder="Phone number" type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
+                                <input placeholder="Password" type="password" id="password" required="">
+                                <input placeholder="Confirm password" type="password"  id="confirm_password" onkeyup="validate_password()">
+                                <div id="password-message"></div>
+                        </div>
+                        <div class="buttons">
+                                <button id="create" onclick="wrong_pass_alert()">Create Account</button>
+                                <div class="login">Already have an account? <a>Login</a></div>
+                        </div>
+                </div>
+        </div>
 </body>
 </html>
