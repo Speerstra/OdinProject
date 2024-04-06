@@ -1,0 +1,50 @@
+
+
+.layout {
+        display: grid;
+        grid-template-columns: 20rem auto;
+        
+}
+nav {
+        border: red solid 1px;
+        height: 100vh;
+}
+
+.main {
+        border: red solid 1px;
+        display: grid;
+        grid-template-rows: 10rem auto;
+        height: 100vh;
+}
+
+.header {
+        border: red solid 1px;
+        position: sticky; 
+        top: 0;
+}
+
+.content {
+        border: red solid 1px;
+        display: grid;
+        grid-template-areas:     
+                "projects  announcements"
+                "projects trending";
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows:  2fr 1fr;
+
+}
+
+.projects {
+        grid-area: projects;
+        background-color: #ffff64;
+}
+
+.announcements {
+        grid-area: announcements;
+        border: blue solid 1px;
+}
+
+.trending {
+        grid-area: trending;
+        border: blue solid 1px;
+}
