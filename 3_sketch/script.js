@@ -63,6 +63,5 @@ function resizeCanvas() {
         while (mainDiv.firstChild) {
                 mainDiv.removeChild(mainDiv.firstChild);
         }
-
         generateCanvas(newSize)
 }
