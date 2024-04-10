@@ -5,15 +5,70 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="script.js" defer></script>
 </head>
 <body>
         <div class="layout">
-                <nav></nav>
+                <nav>
+                        <div class="logo"><i class="fa fa-home"></i>  Dashboard</div>
+                        <ul>
+                                <li class="menu-item"><i class="fa fa-home"></i> Home</li>
+                                <li class="menu-item"><i class="fa fa-address-card"></i> Profile</li>
+                                <li class="menu-item"><i class="fa fa-envelope"></i> Message</li>
+                                <li class="menu-item"><i class="fa fa-calendar-check-o"></i> History</li>
+                                <li class="menu-item"><i class="fa fa-check"></i> Tasks</li>
+                                <br>
+                                <li class="menu-item"><i class="fa fa-heart"></i> Community</li>
+                                <li class="menu-item"><i class="fa fa-check"></i> Settings</li>
+                                <li class="menu-item"><i class="fa fa-check"></i> Support</li>
+                                <li class="menu-item"><i class="fa fa-clipboard"></i> Privacy</li>
+                        </ul>
+                        
+                </nav>
                 <div class="main">
-                        <div class="header"></div>
+                        <div class="header">
+                                <div class="header-top">
+                                        <div class="search-icon"><i class="fa fa-search"></i></div>
+                                        <form>
+                                                <input name="search" id="search" placeholder="Search...">
+                                        </form>
+                                        <div class="header-notification"><i class="fas fa-bell"></i></div>
+                                        <div class="header-profile"></div>
+                                </div>
+                                <div class="header-bottom">
+                                        <div class="header-welcome">Welcome, Johnny</div>
+                                        
+                                        <div class="header-buttons">
+                                                <button>New</button>
+                                                <button>Upload</button>
+                                                <button>Share</button>
+                                        </div>
+                                </div>
+
+                        </div>
                         <div class="content">
-                                <div class="projects"></div>
+                                <div class="projects">
+                                        <div class="card">
+                                                <div class="card-image"></div>
+                                                <div class="card-text"></div>
+                                                <div class="card-button-code"></div>
+                                                <div class="card-button-preview"></div>
+                                        </div>
+                                        <div class="card">
+                                                <div class="card-image"></div>
+                                                <div class="card-text"></div>
+                                                <div class="card-button-code"></div>
+                                                <div class="card-button-preview"></div>
+                                        </div>
+                                        <div class="card">
+                                                <div class="card-image"></div>
+                                                <div class="card-text"></div>
+                                                <div class="card-button-code"></div>
+                                                <div class="card-button-preview"></div>
+                                        </div>
+                                        
+                                </div>
                                 <div class="announcements"></div>
                                 <div class="trending"></div>
                         </div>
