@@ -19,7 +19,7 @@ body {
 
 .layout {
         overflow: hidden;
-        height: 100%;
+        height: 100vh;
         display: grid;
         grid-template-columns: 18rem auto;
         background-color: rgb(251, 251, 251);
@@ -28,7 +28,6 @@ body {
 .main {
         display: grid;
         grid-template-rows: 10rem auto;
-        min-height: 130vh;   
 }
 
 /* Side nav */
@@ -38,6 +37,7 @@ nav {
 
 #logo {
         font-size: 2rem;
+        font-family: Roboto-bold;
 }
 
 #logo > .img-icon {
@@ -73,7 +73,7 @@ nav > ul {
 
 /* Header */
 .header-container {
-        padding:1rem;
+        padding: 1rem 1.5rem;
         top: 0;
         display: grid;
         grid-template-rows: auto auto;
@@ -83,12 +83,14 @@ nav > ul {
 .header-top {
         display: flex;
         justify-content: space-between;
+        margin: 0.5 0.5rem;
 }
 
 .search-container {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        flex-grow: 2;
 }
 
 .search-icon {
@@ -117,6 +119,8 @@ input:focus{
 }
 #profile-small {
         height: 2rem;
+        padding: 0.25rem;
+        margin-right: 0;
 }
 
 #profile-large {
@@ -135,6 +139,7 @@ input:focus{
 .profile-text {
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
 }
 .welcome {
         font-size: 2rem;
@@ -159,6 +164,11 @@ input:focus{
         align-items: center;
 }
 
+.header-buttons {
+        align-self: flex-end;
+        padding: 0.5rem;
+}
+
 .header-buttons > button {
         background-color: rgb(137, 38, 119);
         border-radius: 1rem;
@@ -167,43 +177,119 @@ input:focus{
         color: white;
         font-size: 1rem;
         padding: 0.5rem 1rem;
-        margin: 0 0.5rem;
-        
+        margin: 0 0 0 1rem;
 }
 
     /* Main content */
 .content {
-        overflow: auto;
-        padding:1rem;
-        background:#fff;
-        border: red solid 1px;
         display: grid;
         grid-template-areas:     
-                "projects  announcements"
+                "projects announcements"
                 "projects trending";
         grid-template-columns: 3fr 1fr;
         grid-template-rows:  3fr 1fr;
-
+        grid-gap: 2rem;
+        padding: 1.5rem;
+        background-color: #e4e2e3;
+        
+}
+.content-title {
+        font-size: 1.5rem;
+        padding-bottom: 1rem;
+        font-family: Roboto-bold;
 }
 
-.projects {
+.card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: #fafaf1;
+        border-radius: 0.5rem;
+        box-shadow: 2px 2px 2px 1px #ccc9cb ;
+        padding: 0.5rem 1rem;
+}
+
+/* Projects */
+.project-grid {
         grid-area: projects;
-        background-color: #ffff64;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 1rem;
 }
 
+.project-grid > .card {
+        border-left: 0.5rem solid rgb(81, 32, 54);
+}
+
+.project-grid > .card:hover {
+        border-left: 0.5rem solid rgb(131, 52, 88);
+        box-shadow: 3px 3px 2px 1px #ccc9cb ;
+}
+
+.card-title {
+        color: black;
+}
+
+.card-bottom-container {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+}
+
+.skill-tag-container {
+        display: flex;
+        padding-top: 1rem;
+        justify-self: stretch;
+        align-self: flex-start;
+        
+}
+
+.skill-tag {
+        background-color: rgb(174, 147, 147);
+        border-radius: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        margin-right: 0.2rem;
+        font-size: 0.8rem;
+        color: white;
+        align-self: flex-end;
+}
+
+.skill-tag:hover {
+        cursor: pointer;
+}
+.card-link-container {
+        display: flex;
+        justify-content: right;
+        align-items: flex-end;
+}
+.card-icon-link {
+        height: 1.5rem;
+        margin: 0 0 0 0.5rem;
+        filter: invert(.3);
+}
+
+.card-icon-link:hover {
+        cursor: pointer;
+        filter: invert(0.1);
+}
+
+/* Announcements */
 .announcements {
         grid-area: announcements;
-        border: blue solid 1px;
 }
 
 .trending {
         grid-area: trending;
-        border: blue solid 1px;
 }
 
-.card {
-        border: green solid 1px;
-        height: 20rem;
-        width: 20rem;
-        margin: 1rem;
+.announcements > .card {
+        font-size: 0.9rem;
+        padding: 0 1.5rem;
 }
+
+.announcement-text {
+        padding-bottom: 1rem;
+}
+
+/* Trending */
