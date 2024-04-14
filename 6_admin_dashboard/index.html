@@ -58,16 +58,31 @@
                         </ul>     
                 </nav>
                 <div class="main">
-                        <div class="header">
+                        <div class="header-container">
                                 <div class="header-top">
-                                        <form>
-                                                <input name="search" id="search" placeholder="Search...">
-                                        </form>
-                                        <img class="header-notification" src="./assets/icons/bell-ring.svg" alt="Notification"> 
-                                        <div class="header-profile"></div>
+                                        <div class="search-container">
+                                                <img class="search-icon" src="./assets/icons/magnify.svg" alt="Search"> 
+                                                <form>
+                                                        <input name="search" id="search" placeholder="Search...">
+                                                </form>
+                                        </div>
+                                        <div class="profile-container">
+                                                <img class="notification-icon" src="./assets/icons/bell-ring.svg" alt="Notification"> 
+                                                <img class="profile-image" id="profile-small" src="./assets/avatars/avatar_1.svg" alt="Profile"> 
+                                                <div class="profile-name">Morgan Oakley</div>
+                                        </div>
+
+
                                 </div>
                                 <div class="header-bottom">
-                                        <div class="header-welcome">Welcome, Johnny</div>
+                                        <div class="profile-container-bottom">
+                                                <img class="profile-image" id="profile-large" src="./assets/avatars/avatar_1.svg" alt="Profile"> 
+                                                <div class="profile-text">
+                                                        <div class="header-welcome">Hi there,</div>
+                                                        <div class="profile-name-large">Morgan Oakley</div>
+                                                </div>
+                                        </div>
+
                                         
                                         <div class="header-buttons">
                                                 <button>New</button>
