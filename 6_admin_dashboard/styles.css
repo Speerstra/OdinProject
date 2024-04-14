@@ -1,6 +1,16 @@
+@font-face {
+        font-family: Roboto;
+        src: url('assets/fonts/Roboto/Roboto-Regular.ttf');
+      }
+
+@font-face {
+        font-family: Roboto-bold;
+        src: url('statics/fonts/Roboto-Bold.ttf');
+      }
+
 * {
         font-size: 100%;
-        font-family: Verdana, Helvetica, sans-serif;
+        font-family: Roboto, Times, Verdana, Geneva, Tahoma, sans-serif;
        }
 
 body {
@@ -13,44 +23,51 @@ body {
         display: grid;
         grid-template-columns: 18rem auto;
         background-color: rgb(251, 251, 251);
-        
 }
 
 .main {
-        border-radius: 2rem;
         display: grid;
         grid-template-rows: 10rem auto;
-        min-height: 130vh; 
-            
+        min-height: 130vh;   
 }
 
 /* Side nav */
 nav {
-        background-color: rgb(0, 170, 249);
+        background-color: rgb(3, 151, 220);
 }
 
-.logo {
+#logo {
         font-size: 2rem;
-        padding-top: 2rem;
-        padding-left: 2rem;
+}
+
+#logo > .img-icon {
+        height: 2.5rem;
+}
+
+nav .img-icon {
+        filter: invert(1);
+        height: 1.5rem;
+        margin-right: 0.5rem;
 }
 
 nav > ul {
         list-style: none;
         font-size: 1.2rem;
-        
+        padding-left: 0;
 }
 
 .menu-item {
-        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        margin: 0.75rem 2rem;
 }
 
-.menu-item, .logo {
-        color: rgb(228, 235, 237);
+.menu-item {
+        color: rgb(255, 255, 255);
 }
 
-.menu-item:hover, .logo:hover {
-        color: rgb(252, 254, 255);
+.menu-item:hover {
+        color: rgb(245, 245, 245);
         cursor: pointer;
 }
 
@@ -75,6 +92,11 @@ nav > ul {
 
 .search-icon {
         margin: 0 0.5rem ;
+}
+
+.header-notification {
+        border: green 1px solid;
+        height: 2rem;
 }
 .welcome {
         font-size: 2rem;

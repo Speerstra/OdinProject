@@ -5,35 +5,65 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard</title>
         <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <script src="script.js" defer></script>
 </head>
 <body>
         <div class="layout">
                 <nav>
-                        <div class="logo"><i class="fa fa-home"></i>  Dashboard</div>
                         <ul>
-                                <li class="menu-item"><i class="fa fa-home"></i> Home</li>
-                                <li class="menu-item"><i class="fa fa-address-card"></i> Profile</li>
-                                <li class="menu-item"><i class="fa fa-envelope"></i> Message</li>
-                                <li class="menu-item"><i class="fa fa-calendar-check-o"></i> History</li>
-                                <li class="menu-item"><i class="fa fa-check"></i> Tasks</li>
+                                <li class="menu-item" id="logo">
+                                        <img class="img-icon" src="./assets/icons/view-dashboard.svg" alt="Dashboard icon"> 
+                                        <h3>Dashboard</h3>
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/home.svg" alt="Dashboard"> 
+                                        Home
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/card-account-details.svg" alt="Profile"> 
+                                        Profile
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/message-outline.svg" alt="Messages"> 
+                                        Messages
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/clock-time-three-outline.svg" alt="History"> 
+                                        History
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/note-multiple-outline.svg" alt="Tasks"> 
+                                        Tasks
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/account-group.svg" alt="Communities"> 
+                                        Communities
+                                </li>
                                 <br>
-                                <li class="menu-item"><i class="fa fa-heart"></i> Community</li>
-                                <li class="menu-item"><i class="fa fa-check"></i> Settings</li>
-                                <li class="menu-item"><i class="fa fa-check"></i> Support</li>
-                                <li class="menu-item"><i class="fa fa-clipboard"></i> Privacy</li>
-                        </ul>
-                        
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/cog.svg" alt="Settings"> 
+                                        Settings
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/help-box.svg" alt="Support"> 
+                                        Support
+                                </li>
+                                <li class="menu-item">
+                                        <img class="img-icon" src="./assets/icons/shield-check.svg" alt="Privacy"> 
+                                        Privacy
+                                </li>
+                        </ul>     
                 </nav>
                 <div class="main">
                         <div class="header">
                                 <div class="header-top">
-                                        <div class="search-icon"><i class="fa fa-search"></i></div>
                                         <form>
                                                 <input name="search" id="search" placeholder="Search...">
                                         </form>
-                                        <div class="header-notification"><i class="fas fa-bell"></i></div>
+                                        <img class="header-notification" src="./assets/icons/bell-ring.svg" alt="Notification"> 
                                         <div class="header-profile"></div>
                                 </div>
                                 <div class="header-bottom">
