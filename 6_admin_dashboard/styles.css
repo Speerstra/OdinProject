@@ -8,20 +8,24 @@
         src: url('assets/fonts/Roboto/Roboto-Bold.ttf');
       }
 
-* {
+:root {
+        --sidenav-color: rgb(81, 32, 54);
+        --topnav-color: rgb(190, 143, 167);
+        --content-color: #e4e2e3;
+        --searchbar-color: rgb(225, 223, 223, 0.8);
+        --buttons-color: rgb(137, 38, 119);
+        --card-color: rgb(242, 242, 242);
         font-size: 100%;
         font-family: Roboto, Times, Verdana, Geneva, Tahoma, sans-serif;
-       }
+}
 
 body {
         margin: 0;
 }
 
 .layout {
-        overflow: hidden;
-        height: 100vh;
         display: grid;
-        grid-template-columns: 18rem auto;
+        grid-template-columns: 15rem auto;
         background-color: rgb(251, 251, 251);
 }
 
@@ -32,11 +36,11 @@ body {
 
 /* Side nav */
 nav {
-        background-color: rgb(81, 32, 54);
+        background-color: var(--sidenav-color);
 }
 
 #logo {
-        font-size: 2rem;
+        font-size: 1.7rem;
         font-family: Roboto-bold;
 }
 
@@ -77,7 +81,7 @@ nav > ul {
         top: 0;
         display: grid;
         grid-template-rows: auto auto;
-        background-color: rgb(190, 143, 167);
+        background-color: var(--topnav-color);
 }
 
 .header-top {
@@ -106,6 +110,7 @@ input:focus{
         align-items: center;
         justify-self: right;
 }
+
 .notification-icon {
         height: 2rem;
         margin: 0 0.5rem;
@@ -126,6 +131,7 @@ input:focus{
 #profile-large {
         height: 3.5rem;
 }
+
 .profile-container-bottom {
         display: flex;
 }
@@ -153,7 +159,7 @@ input:focus{
 #search {
         width: 30rem;
         border-radius: 2rem;
-        background-color: rgb(225, 223, 223, 0.8);
+        background-color: var(--searchbar-color);
         border: none;
         padding: 0.4rem 1.5rem;
 }
@@ -170,7 +176,7 @@ input:focus{
 }
 
 .header-buttons > button {
-        background-color: rgb(137, 38, 119);
+        background-color: var(--buttons-color);
         border-radius: 1rem;
         border: none;
         outline: none;
@@ -180,19 +186,16 @@ input:focus{
         margin: 0 0 0 1rem;
 }
 
-    /* Main content */
+/* Main content */
 .content {
         display: grid;
-        grid-template-areas:     
-                "projects announcements"
-                "projects trending";
         grid-template-columns: 3fr 1fr;
-        grid-template-rows:  3fr 1fr;
         grid-gap: 2rem;
         padding: 1.5rem;
-        background-color: #e4e2e3;
-        
+        background-color: var(--content-color);
+        grid-template-areas: "projects" "right-sidebar";    
 }
+
 .content-title {
         font-size: 1.5rem;
         padding-bottom: 1rem;
@@ -203,10 +206,9 @@ input:focus{
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        background-color: #fafaf1;
+        background-color: var(--card-color);
         border-radius: 0.5rem;
-        box-shadow: 2px 2px 2px 1px #ccc9cb ;
-        padding: 0.5rem 1rem;
+        box-shadow: 2px 2px 2px 1px #ccc9cb ;    
 }
 
 /* Projects */
@@ -214,16 +216,18 @@ input:focus{
         grid-area: projects;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 1rem;
+        grid-template-rows: auto;
+        height: 100%;
+        gap: 1rem;    
 }
 
 .project-grid > .card {
-        border-left: 0.5rem solid rgb(81, 32, 54);
+        border-left: 0.5rem solid var(--sidenav-color);
+        padding: 0 1rem 1rem 1rem;
 }
 
 .project-grid > .card:hover {
-        border-left: 0.5rem solid rgb(131, 52, 88);
+        border-left: 0.5rem solid var(--buttons-color);
         box-shadow: 3px 3px 2px 1px #ccc9cb ;
 }
 
@@ -241,8 +245,7 @@ input:focus{
         display: flex;
         padding-top: 1rem;
         justify-self: stretch;
-        align-self: flex-start;
-        
+        align-self: flex-start; 
 }
 
 .skill-tag {
@@ -258,11 +261,13 @@ input:focus{
 .skill-tag:hover {
         cursor: pointer;
 }
+
 .card-link-container {
         display: flex;
         justify-content: right;
         align-items: flex-end;
 }
+
 .card-icon-link {
         height: 1.5rem;
         margin: 0 0 0 0.5rem;
@@ -271,7 +276,13 @@ input:focus{
 
 .card-icon-link:hover {
         cursor: pointer;
-        filter: invert(0.1);
+        fill: var(--sidenav-color);
+}
+
+/* Right side bar */
+.right-sidebar {
+        display: flex;
+        flex-direction: column;
 }
 
 /* Announcements */
@@ -279,13 +290,10 @@ input:focus{
         grid-area: announcements;
 }
 
-.trending {
-        grid-area: trending;
-}
-
 .announcements > .card {
         font-size: 0.9rem;
         padding: 0 1.5rem;
+        margin-bottom: 1rem;
 }
 
 .announcement-text {
@@ -293,3 +301,34 @@ input:focus{
 }
 
 /* Trending */
+.trending {
+        grid-area: trending;
+}
+
+.trending-profile {
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+        margin: 0.5rem 0;
+}
+
+.trending > .card {
+        padding: 1rem 1rem 0 1rem;
+}
+
+.tending-profile-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1rem;
+}
+.trending-profile-handle {
+        font-family: Roboto-bold;
+        margin-bottom: 0.3rem;
+}
+
+.trending-profile-description {
+        margin-bottom: 0.3rem;
+        color: rgb(116, 104, 104);
+        font-size: 0.8rem;
+}
