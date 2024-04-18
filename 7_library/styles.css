@@ -1,0 +1,144 @@
+
+:root {
+        --background-color: #88BDBC;
+        --header-text: #112D32;
+        --content-color: #e4e2e3;
+        --add-button-background: #254E58;
+        --add-button-text: #e0e6e7;
+        --read-button-background: #4F4A41;
+        --buttons-color: rgb(137, 38, 119);
+        --card-color: rgb(242, 242, 242);
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+
+}
+
+* {
+        /* outline: red 1px solid; */
+}
+
+body {
+        margin: 0;
+        background-color: var(--background-color);
+}
+
+.layout {
+        display: grid;
+        grid-template-rows: 6rem 6rem auto;
+        overflow: hidden;
+        height: 100vh;
+}
+
+.header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        padding: 2rem 0;
+        color: var(--header-text);
+}
+
+.add-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.add-button {
+        outline: none;
+        border: none;
+        background-color: var(--add-button-background);
+        color: var(--add-button-text);
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+}
+
+.content {
+        display: grid;
+        background-color: var(--color-background);
+}
+
+.book-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        padding: 3rem;
+}
+
+.card {
+        background-color: #d1f7f6;
+        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column;
+
+        padding: 1.5rem;
+}
+
+.button-delete {
+        align-self: flex-end;
+}
+h2 {
+        /* padding: 0;
+        margin: 0; */
+        line-height: 0px;
+}
+.card-author {
+        padding: 0 0 0.5rem 0;
+}
+.card-footer {
+        margin-top: auto;
+        align-self: flex-end;
+}
+
+.button-delete, .button-close {
+        outline: none;
+        border: none;
+        color: var(--read-button-background);
+        font-size: 1.5rem;
+        background-color: transparent;
+        padding: 0;
+}
+
+.button-read-status, .submit-button {
+        outline: none;
+        border: none;
+        background-color: var(--read-button-background);
+        color: var(--add-button-text);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+}
+
+.button-read-status:hover , .add-button:hover, .submit-button:hover{
+        box-shadow: 2px 2px 2px 1px #abaaaa;   
+        transform: scale(1.03);
+}
+
+.button-delete:hover, .button-close  {
+        opacity: 0.8; 
+        transform: scale(1.1);
+}
+
+dialog {
+        background-color: #dae3e3;
+        box-shadow: 2px 2px 2px 1px #acadae;
+        border: none;
+        outline: none;
+        border-radius: 0.5rem;
+        font-size: 1.5rem;
+}
+
+dialog::backdrop {
+        background-color: var(--color-background);
+        opacity: 0.3;
+}
+.button-close {
+        align-self: right;
+}
+#form-header {
+        grid-column: 1 / span 2;
+}
+.form-add-book {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-gap: 0.5rem
+}

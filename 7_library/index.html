@@ -8,6 +8,42 @@
         <script src="script.js" defer></script>
 </head>
 <body>
-        
+        <div class="layout">
+                <div class="header">Library</div>
+                <div class="add-button-container">
+                        <button class="add-button">Add book</button>
+                </div>
+                <dialog>
+                        <button class="button-close">X</button>
+                        <form class="form-add-book">
+                                <h2 id="form-header">Add a book!</h2>
+                                <label for="input-title">Title</label>
+                                <input id="input-title" autofocus>
+                                <label for="input-author">Author</label>
+                                <input id="input-author">
+                                <label for="input-pages">Number of Pages</label>
+                                <input type="number" id="input-pages">
+                                <label for="input-read-status">Read</label>
+                                <input type="checkbox" id="input-read-status">
+                                <button type="submit" class="submit-button">Add</button>
+                        </form>
+                </dialog>
+
+                <div class="content">
+                        <div class="book-grid">
+                                <div class="card">
+                                        <button class="button-delete">X</button>
+                                        <div class="card-title"><h2>The Secret Garden</h2></div>
+                                        <div class="card-author">by <i>Author forgotten</i></div>
+                                        <div class="card-pages">99 pages</div>
+                                        <div class="card-footer">
+                                                <button class="button-read-status">Read</button>
+                                                
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                
+        </div>
 </body>
 </html>
