@@ -6,6 +6,7 @@
         --add-button-background: #254E58;
         --add-button-text: #e0e6e7;
         --read-button-background: #4F4A41;
+        --unread-button-background: #699183;
         --buttons-color: rgb(137, 38, 119);
         --card-color: rgb(242, 242, 242);
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
@@ -85,10 +86,11 @@ body {
 .card-author {
         padding: 0 0 0.5rem 0;
         font-style: italic;
+        font-size: 1rem;
 }
-.card-footer {
-        margin-top: auto;
-        align-self: flex-end;
+
+.card-pages {
+        font-size: 1rem;
 }
 
 .button-delete, .button-close-dialog {
@@ -103,15 +105,18 @@ body {
 .button-read-status, .submit-button {
         outline: none;
         border: none;
-        background-color: var(--read-button-background);
+        background-color: var(--unread-button-background);
         color: var(--add-button-text);
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
+        align-self: flex-end;
+        width: 6rem;
+        font-size: 1rem;
 }
 
+
 .button-read-status.read {
-        /* Your CSS styles for read buttons */
-        background-color: red;
+        background-color: var(--read-button-background);
       }
 
 .button-read-status:hover , .button-add-book:hover, .submit-button:hover{

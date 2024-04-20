@@ -1,6 +1,5 @@
-
 // ****************
-// Query selection
+// Query selectors
 const dialog = document.querySelector("dialog");
 const openDialogButton = document.querySelector('.button-add-book');
 const closeDialogButton = document.querySelector(".button-close-dialog");
@@ -12,6 +11,9 @@ const cardDiv = document.querySelector('.card')
 
 // ****************
 // Event listeners
+window.addEventListener('load', () => {
+        reloadBookGrid();
+});
 
 openDialogButton.addEventListener("click", () => {
         dialog.showModal();
@@ -21,32 +23,23 @@ closeDialogButton.addEventListener('click', () => {
         dialog.close();
 });
 
-// readButton.addEventListener('click', () => {
-//         toggleReadStatus()
-// });
-
 addForm.onsubmit = e => {
         e.preventDefault();
-        newBook = createNewBook();
+        newBook = createBookfromInput();
         console.log(newBook.info())
         library.addBook(newBook);
-        console.log(library)
-        clearBookGrid();
-        displayBookGrid();
+        clearForm();
+        reloadBookGrid();
         dialog.close();
 };
 
 
 // ****************
-// OBJECTS
+// Objects
 
 // Library
 function Library() {
         this.books = []
-}
-
-Library.prototype.getBook = function(bookId) {
-        return this.books.find((book) => book.id === bookId)
 }
 
 Library.prototype.addBook  = function(newBook) {
@@ -56,8 +49,6 @@ Library.prototype.addBook  = function(newBook) {
 Library.prototype.removeBook = function(bookId) {
         this.books = this.books.filter((book) => book.id !== bookId)
 }
-
-library = new Library()
 
 // Book
 function Book(id, title, author, pages, isRead) {
@@ -73,12 +64,12 @@ Book.prototype.info = function() {
 };
 
 Book.prototype.toggleReadStatus = function() {
-        console.log( 'Read status updated!')
         this.isRead = !this.isRead;
 }
 
-function createNewBook() {
-        const id = library.books.length;
+let bookId = 0;
+function createBookfromInput() {
+        const id = bookId++;
         const title = document.querySelector('#input-title').value;
         const author = document.querySelector('#input-author').value;
         const pages = document.querySelector('#input-pages').value;
@@ -87,9 +78,9 @@ function createNewBook() {
         return new Book(id, title, author, pages, isRead);
 };
 
-// ****************
-// DOM manipulations
 
+// ****************
+// DOM manipulation
 function createCardHTML(book) {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -103,22 +94,22 @@ function createCardHTML(book) {
         deleteButton.addEventListener('click', function(e) {
                 e.stopPropagation(); 
                 library.removeBook(book.id);
-                displayBookGrid();
+                reloadBookGrid();
         });
 
-        const cardTitle = document.createElement('h2');
+        const cardTitle = document.createElement('div');
         cardTitle.classList.add('card-title');
         cardTitle.textContent = book.title;
         card.append(cardTitle)
 
-        const cardAuthor = document.createElement('p');
+        const cardAuthor = document.createElement('div');
         cardAuthor.classList.add('card-author');
-        cardAuthor.textContent = book.author;
+        cardAuthor.textContent = `by ${book.author}`;
         card.append(cardAuthor)
 
-        const cardPages = document.createElement('p');
+        const cardPages = document.createElement('div');
         cardPages.classList.add('card-pages');
-        cardPages.textContent = book.pages;
+        cardPages.textContent = `${book.pages} pages`;
         card.append(cardPages)
 
         const cardIsRead = document.createElement('button');
@@ -130,7 +121,7 @@ function createCardHTML(book) {
         cardIsRead.addEventListener('click', function(e) {
                 e.stopPropagation(); 
                 book.toggleReadStatus();
-                displayBookGrid();
+                reloadBookGrid();
         });
 
         bookGrid.append(card)
@@ -140,11 +131,25 @@ function clearBookGrid() {
         bookGrid.innerHTML = '';
 }
 
-function displayBookGrid () {
+function reloadBookGrid () {
         clearBookGrid();
         for (let book of library.books) {
                 createCardHTML(book)
         }
 }
 
+function clearForm() {
+        document.querySelector('#input-title').value = '';
+        document.querySelector('#input-author').value = '';
+        document.querySelector('#input-pages').value = '';
+        document.querySelector('#input-read-status').checked = false;
+}
+
+
+// ****************
+// Instantiate a library with a few books 
+library = new Library()
+
+library.addBook(new Book(bookId++, 'To Kill a Mockingbird', 'Harper Lee', 336, true))
+library.addBook(new Book(bookId++, 'The Fellowship of the Ring', 'J.R.R. Tolkien', 432, false))
 
