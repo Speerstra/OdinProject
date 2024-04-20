@@ -2,47 +2,70 @@
 // ****************
 // Query selection
 const dialog = document.querySelector("dialog");
-const addButton = document.querySelector('.add-button');
-const closeButton = document.querySelector("dialog button");
+const addButton = document.querySelector('.button-add-book');
+const closeDialogButton = document.querySelector(".button-close-dialog");
 const readButton = document.querySelector('.button-read-status')
 const addForm = document.querySelector('.form-add-book')
-const inputTitle = document.querySelector('#input-title')
-const inputAuthor = document.querySelector('#input-author')
-const inputPages = document.querySelector('#input-pages')
-const inputReadStatus = document.querySelector('#input-read-status')
 const bookGrid = document.querySelector('.book-grid')
+const cardDiv = document.querySelector('.card')
 
 
 // ****************
 // Event listeners
+
 addButton.addEventListener("click", () => {
-        inputTitle.value = ''
-        inputAuthor.value = ''
-        inputPages.value = ''
-        inputReadStatus.checked = false;
         dialog.showModal();
 });
 
-closeButton.addEventListener('click', () => {
+closeDialogButton.addEventListener('click', () => {
         dialog.close();
+});
+
+cardDiv.addEventListener('click', function(e) {
+        removeBook(e);
+});
+
+readButton.addEventListener('click', () => {
+        toggleReadStatus()
 });
 
 addForm.onsubmit = e => {
         e.preventDefault();
-        addBookToLibrary();
-        displayBooks();
+        newBook = createNewBook();
+        console.log(newBook.info())
+        library.addBook(newBook);
+        clearBookGrid();
+        displayBookGrid();
         dialog.close();
 };
 
-readButton.addEventListener('click', () => {
-        
-});
+
 
 // ****************
-// Objects
-const library = [];
+// OBJECTS
 
-function Book(title, author, pages, is_read) {
+// Library
+function Library() {
+        this.books = []
+}
+
+Library.prototype.getBook = function(bookId) {
+        return this.books.find((book) => book.id === bookId)
+}
+
+Library.prototype.addBook  = function(newBook) {
+        this.books.push(newBook)
+}
+
+Library.prototype.removeBook = function(bookId) {
+        this.books = this.books.filter((book) => book.id !== bookId)
+}
+
+library = new Library()
+
+// Book
+function Book(id, title, author, pages, is_read) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -50,56 +73,75 @@ function Book(title, author, pages, is_read) {
 };
 
 Book.prototype.info = function() {
-        return `${this.title} by ${this.author}, ${this.pages} pages`;
+        return `Book ${this.id}: ${this.title} by ${this.author}, ${this.pages} pages`;
 };
+
+Book.prototype.toggleReadStatus = function() {
+        return 'Read status updated!'
+}
 
 
 // ****************
-// Functions
-function displayBooks() {
-        for (var i=0; i<library.length; i++) { 
-                let book = library[i];
-                const card = document.createElement("div");
-                card.classList.add('card');
+// User interface
+function createCardHTML(book) {
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-                const deleteButton = document.createElement("button");
-                deleteButton.classList.add('button-delete');
-                deleteButton.innerHTML = 'X'
-                card.append(deleteButton)
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('button-delete');
+        deleteButton.textContent = 'X';
+        card.append(deleteButton)
 
-                const cardTitle = document.createElement("div");
-                cardTitle.classList.add('card-title');
-                cardTitle.innerText = book.title
-                card.append(cardTitle)
+        const cardTitle = document.createElement('h2');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = book.title;
+        card.append(cardTitle)
 
-                const cardAuthor = document.createElement("div");
-                cardAuthor.classList.add('card-author');
-                cardAuthor.innerText = book.author
-                card.append(cardAuthor)
+        const cardAuthor = document.createElement('p');
+        cardAuthor.classList.add('card-author');
+        cardAuthor.textContent = book.author;
+        card.append(cardAuthor)
 
-                const cardPages = document.createElement("div");
-                cardPages.classList.add('card-pages');
-                cardPages.innerText = book.pages
-                card.append(cardPages)
+        const cardPages = document.createElement('p');
+        cardPages.classList.add('card-pages');
+        cardPages.textContent = book.pages;
+        card.append(cardPages)
 
-                const cardReadStatus = document.createElement("div");
-                cardReadStatus.classList.add('card-read-status');
-                cardReadStatus.innerText = book.is_read
-                card.append(cardReadStatus)
+        // const cardReadStatus = document.createElement("div");
+        // cardReadStatus.classList.add('card-read-status');
+        // cardReadStatus.dataset.id = book.id;
+        // cardReadStatus.innerText = book.is_read
+        // card.append(cardReadStatus)
 
-                bookGrid.append(card)
+        bookGrid.append(card)
+}
 
+
+
+
+function removeBook(e) {
+        if (e.target.classList.contains('button-delete')) {
+                e.target.parentNode.remove();
         }
 }
 
-function addBookToLibrary() {
-        let newBook = new Book(
-                title=inputTitle.value, 
-                author=inputAuthor.value, 
-                pages=inputPages.value, 
-                is_read=inputReadStatus.value
-                );
-        console.log(newBook.info())
-        library.push(newBook)
+function clearBookGrid() {
+        bookGrid.innerHTML = '';
+}
+
+function displayBookGrid () {
+        for (let book of library.books) {
+                createCardHTML(book)
+              }
+}
+
+function createNewBook() {
+        const id = library.books.length;
+        const title = document.querySelector('#input-title').value;
+        const author = document.querySelector('#input-author').value;
+        const pages = document.querySelector('#input-pages').value;
+        const readStatus = document.querySelector('#input-read-status').checked;
+
+        return new Book(id, title, author, pages, readStatus);
 };
 

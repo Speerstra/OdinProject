@@ -9,7 +9,6 @@
         --buttons-color: rgb(137, 38, 119);
         --card-color: rgb(242, 242, 242);
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-
 }
 
 * {
@@ -43,7 +42,7 @@ body {
         align-items: center;
 }
 
-.add-button {
+.button-add-book {
         outline: none;
         border: none;
         background-color: var(--add-button-background);
@@ -92,7 +91,7 @@ body {
         align-self: flex-end;
 }
 
-.button-delete, .button-close {
+.button-delete, .button-close-dialog {
         outline: none;
         border: none;
         color: var(--read-button-background);
@@ -110,12 +109,12 @@ body {
         border-radius: 0.5rem;
 }
 
-.button-read-status:hover , .add-button:hover, .submit-button:hover{
+.button-read-status:hover , .button-add-book:hover, .submit-button:hover{
         box-shadow: 2px 2px 2px 1px #abaaaa;   
         transform: scale(1.03);
 }
 
-.button-delete:hover, .button-close  {
+.button-delete:hover, .button-close-dialog:hover  {
         opacity: 0.8; 
         transform: scale(1.1);
 }
@@ -133,12 +132,15 @@ dialog::backdrop {
         background-color: var(--color-background);
         opacity: 0.3;
 }
-.button-close {
+
+.button-close-dialog {
         align-self: right;
 }
+
 #form-header {
         grid-column: 1 / span 2;
 }
+
 .form-add-book {
         display: grid;
         grid-template-columns: 1fr 2fr;
