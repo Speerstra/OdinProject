@@ -2,7 +2,7 @@
 // ****************
 // Query selection
 const dialog = document.querySelector("dialog");
-const addButton = document.querySelector('.button-add-book');
+const openDialogButton = document.querySelector('.button-add-book');
 const closeDialogButton = document.querySelector(".button-close-dialog");
 const readButton = document.querySelector('.button-read-status')
 const addForm = document.querySelector('.form-add-book')
@@ -13,16 +13,12 @@ const cardDiv = document.querySelector('.card')
 // ****************
 // Event listeners
 
-addButton.addEventListener("click", () => {
+openDialogButton.addEventListener("click", () => {
         dialog.showModal();
 });
 
 closeDialogButton.addEventListener('click', () => {
         dialog.close();
-});
-
-cardDiv.addEventListener('click', function(e) {
-        removeBook(e);
 });
 
 readButton.addEventListener('click', () => {
@@ -34,11 +30,11 @@ addForm.onsubmit = e => {
         newBook = createNewBook();
         console.log(newBook.info())
         library.addBook(newBook);
+        console.log(library)
         clearBookGrid();
         displayBookGrid();
         dialog.close();
 };
-
 
 
 // ****************
@@ -73,7 +69,7 @@ function Book(id, title, author, pages, is_read) {
 };
 
 Book.prototype.info = function() {
-        return `Book ${this.id}: ${this.title} by ${this.author}, ${this.pages} pages`;
+        return `Book ${this.id}: ${this.title} by ${this.author} (${this.pages} pages)`;
 };
 
 Book.prototype.toggleReadStatus = function() {
@@ -82,15 +78,22 @@ Book.prototype.toggleReadStatus = function() {
 
 
 // ****************
-// User interface
+// DOM manipulations
 function createCardHTML(book) {
         const card = document.createElement('div');
         card.classList.add('card');
+        card.dataset.id = book.id;
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('button-delete');
         deleteButton.textContent = 'X';
         card.append(deleteButton)
+
+        deleteButton.addEventListener('click', function(event) {
+                event.stopPropagation(); 
+                library.removeBook(book.id);
+                displayBookGrid();
+        });
 
         const cardTitle = document.createElement('h2');
         cardTitle.classList.add('card-title');
@@ -107,22 +110,12 @@ function createCardHTML(book) {
         cardPages.textContent = book.pages;
         card.append(cardPages)
 
-        // const cardReadStatus = document.createElement("div");
-        // cardReadStatus.classList.add('card-read-status');
-        // cardReadStatus.dataset.id = book.id;
-        // cardReadStatus.innerText = book.is_read
-        // card.append(cardReadStatus)
+        const cardReadStatus = document.createElement('button');
+        cardReadStatus.classList.add('button-read-status');
+        cardReadStatus.innerText = book.is_read
+        card.append(cardReadStatus)
 
         bookGrid.append(card)
-}
-
-
-
-
-function removeBook(e) {
-        if (e.target.classList.contains('button-delete')) {
-                e.target.parentNode.remove();
-        }
 }
 
 function clearBookGrid() {
@@ -130,9 +123,10 @@ function clearBookGrid() {
 }
 
 function displayBookGrid () {
+        clearBookGrid();
         for (let book of library.books) {
                 createCardHTML(book)
-              }
+        }
 }
 
 function createNewBook() {
@@ -144,4 +138,3 @@ function createNewBook() {
 
         return new Book(id, title, author, pages, readStatus);
 };
-
