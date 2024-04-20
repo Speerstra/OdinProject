@@ -6,6 +6,7 @@
         <title>Library</title>
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
+        <link rel="shortcut icon" href="assets/icon.png" />
 </head>
 <body>
         <div class="layout">
@@ -14,19 +15,21 @@
                         <button class="button-add-book">Add book</button>
                 </div>
                 <dialog>
-                        <button class="button-close-dialog">X</button>
-                        <form class="form-add-book">
-                                <h2 id="form-header">Add a book!</h2>
-                                <label for="input-title">Title</label>
-                                <input id="input-title" autofocus required>
-                                <label for="input-author">Author</label>
-                                <input id="input-author" required>
-                                <label for="input-pages">Number of Pages</label>
-                                <input type="number" id="input-pages" required>
-                                <label for="input-read-status">Read</label>
-                                <input type="checkbox" id="input-read-status">
-                                <button type="submit" class="submit-button">Add</button>
-                        </form>
+                        <div class="dialog-grid">
+                                <button class="button-close-dialog">X</button>
+                                <form class="form-add-book">
+                                        <h2 id="form-header">Add a book!</h2>
+                                        <label for="input-title">Title</label>
+                                        <input id="input-title" autofocus required>
+                                        <label for="input-author">Author</label>
+                                        <input id="input-author" required>
+                                        <label for="input-pages">Number of Pages</label>
+                                        <input type="number" id="input-pages" required>
+                                        <label for="input-read-status">Read?</label>
+                                        <input type="checkbox" id="input-read-status">
+                                        <button type="submit" class="submit-button">Add</button>
+                                </form>
+                        </div>
                 </dialog>
 
                 <div class="content">
