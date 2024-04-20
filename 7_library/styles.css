@@ -63,6 +63,7 @@ body {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
         padding: 3rem;
+        grid-gap: 1rem;
 }
 
 .card {
@@ -77,13 +78,14 @@ body {
 .button-delete {
         align-self: flex-end;
 }
-h2 {
-        /* padding: 0;
-        margin: 0; */
-        line-height: 0px;
+
+.card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
 }
 .card-author {
         padding: 0 0 0.5rem 0;
+        font-style: italic;
 }
 .card-footer {
         margin-top: auto;

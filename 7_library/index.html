@@ -18,11 +18,11 @@
                         <form class="form-add-book">
                                 <h2 id="form-header">Add a book!</h2>
                                 <label for="input-title">Title</label>
-                                <input id="input-title" autofocus>
+                                <input id="input-title" autofocus required>
                                 <label for="input-author">Author</label>
-                                <input id="input-author">
+                                <input id="input-author" required>
                                 <label for="input-pages">Number of Pages</label>
-                                <input type="number" id="input-pages">
+                                <input type="number" id="input-pages" required>
                                 <label for="input-read-status">Read</label>
                                 <input type="checkbox" id="input-read-status">
                                 <button type="submit" class="submit-button">Add</button>
@@ -33,8 +33,8 @@
                         <div class="book-grid">
                                 <div class="card">
                                         <button class="button-delete">X</button>
-                                        <div class="card-title"><h2>The Secret Garden</h2></div>
-                                        <div class="card-author">by <i>Author forgotten</i></div>
+                                        <div class="card-title">The Secret Garden</div>
+                                        <div class="card-author">Author forgotten</div>
                                         <div class="card-pages">99 pages</div>
                                         <div class="card-footer">
                                                 <button class="button-read-status">Read</button>
@@ -43,7 +43,6 @@
                                 </div>
                         </div>
                 </div>
-                
         </div>
 </body>
 </html>
