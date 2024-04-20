@@ -109,6 +109,11 @@ body {
         border-radius: 0.5rem;
 }
 
+.button-read-status.read {
+        /* Your CSS styles for read buttons */
+        background-color: red;
+      }
+
 .button-read-status:hover , .button-add-book:hover, .submit-button:hover{
         box-shadow: 2px 2px 2px 1px #abaaaa;   
         transform: scale(1.03);

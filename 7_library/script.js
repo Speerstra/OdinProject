@@ -21,9 +21,9 @@ closeDialogButton.addEventListener('click', () => {
         dialog.close();
 });
 
-readButton.addEventListener('click', () => {
-        toggleReadStatus()
-});
+// readButton.addEventListener('click', () => {
+//         toggleReadStatus()
+// });
 
 addForm.onsubmit = e => {
         e.preventDefault();
@@ -60,12 +60,12 @@ Library.prototype.removeBook = function(bookId) {
 library = new Library()
 
 // Book
-function Book(id, title, author, pages, is_read) {
+function Book(id, title, author, pages, isRead) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.is_read = is_read;
+        this.isRead = isRead;
 };
 
 Book.prototype.info = function() {
@@ -73,12 +73,23 @@ Book.prototype.info = function() {
 };
 
 Book.prototype.toggleReadStatus = function() {
-        return 'Read status updated!'
+        console.log( 'Read status updated!')
+        this.isRead = !this.isRead;
 }
 
+function createNewBook() {
+        const id = library.books.length;
+        const title = document.querySelector('#input-title').value;
+        const author = document.querySelector('#input-author').value;
+        const pages = document.querySelector('#input-pages').value;
+        const isRead = document.querySelector('#input-read-status').checked;
+
+        return new Book(id, title, author, pages, isRead);
+};
 
 // ****************
 // DOM manipulations
+
 function createCardHTML(book) {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -89,8 +100,8 @@ function createCardHTML(book) {
         deleteButton.textContent = 'X';
         card.append(deleteButton)
 
-        deleteButton.addEventListener('click', function(event) {
-                event.stopPropagation(); 
+        deleteButton.addEventListener('click', function(e) {
+                e.stopPropagation(); 
                 library.removeBook(book.id);
                 displayBookGrid();
         });
@@ -110,10 +121,17 @@ function createCardHTML(book) {
         cardPages.textContent = book.pages;
         card.append(cardPages)
 
-        const cardReadStatus = document.createElement('button');
-        cardReadStatus.classList.add('button-read-status');
-        cardReadStatus.innerText = book.is_read
-        card.append(cardReadStatus)
+        const cardIsRead = document.createElement('button');
+        cardIsRead.classList.add('button-read-status');
+        cardIsRead.classList.add(book.isRead ? 'read' : 'unread');
+        cardIsRead.textContent = book.isRead ? 'Read' : 'Unread'; 
+        card.append(cardIsRead)
+
+        cardIsRead.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                book.toggleReadStatus();
+                displayBookGrid();
+        });
 
         bookGrid.append(card)
 }
@@ -129,12 +147,4 @@ function displayBookGrid () {
         }
 }
 
-function createNewBook() {
-        const id = library.books.length;
-        const title = document.querySelector('#input-title').value;
-        const author = document.querySelector('#input-author').value;
-        const pages = document.querySelector('#input-pages').value;
-        const readStatus = document.querySelector('#input-read-status').checked;
 
-        return new Book(id, title, author, pages, readStatus);
-};
