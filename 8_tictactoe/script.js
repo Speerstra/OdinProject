@@ -1,9 +1,12 @@
 
-const Gameboard = function() {
-
-        const board = ['', '', '', '', '', '', '', '', '']
+function Gameboard() {
+        let board = ['', '', '', '', '', '', '', '', ''];
 
         const getBoard = () => board;
+
+        const resetBoard = () => {
+                board = ['', '', '', '', '', '', '', '', ''];
+        };
 
         const printBoard = function() {
                 for (let i = 0; i < 3; i++) {
@@ -16,12 +19,12 @@ const Gameboard = function() {
                     }
         }
 
-        const updateBoard = (action, token) => {
-                board[action] = token;
+        const updateBoard = (index, token) => {
+                board[index] = token;
                 return board;
         };
 
-        const getAvailableActions = function() {
+        const getEmptyCells = function() {
                 let actions = []
                 for (let i = 0; i < board.length; i++) {
                         if (board[i] == '') {
@@ -32,53 +35,54 @@ const Gameboard = function() {
         }
 
         return { 
+                resetBoard,
                 getBoard, 
                 printBoard,
                 updateBoard,
-                getAvailableActions
+                getEmptyCells
         };
 }
 
-board = Gameboard()
-board.updateBoard(3,'X')
-board.updateBoard(2,'O')
-board.printBoard()
-console.log(board.getAvailableActions())
-game = GameController()
-game.playRound(8)
-game.playRound(0)
-game.playRound(7)
-game.playRound(1)
-game.playRound(6)
-game.playRound(2)
-game.playRound(3)
 
-function Player(symbol) {
-        const name = 'player';
-        // const symbol = symbol;
+// board = Gameboard()
+// board.resetBoard()
+game = GameController()
+game.startGame()
+
+
+function Player(token) {
+
+        const getToken = () => token;
+
+        let score = 0;
+        const increaseScore = () => ++score;
+        const getScore = () => score;
+        const resetScore = () => (score = 0);
 
         return {
-                name, 
-                symbol
+                getToken,
+                increaseScore,
+                getScore,
+                resetScore
         }
 
 }
 
 function GameController() {
         const board = Gameboard();
-        const playerX = Player('X')
-        const playerO = Player('O')
 
-        const players = [
-                {
-                  name: playerX,
-                  token: 'X'
-                },
-                {
-                  name: playerO,
-                  token: 'O'
-                }
-        ];
+        const playerOne = Player('X');
+        const playerTwo = Player('O');
+    
+        const players = [playerOne, playerTwo];
+
+        let activePlayer = players[0];
+
+        const changeTurn = () => {
+                activePlayer = activePlayer === players[0] ? players[1] : players[0];
+        };
+
+        const getActivePlayer = () => activePlayer;
 
         function getWinner(board) {
                 const lines = [
@@ -96,38 +100,50 @@ function GameController() {
                         }
                 }
                 return null; 
-            }
+        }
 
-        let activePlayer = players[0];
-
-        const changeTurn = () => {
-                activePlayer = activePlayer === players[0] ? players[1] : players[0];
-        };
-
-        const getActivePlayer = () => activePlayer;
-
-        const printNewRound = () => {
+        const printRound = () => {
                 board.printBoard();
-                console.log(`${getActivePlayer().token}'s turn.`);
+                console.log(`${getActivePlayer().getToken()}'s turn.`);
         };
 
         const playRound = (index) => {
-                board.updateBoard(index, getActivePlayer().token);
+                
+                let emptyCells = board.getEmptyCells()
+
+                if (!emptyCells.includes(index)) {
+                        console.log('Invalid move, try again!')
+                        return;
+                } 
+
+                board.updateBoard(index, getActivePlayer().getToken());
                 
                 const winner = getWinner(board.getBoard());
                 if (winner) {
+                        board.printBoard();
                         console.log(`${winner} won!`)
+                        getActivePlayer().increaseScore();
+                        console.log(`${getActivePlayer().getScore()}`);
+                        board.resetBoard();
                 } 
+
+                if (emptyCells.length == 0) {
+                        console.log('Tie!')
+                        return;
+                }
             
                 changeTurn();
-                printNewRound();
+                printRound();
         };
-            
-        printNewRound();
-              
+        const startGame = function() {
+                printRound();
+        }  
         return {
-                playRound,
-                getActivePlayer,
-                getWinner
+                startGame,
+                playRound
         };
+}
+
+function UiController() {
+        
 }

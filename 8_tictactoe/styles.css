@@ -1,0 +1,112 @@
+@font-face {
+        font-family: Comfortaa-Bold;
+        src: url('assets/fonts/Comfortaa-Bold.ttf');
+      }
+
+@font-face {
+        font-family: Comfortaa-Regular;
+        src: url('assets/fonts/Comfortaa-Bold.ttf');
+      }
+
+:root {
+        font-family: Comfortaa-Bold, "Helvetica", sans-sans;
+        --background-color: rgb(38, 28, 39);
+        --main-text-color: rgb(220, 164, 53);
+        --playerOne-color: rgb(220, 53, 192);
+        --playerTwo-color: rgb(98, 53, 220);
+        --playerOne-background: rgb(206, 159, 197);
+        --playerTwo-background: rgb(197, 190, 232);
+      }
+* {
+        /* border: red 1px solid; */
+}
+
+body {
+        margin: 0;
+        overflow: hidden;
+}
+
+.layout {
+        display: grid;
+        grid-template-rows: 2fr 1fr 7fr;
+        width: 100vw;
+        height: 100vh;
+        background-image: linear-gradient(to bottom right, var(--background-color), rgb(76, 35, 76));
+        
+}
+
+.header {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 6rem;
+        margin-top: 2rem;
+        color: var(--main-text-color);
+        text-shadow: 1px 1px 8px var(--main-text-color);
+}
+
+.player-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+}
+
+.player {
+        width: 30vw;
+        font-size: 2rem;
+        padding: 1rem;
+        margin: auto;
+        text-align: center;
+        line-height: 0;
+        font-size: 2rem;
+        color: var(--main-text-color);
+        text-shadow: 1px 1px 8px var(--main-text-color);
+}
+
+.content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        
+}
+
+.game-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 15vh);
+        grid-template-rows: repeat(3, 15vh);
+        grid-gap: 1rem;
+        background-image: linear-gradient(to bottom right, rgb(99, 69, 99), rgb(108, 54, 108));
+        box-shadow: 2px 2px 5px rgb(75, 73, 75);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        
+}
+
+.game-cell {
+        border: 0;
+        border-radius: 1rem;
+        box-shadow: 3px 3px 8px rgb(69, 67, 69);
+        background-color: #a187b4;
+        font-size: 6rem;
+        color: var(--main-text-color);
+        /* font-family: Comfortaa-Bold; */
+        font-weight: 800;
+        line-height: 0;
+}
+
+.playerOne {
+        color: var(--playerOne-color);
+        background-color: var(--playerOne-background);
+}
+
+.playerTwo {
+        color: var(--playerTwo-color);
+        background-color: var(--playerTwo-background);
+}
+
+.game-cell:hover {
+        transform: scale(1.05);
+        transition-duration: 500ms;
+}
