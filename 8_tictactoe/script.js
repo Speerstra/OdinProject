@@ -1,56 +1,5 @@
 
-function Gameboard() {
-        let board = ['', '', '', '', '', '', '', '', ''];
-
-        const getBoard = () => board;
-
-        const resetBoard = () => {
-                board = ['', '', '', '', '', '', '', '', ''];
-        };
-
-        const printBoard = function() {
-                for (let i = 0; i < 3; i++) {
-                        let row = `${i} |`;
-                        for (let j = 0; j < 3; j++) {
-                            let index = i * 3 + j;
-                            row += ` ${board[index] || ' '} |`;
-                        }
-                        console.log(row);
-                    }
-        }
-
-        const updateBoard = (index, token) => {
-                board[index] = token;
-                return board;
-        };
-
-        const getEmptyCells = function() {
-                let actions = []
-                for (let i = 0; i < board.length; i++) {
-                        if (board[i] == '') {
-                                actions.push(i)
-                        }        
-                }
-                return actions;
-        }
-
-        return { 
-                resetBoard,
-                getBoard, 
-                printBoard,
-                updateBoard,
-                getEmptyCells
-        };
-}
-
-
-// board = Gameboard()
-// board.resetBoard()
-game = GameController()
-game.startGame()
-
-
-function Player(token) {
+const player = (token) => {
 
         const getToken = () => token;
 
@@ -65,16 +14,56 @@ function Player(token) {
                 getScore,
                 resetScore
         }
+};
 
-}
 
-function GameController() {
-        const board = Gameboard();
+const board = (() => {
 
-        const playerOne = Player('X');
-        const playerTwo = Player('O');
+        let board = ['', '', '', '', '', '', '', '', ''];
+
+        const getBoard = () => board;
+
+        const resetBoard = () => {
+                board = ['', '', '', '', '', '', '', '', ''];
+        };
+
+        const getCell = (index) => {
+                return board[index];
+        }
+
+        const setCell = (index, token) => {
+                board[index] = token;
+                return board;
+        };
+
+        const isEmptyCell = function(index) {
+                return board[index] == '';
+        };
+
+        const getEmptyCells = function() {
+                let emptyCells = [];
+                for (let i = 0; i < board.length; i++) {
+                        if (board[i] == '') {
+                                emptyCells.push(i)
+                        }   
+                }
+                return emptyCells;
+        };
+
+        return { 
+                getBoard, 
+                resetBoard,
+                getCell,
+                setCell,
+                isEmptyCell,
+                getEmptyCells
+        };
+})();
+
+
+const gameController = (() => {
     
-        const players = [playerOne, playerTwo];
+        const players = [player('X'), player('O')];
 
         let activePlayer = players[0];
 
@@ -102,48 +91,69 @@ function GameController() {
                 return null; 
         }
 
-        const printRound = () => {
-                board.printBoard();
-                console.log(`${getActivePlayer().getToken()}'s turn.`);
-        };
-
         const playRound = (index) => {
-                
-                let emptyCells = board.getEmptyCells()
 
-                if (!emptyCells.includes(index)) {
+                if (!board.isEmptyCell(index)) {
                         console.log('Invalid move, try again!')
                         return;
                 } 
 
-                board.updateBoard(index, getActivePlayer().getToken());
+                board.setCell(index, getActivePlayer().getToken());
                 
                 const winner = getWinner(board.getBoard());
                 if (winner) {
-                        board.printBoard();
                         console.log(`${winner} won!`)
                         getActivePlayer().increaseScore();
                         console.log(`${getActivePlayer().getScore()}`);
                         board.resetBoard();
                 } 
 
+                const emptyCells = board.getEmptyCells();
                 if (emptyCells.length == 0) {
                         console.log('Tie!')
                         return;
                 }
             
                 changeTurn();
-                printRound();
         };
-        const startGame = function() {
-                printRound();
-        }  
+
         return {
-                startGame,
                 playRound
         };
-}
+})();
 
-function UiController() {
+
+const displayController = (()=>{
+
+        const cells = document.querySelectorAll('.cell')
+        const quitButton = document.querySelector('.quit-button')
         
-}
+        cells.forEach((cell)=>
+                cell.addEventListener('click', (e)=>{
+                        cellIndex = parseInt(e.target.dataset.index);
+                        gameController.playRound(cellIndex);
+                        displayBoard();
+                })
+        );
+
+        
+
+        const displayBoard = () => {
+                for (let i = 0; i < cells.length; i++) {
+                        token = board.getCell(i)
+                        cells[i].textContent = token;
+                        cells[i].classList.add = token;
+                }
+        };
+
+        const clearBoard = () => {
+                for (let i = 0; i < cells.length; i++) {
+                        board.resetBoard()
+                        cells[i].textContent = ''; 
+                        cells[i].className = 'cell';
+                }
+        }
+        quitButton.addEventListener('click', clearBoard)
+
+})();
+

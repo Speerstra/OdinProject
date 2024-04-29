@@ -64,6 +64,14 @@ body {
         text-shadow: 1px 1px 8px var(--main-text-color);
 }
 
+#playerOne {
+        color: var(--playerOne-color)
+}
+
+#playerTwo {
+        color: var(--playerTwo-color)
+}
+
 .content {
         display: flex;
         justify-content: center;
@@ -84,7 +92,7 @@ body {
         
 }
 
-.game-cell {
+.cell {
         border: 0;
         border-radius: 1rem;
         box-shadow: 3px 3px 8px rgb(69, 67, 69);
@@ -96,17 +104,17 @@ body {
         line-height: 0;
 }
 
-.playerOne {
+.cell.X {
         color: var(--playerOne-color);
         background-color: var(--playerOne-background);
 }
 
-.playerTwo {
+.cell.O {
         color: var(--playerTwo-color);
         background-color: var(--playerTwo-background);
 }
 
-.game-cell:hover {
+.cell:hover {
         transform: scale(1.05);
         transition-duration: 500ms;
 }
