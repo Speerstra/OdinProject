@@ -61,7 +61,7 @@ const board = (() => {
 })();
 
 
-const gameController = (() => {
+const game = (() => {
     
         const players = [player('X'), player('O')];
 
@@ -75,9 +75,9 @@ const gameController = (() => {
 
         function getWinner(board) {
                 const lines = [
-                    [0,1,2], [3,4,5], [6,7,8], //horizontals
-                    [0,3,6], [1,4,7], [2,5,8], //verticals
-                    [0,4,8], [2,4,6] //diagonals
+                    [0,1,2], [3,4,5], [6,7,8],  //horizontals
+                    [0,3,6], [1,4,7], [2,5,8],  //verticals
+                    [0,4,8], [2,4,6]            //diagonals
                 ];
             
                 for (const line of lines) {
@@ -103,6 +103,7 @@ const gameController = (() => {
                 const winner = getWinner(board.getBoard());
                 if (winner) {
                         console.log(`${winner} won!`)
+                        display.setMessage(`${winner} won!`);
                         getActivePlayer().increaseScore();
                         console.log(`${getActivePlayer().getScore()}`);
                         board.resetBoard();
@@ -110,34 +111,34 @@ const gameController = (() => {
 
                 const emptyCells = board.getEmptyCells();
                 if (emptyCells.length == 0) {
-                        console.log('Tie!')
+                        display.setMessage('Tie!');
                         return;
                 }
             
                 changeTurn();
         };
 
+        const resetGame = () => {
+                players.forEach((player) => player.resetScore())
+                let activePlayer = players[0];
+                board.resetBoard()
+        }
+
         return {
-                playRound
+                playRound,
+                resetGame
         };
 })();
 
 
-const displayController = (()=>{
+const display = (()=>{
 
+        // Selectors
         const cells = document.querySelectorAll('.cell')
-        const quitButton = document.querySelector('.quit-button')
-        
-        cells.forEach((cell)=>
-                cell.addEventListener('click', (e)=>{
-                        cellIndex = parseInt(e.target.dataset.index);
-                        gameController.playRound(cellIndex);
-                        displayBoard();
-                })
-        );
+        const resetButton = document.querySelector('.reset-button')
+        const messageDiv = document.querySelector('.message')
 
-        
-
+        // Functions
         const displayBoard = () => {
                 for (let i = 0; i < cells.length; i++) {
                         token = board.getCell(i)
@@ -153,7 +154,32 @@ const displayController = (()=>{
                         cells[i].className = 'cell';
                 }
         }
-        quitButton.addEventListener('click', clearBoard)
 
+        const setMessage = (message) => {
+                messageDiv.textContent = message
+        }
+
+        const clearMessageDiv = () => {
+                messageDiv.textContent = ''
+        }
+
+        
+        // Event listeners
+        cells.forEach((cell)=>
+        cell.addEventListener('click', (e) => {
+                        cellIndex = parseInt(e.target.dataset.index);
+                        game.playRound(cellIndex);
+                        displayBoard();
+                })
+        );
+
+        resetButton.addEventListener('click', () => {
+                clearBoard();
+                game.resetGame();
+        });
+        
+        return {
+                setMessage
+            };
 })();
 
