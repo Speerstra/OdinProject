@@ -4,19 +4,76 @@ const player = (token) => {
         const getToken = () => token;
 
         let score = 0;
-        const increaseScore = () => ++score;
+        const incrementScore = () => ++score;
         const getScore = () => score;
         const resetScore = () => (score = 0);
 
         return {
                 getToken,
-                increaseScore,
+                incrementScore,
                 getScore,
                 resetScore
         }
 };
 
+const aiPlayer = () => {
 
+        const utility = (board) => {
+                if (board.getWinner() == 'X') {
+                        return 1;
+                } if (board.getWinner() == 'O') {
+                        return -1;
+                } else {
+                        return null;
+                }
+        }
+
+        
+        function minimax(board) {
+                if (terminal(board)) {
+                        return null;
+                } else if (player(board) === 'X') {
+                        const [_, bestAction] = maxPlayer(board);
+                        return bestAction;
+                } else {
+                        const [_, bestAction] = minPlayer(board);
+                        return bestAction;
+                }
+        }
+
+        function maxPlayer(board) {
+                if (terminal(board)) {
+                    return [utility(board), null];
+                }
+            
+                let scores = {};
+                for (let action of actions(board)) {
+                    let [score, _] = minPlayer(result(board, action));
+                    scores[action] = score;
+                }
+            
+                let bestAction = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+                let bestScore = Math.max(...Object.values(scores));
+                return [bestScore, bestAction];
+            }
+            
+            function minPlayer(board) {
+                if (terminal(board)) {
+                    return [utility(board), null];
+                }
+            
+                let scores = {};
+                for (let action of actions(board)) {
+                    let [score, _] = maxPlayer(result(board, action));
+                    scores[action] = score;
+                }
+            
+                let bestAction = Object.keys(scores).reduce((a, b) => scores[a] < scores[b] ? a : b);
+                let bestScore = Math.min(...Object.values(scores));
+                return [bestScore, bestAction];
+            }
+        
+}
 const board = (() => {
 
         let board = ['', '', '', '', '', '', '', '', ''];
@@ -36,7 +93,7 @@ const board = (() => {
                 return board;
         };
 
-        const isEmptyCell = function(index) {
+        const isEmptyCell = (index) => {
                 return board[index] == '';
         };
 
@@ -73,7 +130,9 @@ const game = (() => {
 
         const getActivePlayer = () => activePlayer;
 
-        function getWinner(board) {
+        const getPlayerScores = () => [players[0].getScore(), players[1].getScore()]
+
+        const getWinner = function(board) {
                 const lines = [
                     [0,1,2], [3,4,5], [6,7,8],  //horizontals
                     [0,3,6], [1,4,7], [2,5,8],  //verticals
@@ -91,8 +150,7 @@ const game = (() => {
                 return null; 
         }
 
-        const playRound = (index) => {
-
+        const playRound = function(index) {
                 if (!board.isEmptyCell(index)) {
                         console.log('Invalid move, try again!')
                         return;
@@ -102,11 +160,10 @@ const game = (() => {
                 
                 const winner = getWinner(board.getBoard());
                 if (winner) {
-                        console.log(`${winner} won!`)
                         display.setMessage(`${winner} won!`);
-                        getActivePlayer().increaseScore();
-                        console.log(`${getActivePlayer().getScore()}`);
-                        board.resetBoard();
+                        getActivePlayer().incrementScore();
+                        display.updateScore()
+                        resetGame();
                 } 
 
                 const emptyCells = board.getEmptyCells();
@@ -118,13 +175,16 @@ const game = (() => {
                 changeTurn();
         };
 
-        const resetGame = () => {
-                players.forEach((player) => player.resetScore())
+        const isTerminal = function() {
+                if
+        }
+        const resetGame = function() {
                 let activePlayer = players[0];
                 board.resetBoard()
         }
 
         return {
+                getPlayerScores,
                 playRound,
                 resetGame
         };
@@ -137,6 +197,7 @@ const display = (()=>{
         const cells = document.querySelectorAll('.cell')
         const resetButton = document.querySelector('.reset-button')
         const messageDiv = document.querySelector('.message')
+        const scoreDivs = document.querySelectorAll('.score')
 
         // Functions
         const displayBoard = () => {
@@ -147,39 +208,37 @@ const display = (()=>{
                 }
         };
 
-        const clearBoard = () => {
-                for (let i = 0; i < cells.length; i++) {
-                        board.resetBoard()
-                        cells[i].textContent = ''; 
-                        cells[i].className = 'cell';
-                }
-        }
-
         const setMessage = (message) => {
                 messageDiv.textContent = message
         }
 
-        const clearMessageDiv = () => {
-                messageDiv.textContent = ''
+
+        const updateScore = () => {
+                const scores = game.getPlayerScores()
+                scoreDivs.forEach((scoreDiv, index) => {
+                        scoreDiv.textContent = `Player ${index + 1}: ${scores[index]}`;
+                });
+
         }
 
-        
         // Event listeners
         cells.forEach((cell)=>
         cell.addEventListener('click', (e) => {
                         cellIndex = parseInt(e.target.dataset.index);
                         game.playRound(cellIndex);
                         displayBoard();
+                        updateScore();
                 })
         );
 
         resetButton.addEventListener('click', () => {
-                clearBoard();
                 game.resetGame();
+                displayBoard();
         });
         
         return {
-                setMessage
+                setMessage,
+                updateScore
             };
 })();
 
