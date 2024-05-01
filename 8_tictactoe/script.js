@@ -16,64 +16,6 @@ const player = (token) => {
         }
 };
 
-const aiPlayer = () => {
-
-        const utility = (board) => {
-                if (board.getWinner() == 'X') {
-                        return 1;
-                } if (board.getWinner() == 'O') {
-                        return -1;
-                } else {
-                        return null;
-                }
-        }
-
-        
-        function minimax(board) {
-                if (terminal(board)) {
-                        return null;
-                } else if (player(board) === 'X') {
-                        const [_, bestAction] = maxPlayer(board);
-                        return bestAction;
-                } else {
-                        const [_, bestAction] = minPlayer(board);
-                        return bestAction;
-                }
-        }
-
-        function maxPlayer(board) {
-                if (terminal(board)) {
-                    return [utility(board), null];
-                }
-            
-                let scores = {};
-                for (let action of actions(board)) {
-                    let [score, _] = minPlayer(result(board, action));
-                    scores[action] = score;
-                }
-            
-                let bestAction = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-                let bestScore = Math.max(...Object.values(scores));
-                return [bestScore, bestAction];
-            }
-            
-            function minPlayer(board) {
-                if (terminal(board)) {
-                    return [utility(board), null];
-                }
-            
-                let scores = {};
-                for (let action of actions(board)) {
-                    let [score, _] = maxPlayer(result(board, action));
-                    scores[action] = score;
-                }
-            
-                let bestAction = Object.keys(scores).reduce((a, b) => scores[a] < scores[b] ? a : b);
-                let bestScore = Math.min(...Object.values(scores));
-                return [bestScore, bestAction];
-            }
-        
-}
 const board = (() => {
 
         let board = ['', '', '', '', '', '', '', '', ''];
