@@ -99,13 +99,14 @@ const game = (() => {
                 } 
 
                 board.setCell(index, getActivePlayer().getToken());
+                display.displayBoard();
                 
                 const winner = getWinner(board.getBoard());
                 if (winner) {
                         display.setMessage(`${winner} won!`);
                         getActivePlayer().incrementScore();
-                        display.updateScore()
-                        resetGame();
+                        display.updateScore();
+                        display.disableCellSelection();
                 } 
 
                 const emptyCells = board.getEmptyCells();
@@ -117,18 +118,17 @@ const game = (() => {
                 changeTurn();
         };
 
-        const isTerminal = function() {
-                if
-        }
-        const resetGame = function() {
-                let activePlayer = players[0];
-                board.resetBoard()
+        const resetRound = function() {
+                activePlayer = players[0];
+                board.resetBoard();
+                display.clearBoard();
+                display.enableCellSelection();
         }
 
         return {
                 getPlayerScores,
                 playRound,
-                resetGame
+                resetRound
         };
 })();
 
@@ -145,42 +145,68 @@ const display = (()=>{
         const displayBoard = () => {
                 for (let i = 0; i < cells.length; i++) {
                         token = board.getCell(i)
-                        cells[i].textContent = token;
-                        cells[i].classList.add = token;
+                        if (token) {
+                                cells[i].textContent = token;
+                                cells[i].classList.add(token);
+                        }
                 }
         };
+
+        const clearBoard = () => {
+                for (let i = 0; i < cells.length; i++) {
+                        cells[i].textContent = '';
+                        cells[i].classList = 'cell'; 
+                }
+        }
 
         const setMessage = (message) => {
                 messageDiv.textContent = message
         }
 
+        const handleCellSelection = (event) => {
+                cellIndex = parseInt(event.target.dataset.index);
+                game.playRound(cellIndex);
+                displayBoard();
+                updateScore();
+        }
+
+        const enableCellSelection = () => {
+                cells.forEach((cell) => {
+                        cell.disabled = false;
+                });
+        };
+
+        const disableCellSelection = () => {
+                cells.forEach((cell) => {
+                        cell.disabled = true; 
+                });
+        };
 
         const updateScore = () => {
                 const scores = game.getPlayerScores()
                 scoreDivs.forEach((scoreDiv, index) => {
-                        scoreDiv.textContent = `Player ${index + 1}: ${scores[index]}`;
+                        scoreDiv.textContent = `${scores[index]}`;
                 });
 
         }
 
         // Event listeners
         cells.forEach((cell)=>
-        cell.addEventListener('click', (e) => {
-                        cellIndex = parseInt(e.target.dataset.index);
-                        game.playRound(cellIndex);
-                        displayBoard();
-                        updateScore();
-                })
+                cell.addEventListener('click', (e) => {handleCellSelection(e)})
         );
 
         resetButton.addEventListener('click', () => {
-                game.resetGame();
+                game.resetRound();
                 displayBoard();
         });
         
         return {
                 setMessage,
-                updateScore
+                updateScore,
+                displayBoard,
+                clearBoard,
+                disableCellSelection,
+                enableCellSelection
             };
 })();
 
