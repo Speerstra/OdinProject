@@ -9,20 +9,16 @@
 </head>
 <body>
         <div class="layout">
-                <div class="header">Tic Tac Toe</div>
-                <div class="player-container">
-                        <div class="player">
-                                X<div class="score" id="playerOne"></div>
+                <div class="left-panel">
+                        <h1>-XO-</h1>
+                        <div class="player-container">
+                                <div class="score" id="playerOne">0</div>
+                                <div class="score" id="playerTwo">0</div>
                         </div>
-                        <div class="player" id="playerTwo">
-                                O<div class="score" id="playerTwo"></div>
-                        </div>
-                        <button class="reset-button">reset
-                                <img src="assets/icons/restart.svg" alt="reset" />
-                        </button>
                         <div class="message"></div>
+                        <button class="reset-button">Play again!</button>
                 </div>
-                <div class="content">
+                <div class="right-panel">
                         <div class="game-grid">
                                 <button class="cell" data-index="0"></button>
                                 <button class="cell" data-index="1"></button>
