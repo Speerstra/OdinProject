@@ -130,7 +130,7 @@ const game = (() => {
                 display.clearBoard();
                 display.enableCellSelection();
                 display.hideResetButton();
-                display.hideMessage();
+                display.resetMessage();
         }
 
         return {
@@ -215,8 +215,9 @@ const display = (()=>{
                 messageDiv.style.display = 'block';
         }
 
-        const hideMessage = () => {
+        const resetMessage = () => {
                 messageDiv.style.display = 'none';
+                messageDiv.classList = 'message'; 
         }
 
         // Event listeners
@@ -238,7 +239,7 @@ const display = (()=>{
                 enableCellSelection,
                 showResetButton,
                 hideResetButton,
-                hideMessage
+                resetMessage
             };
 })();
 
