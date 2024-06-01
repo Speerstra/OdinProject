@@ -101,17 +101,23 @@ const game = (() => {
                 board.setCell(index, getActivePlayer().getToken());
                 display.displayBoard();
                 
-                const winner = getWinner(board.getBoard());
-                if (winner) {
-                        display.setMessage(`${winner} won!`);
-                        getActivePlayer().incrementScore();
+                const handleEndGame = function() {
                         display.updateScore();
                         display.disableCellSelection();
+                        display.showResetButton();
+                }
+
+                const winner = getWinner(board.getBoard());
+                if (winner) {
+                        display.setMessage(winner);
+                        getActivePlayer().incrementScore();
+                        handleEndGame();
                 } 
 
                 const emptyCells = board.getEmptyCells();
                 if (emptyCells.length == 0) {
-                        display.setMessage('Tie!');
+                        display.setMessage(winner);
+                        handleEndGame();
                         return;
                 }
             
@@ -123,6 +129,8 @@ const game = (() => {
                 board.resetBoard();
                 display.clearBoard();
                 display.enableCellSelection();
+                display.hideResetButton();
+                display.hideMessage();
         }
 
         return {
@@ -159,8 +167,12 @@ const display = (()=>{
                 }
         }
 
-        const setMessage = (message) => {
-                messageDiv.textContent = message
+        const setMessage = (winner) => {
+                if (winner) {
+                        messageDiv.textContent = (`${winner} won!`)
+                        messageDiv.classList.add(winner);
+                } 
+                showMesasge();
         }
 
         const handleCellSelection = (event) => {
@@ -190,6 +202,23 @@ const display = (()=>{
 
         }
 
+        const showResetButton = () => {
+                resetButton.style.display = 'block';
+                console.log('handled')
+        }
+
+        const hideResetButton = () => {
+                resetButton.style.display = 'none';
+        }
+
+        const showMesasge = () => {
+                messageDiv.style.display = 'block';
+        }
+
+        const hideMessage = () => {
+                messageDiv.style.display = 'none';
+        }
+
         // Event listeners
         cells.forEach((cell)=>
                 cell.addEventListener('click', (e) => {handleCellSelection(e)})
@@ -206,7 +235,10 @@ const display = (()=>{
                 displayBoard,
                 clearBoard,
                 disableCellSelection,
-                enableCellSelection
+                enableCellSelection,
+                showResetButton,
+                hideResetButton,
+                hideMessage
             };
 })();
 

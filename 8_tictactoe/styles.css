@@ -52,12 +52,6 @@ h1 {
         margin-bottom: 0;
 }
 
-.message {
-        min-height: 3rem;
-        font-size: 2rem;
-        color: var(--main-text-color);
-        font-family: Nunito-ExtraLight, "Helvetica", sans-sans;
-}
 
 .player-container {
         display: flex;
@@ -69,17 +63,35 @@ h1 {
 .score {
         font-family: Nunito-ExtraBold, "Helvetica", sans-sans;
         font-size: 3rem;
-        margin: 1rem 3rem;
+        margin: 0 3rem;
+}
+
+
+.message {
+        min-height: 3rem;
+        font-size: 2rem;
+        color: var(--main-text-color);
+        font-family: Nunito-ExtraLight, "Helvetica", sans-sans;
+        margin-top: 1rem;
+}
+
+.message.X {
+        color: var(--playerOne-color);
+}
+
+.message.O {
+        color: var(--playerTwo-color);
 }
 
 .reset-button {
+        display: none;
         font-size: 1.5rem;
         padding: 0.5rem 1rem;
         background-color: var(--button-background);
         color: var(--background-color1);
         border: none;
         border-radius: 0.5rem;
-        margin: 1rem;
+        margin: 2rem 1rem 1rem 1rem;
         font-family: Nunito-ExtraBold, "Helvetica", sans-sans;
 }
 
