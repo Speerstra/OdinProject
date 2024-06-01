@@ -169,9 +169,12 @@ const display = (()=>{
 
         const setMessage = (winner) => {
                 if (winner) {
-                        messageDiv.textContent = (`${winner} won!`)
-                        messageDiv.classList.add(winner);
-                } 
+                        messageDiv.textContent = `${winner} won!`;
+                        messageDiv.className = `message ${winner}`;
+                    } else {
+                        messageDiv.textContent = 'It\'s a tie!';
+                        messageDiv.className = 'message tie';
+                    }
                 showMesasge();
         }
 
@@ -199,7 +202,6 @@ const display = (()=>{
                 scoreDivs.forEach((scoreDiv, index) => {
                         scoreDiv.textContent = `${scores[index]}`;
                 });
-
         }
 
         const showResetButton = () => {
