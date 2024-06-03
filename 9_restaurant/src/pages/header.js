@@ -1,3 +1,4 @@
+
 const loadHeader = function(){
         const header = document.createElement("div");
         header.id="header";
@@ -20,7 +21,6 @@ const loadHeader = function(){
         aboutButton.innerText = 'About'
         aboutButton.id = 'aboutBtn'
         header.appendChild(aboutButton);
-
 
         return header;
 };    
