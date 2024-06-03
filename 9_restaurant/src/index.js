@@ -1,4 +1,4 @@
-import '../src/styles/header.css'
+import './styles/header.css'
 
 import firstLoad from "./functions/firstLoad";
 
