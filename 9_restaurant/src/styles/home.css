@@ -1,4 +1,11 @@
-#aboutBtn {
-        background-color: green;
-        color: red;
+#home {
+        display: flex;
+        flex-direction: column;
+        background-image: url("../assets/img/home.jpg");
+        height: 100%;
+        overflow: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 }
+

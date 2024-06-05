@@ -208,7 +208,7 @@ input:focus{
         justify-content: flex-start;
         background-color: var(--card-color);
         border-radius: 0.5rem;
-        box-shadow: 2px 2px 2px 1px #ccc9cb ;    
+        box-shadow: 2px 2px 2px 1px #ccc9cb;    
 }
 
 /* Projects */
