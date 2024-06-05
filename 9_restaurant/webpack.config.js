@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-        entry: './src/index.js',
+        entry: './src/pages/index.js',
         output: {
                 path: path.resolve(__dirname, 'dist'),
                 filename: './dist/main.js',
@@ -10,8 +10,6 @@ module.exports = {
         mode: 'development',
         devtool: 'inline-source-map',
         plugins: [
-                // new MiniCssExtractPlugin({ filename: "[name].[contentHash].css" }),
-                // new CleanWebpackPlugin(),
                 new HtmlWebPackPlugin({
                         template: "./src/index.html"
                 })
