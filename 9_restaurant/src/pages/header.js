@@ -1,31 +1,32 @@
 
-const loadHeader = function(){
-        const header = document.createElement("div");
-        header.id="header";
-    
-        const logo = document.createElement("div");
-        logo.innerText = "RT";
-        header.appendChild(logo);
+const loadNav = function(){
+        const nav = document.createElement("div");
+        nav.id="nav";
+
+        const welcome = document.createElement('h2');
+        welcome.textContent = "Sea Side";
+        welcome.id = 'welcome'
+        nav.appendChild(welcome);
 
         const homeButton = document.createElement("button");
         homeButton.innerText = 'Home'
         homeButton.id = 'homeBtn'
-        homeButton.classList.add('headerBtn')
-        header.appendChild(homeButton);
+        homeButton.classList.add('nav-button')
+        nav.appendChild(homeButton);
 
         const menuButton = document.createElement("button");
         menuButton.innerText = 'Menu'
         menuButton.id = 'menuBtn'
-        menuButton.classList.add('headerBtn')
-        header.appendChild(menuButton);
+        menuButton.classList.add('nav-button')
+        nav.appendChild(menuButton);
 
         const aboutButton = document.createElement("button");
         aboutButton.innerText = 'About'
         aboutButton.id = 'aboutBtn'
-        aboutButton.classList.add('headerBtn')
-        header.appendChild(aboutButton);
+        aboutButton.classList.add('nav-button')
+        nav.appendChild(aboutButton);
 
-        return header;
+        return nav;
 };    
 
-export default loadHeader;
+export default loadNav;

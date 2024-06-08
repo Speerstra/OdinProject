@@ -1,10 +1,10 @@
-import loadHeader from "../pages/header";
+import loadNav from "../pages/header";
 import loadHome from "../pages/home";
 
 const firstLoad = function() {
         const content = document.querySelector("#content");
-        const header = loadHeader();
-        content.appendChild(header);
+        const nav = loadNav();
+        content.appendChild(nav);
         loadHome();
 }
 
