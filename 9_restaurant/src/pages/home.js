@@ -33,7 +33,7 @@ const loadHome = function(){
         homeDiv.appendChild(navButtonContainer)
 
         const footer = document.createElement("div");
-        footer.innerHTML = 'Copyright © 2024 <a href="https://github.com/speerstra" target="_blank" class="github-icon">Speerstra  <i class="fab fa-github"></i></a> <br />Images from <a href="https://unsplash.com/">Upsplash<a>'
+        footer.innerHTML = 'Images from <a href="https://unsplash.com/">Upsplash<a><br />Copyright © 2024 <a href="https://github.com/speerstra" target="_blank" class="github-icon">Speerstra  <i class="fab fa-github"></i></a>'
         footer.id = 'footer'
         homeDiv.appendChild(footer)
 
