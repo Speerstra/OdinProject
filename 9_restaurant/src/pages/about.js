@@ -4,7 +4,7 @@ const loadAbout = function() {
         const about = document.createElement('div');
         about.id = 'about';
 
-        const aboutTitle = document.createElement('h2');
+        const aboutTitle = document.createElement('h1');
         aboutTitle.innerText = 'About'
         about.appendChild(aboutTitle)
 
@@ -16,13 +16,6 @@ const loadAbout = function() {
         reservantion.innerText = 'Call for a reservation \n876 543 1243'
         reservantion.id = 'reservantion'
         about.appendChild(reservantion)
-
-
-        // const map = document.createElement('img')
-        // map.src = "../src/assets/img/map.png";
-        // map.id = 'map'
-        // about.appendChild(map)
-        
 
         content.append(about)
 }

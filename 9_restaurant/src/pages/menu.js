@@ -8,11 +8,15 @@ function loadMenu() {
 function createMenu() {
         const menu = document.createElement("div");
         menu.classList.add("menu");
-      
+        
+        const menuTitle = document.createElement('h1')
+        menuTitle.innerText = 'Menu'
+        menu.appendChild(menuTitle)
+
         menu.appendChild(
                 createMenuItem(
                         "Oysters",
-                        "Freshly harvested, right from the sea",
+                        "Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.",
                         `../src/assets/img/oysters.jpg`
                 )
         );
@@ -20,7 +24,7 @@ function createMenu() {
         menu.appendChild(
                 createMenuItem(
                         "Tacos",
-                        "A delicious treat",
+                        "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi euismod in pharetra a ultricies in diam. ",
                         `../src/assets/img/tacos.jpg`
                 )
         );
@@ -28,7 +32,7 @@ function createMenu() {
         menu.appendChild(
                 createMenuItem(
                         "Salmon on toast",
-                        "Also very delicious",
+                        "Praesent dapibus neque id cursus faucibus tortor neque egestas auguae eu vulputate magna eros eu erat. ",
                         `../src/assets/img/salmon.jpg`
                 )
         );
@@ -36,7 +40,7 @@ function createMenu() {
         menu.appendChild(
                 createMenuItem(
                         "Fries",
-                        "The perfect appetizer",
+                        "Nam nulla quam gravida non commodo a sodales sit amet nisi.",
                         `../src/assets/img/fries.jpg`
                 )
         );
@@ -61,10 +65,15 @@ function createMenuItem(title, description, image) {
         menuImage.src = image
         menuImage.alt = `${title}`;
         menuImage.classList.add('menu-image')
+
+        const menuText = document.createElement("div");
+        menuText.appendChild(menuTitle)
+        menuText.appendChild(menuDescription)
+        menuText.classList.add('menu-text')
         
         menuItem.appendChild(menuImage);
-        menuItem.appendChild(menuTitle);
-        menuItem.appendChild(menuDescription);
+        menuItem.appendChild(menuText);
+
         
         return menuItem;
 }

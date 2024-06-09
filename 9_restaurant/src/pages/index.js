@@ -1,12 +1,8 @@
 
-import loadHome from "./home";
 import loadMenu from "./menu";
 import loadAbout from "./about";
 
-import '../styles/home.css'
-import '../styles/menu.css'
-import '../styles/about.css'
-import '../styles/header.css'
+import '../styles/styles.css'
 
 import firstLoad from "../functions/firstLoad";
 import clearPage from '../functions/clearPage';
