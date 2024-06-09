@@ -2,10 +2,10 @@
 Dynamically generated using webpack.
 
 ## Home
-![home](src/assets/preview/home.png)
+![home](preview/home.png)
 
 ## Menu
-![menu](src/assets/preview/menu.png)
+![menu](preview/menu.png)
 
 ## About
-![about](src/assets/preview/about.png)
+![about](preview/about.png)
