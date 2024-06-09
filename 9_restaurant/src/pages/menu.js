@@ -74,7 +74,6 @@ function createMenuItem(title, description, image) {
         menuItem.appendChild(menuImage);
         menuItem.appendChild(menuText);
 
-        
         return menuItem;
 }
 

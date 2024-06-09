@@ -17,6 +17,7 @@
 :root {
         --title-font-color: rgb(96, 70, 30);
         --secondary-font-color: rgb(71, 60, 43);
+        --ligth-font-color: rgb(228, 220, 207);
         --section-background: rgba(211,228,241, 0.9);
         font-family: Barlow, Arial, Helvetica, sans-serif;
 }
@@ -55,17 +56,19 @@
         height: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        background: linear-gradient(to bottom, transparent 80%, rgba(20, 20, 20, 0.9) 100%);
         justify-content: center;
         z-index: 1; 
 }
 
+
 /*      ---- LEFT SIDE ----       */
-/* #left-div {
+
+#home-div {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         height: 100%;
-        border: red solid;
-} */
+}
 
 #restaurant-name {
         font-family: Lobster;
@@ -81,7 +84,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        padding: 0 3rem;
+        padding: 0 6rem;
 }
 
 .nav-button {
@@ -125,10 +128,25 @@
 }
 
 #footer {
-        position: absolute; bottom: 40px; left: 40px;
-        color: white;
+        color: var(--ligth-font-color);
         font-family: Barlow;
+        text-align: center;
+        justify-self: flex-end;
+        margin-top: auto;
+        padding-bottom: 2rem;
 }
+
+#footer > a {
+        color: var(--ligth-font-color);
+        font-family: Barlow-bold;
+}
+
+#footer > a:link, 
+#footer > a:visited, 
+#footer > a:hover, 
+#footer > a:active { 
+        text-decoration: none; 
+} 
 
 
 /*      ---- RIGHT SIDE ----       */
@@ -158,7 +176,6 @@ h2 {
         color: var(--secondary-font-color);
 }
 
-
 p {
         font-size: 20px;
         color: var(--secondary-font-color);
@@ -185,3 +202,23 @@ p {
         width: 200px;
         border-radius: 0.5rem;
 }
+
+::-webkit-scrollbar {
+        width: 15px;
+      }
+
+/* Track */
+::-webkit-scrollbar-track {
+        background: var(--section-background);
+      }
+/* Handle */
+::-webkit-scrollbar-thumb {
+        background: var(--secondary-font-color);
+        border-radius: 10px;
+        padding: 2rem;
+      }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
