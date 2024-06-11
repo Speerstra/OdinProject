@@ -1,7 +1,6 @@
-// clearPage
-// loadNav
-// loadProject
-// handleTaskForm
-// handleCompleteToggle
-// handleImportantToggle
-// handleProjectForm
+export default class TaskView {
+        constructor(taskView)
+        {
+                this.model = taskView;
+        }
+};

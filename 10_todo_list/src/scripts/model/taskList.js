@@ -6,14 +6,14 @@ export default class TaskList {
                 this.taskList = {};
         }
     
+        // get taskList()
+        // {
+        //         return Object.values(this.taskList);
+        // }
+
         add(newTask)
         {
-                this.taskList[newItem.id] = newTask;
-        }
-
-        get taskList()
-        {
-                return Object.values(this.taskList);
+                return this.taskList[newItem.id] = newTask;
         }
 
         get(id)

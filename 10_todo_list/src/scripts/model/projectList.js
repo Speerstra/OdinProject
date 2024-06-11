@@ -10,12 +10,12 @@ export default class ProjectList {
                 this.ProjectList[newProject.id] = newProject;
         }
 
-        get ProjectList()
-        {
-                return Object.values(this.ProjectList);
-        }
+        // get ProjectList()
+        // {
+        //         return Object.values(this.ProjectList);
+        // }
 
-        get(id)
+        getsdf(id)
         {
                 return this.ProjectList[id];
         }
