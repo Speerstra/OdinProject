@@ -1,6 +1,6 @@
 
-export default class TaskList
-{
+export default class TaskList {
+        
         constructor()
         {
                 this.taskList = {};
@@ -21,7 +21,7 @@ export default class TaskList
                 return this.taskList[id];
         }
 
-        remove(id)
+        delete(id)
         {
                 delete this.taskList[id];
         }

@@ -1,0 +1,92 @@
+
+@font-face {
+        font-family: Quicksand;
+        src: url('../assets/fonts/Quicksand-Regular.ttf');
+}
+
+@font-face {
+        font-family: Quicksand-Bold;
+        src: url('../assets/fonts/Quicksand-Bold.ttf');
+}
+
+@font-face {
+        font-family: Quicksand-Light;
+        src: url('../assets/fonts/Quicksand-Light.ttf');
+}
+
+* {
+        /* border: red solid; */
+        font-family: Quicksand, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+:root {
+        --nav-background: rgb(12, 12, 92);
+        --content-background: rgb(226, 232, 245);
+}
+body {
+        margin: 0;
+}
+
+#main {
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        grid-template-areas: 
+                "header header"
+                "nav  content";
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 300px 1fr;
+}
+
+/* HEADER */
+
+header {
+        grid-area: header;
+        background-color: var(--nav-background);
+        box-shadow: 0 4px 2px -2px rgb(113, 85, 85);
+}
+
+header > h1 {
+        color: var(--content-background);
+        font-family: Quicksand-Bold;
+        font-size: 3rem;
+        margin: 1.5rem;
+        padding: 0;
+}
+
+nav {
+        grid-area: nav;
+        background-color: rgb(181, 187, 230);
+        padding: 2rem 0 0 1.5rem;
+}
+
+
+#add-task-btn {
+        background-color: var(--nav-background); 
+        color: rgb(181, 187, 230);
+        padding: 0.5rem 2rem;
+        font-size: 2rem;
+        border: 0;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        border-radius: 0.5rem;
+}
+
+nav > ul {
+        padding: 0;
+}
+
+nav > ul > li {
+        list-style-type: none;
+        color: black;
+        font-size: 2rem;
+        margin: 0.5rem 0;
+        padding: 0;
+}
+
+/* CONTENT */
+#content {
+        grid-area: content;
+        background-color: var( --content-background);
+}

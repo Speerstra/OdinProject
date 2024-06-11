@@ -1,5 +1,5 @@
-export default class ProjectList
-{
+export default class ProjectList {
+        
         constructor()
         {
                 this.ProjectList = {};

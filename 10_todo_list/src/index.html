@@ -6,6 +6,46 @@
         <title>Document</title>
 </head>
 <body>
-        
+        <div id="main">
+                <header>
+                        <div id="logo"></div>
+                        <h1>Task List</h1>
+                </header>
+                <nav>
+                        <button id="add-task-btn">Add task</button>
+                        <ul id="nav-list">
+                                <li>Today</li>
+                                <li>This week</li>
+                                <li>Important</li>
+                        </ul>
+                        <ul id="project-list">
+                        </ul>
+                </nav>
+                <div id="content">
+                        <form method="post">
+                                <div class="form-field">
+                                        <label for="task-name">Task</label>
+                                        <input id="task-name" name="task-name" type="text" required>
+                                </div>
+                                <div class="form-field">
+                                        <label for="task-description">Description</label>
+                                        <input id="task-description" name="task-description" type="text" required>
+                                </div>
+                                <div class="form-field">
+                                        <label for="task-project">Project</label>
+                                        <select name="cars" id="cars">
+                                                <option value="home">Home</option>
+                                                <option value="work">Work</option>
+                                                <option value="volunteer">Volunteer</option>
+                                        </select>
+                                </div>
+                                <label for="is-important">Important?</label>
+                                <input type="checkbox" id="is-important" name="is important" value="is-important">
+                                <br>
+                                <input type="submit" value="Add task">
+                        </form>
+                </div>
+        </div>
+
 </body>
 </html>

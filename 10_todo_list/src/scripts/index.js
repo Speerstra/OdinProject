@@ -1,8 +1,8 @@
 import '../styles/styles.css';
 
-import MainModel from './model/model';
-import MainView from './view/view';
-import MainController from './controller/controller';
+import MainModel from './model/mainModel';
+import MainView from './view/mainView';
+import MainController from './controller/mainController';
 
 const model = new MainModel();
 const view = new MainView();
