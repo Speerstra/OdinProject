@@ -4,12 +4,12 @@ export default class MainController
         {
                 this.model = model;
                 this.view = view;
-                
+
                 document.getElementById('addFormSubmitBtn').addEventListener('click', (e) => this.handleAddFormSubmit(e));
         }
 
         handleAddFormSubmit() {
-                var testObject = { 'one': 1, 'two': 2, 'three': 3 };
+                var testObject = this.model.createTask('name', 'description', 'project', 'dueDate', 'isImportant', 'isComplete')
 
                 // Put the object into storage
                 localStorage.setItem('testObject', JSON.stringify(testObject));

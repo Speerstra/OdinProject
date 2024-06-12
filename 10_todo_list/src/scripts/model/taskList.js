@@ -13,7 +13,7 @@ export default class TaskList {
 
         add(newTask)
         {
-                return this.taskList[newItem.id] = newTask;
+                return this.taskList[newTask.id] = newTask;
         }
 
         get(id)
