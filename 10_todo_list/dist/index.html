@@ -22,7 +22,7 @@
                         </ul>
                 </nav>
                 <div id="content">
-                        <form method="post">
+                        <form id="add-task-form" method="post">
                                 <div class="form-field">
                                         <label for="task-name">Task</label>
                                         <input id="task-name" name="task-name" type="text" required>
@@ -33,15 +33,21 @@
                                 </div>
                                 <div class="form-field">
                                         <label for="task-project">Project</label>
-                                        <select name="cars" id="cars">
+                                        <select name="task-project" id="task-project">
                                                 <option value="home">Home</option>
                                                 <option value="work">Work</option>
                                                 <option value="volunteer">Volunteer</option>
                                         </select>
                                 </div>
+                                <div class="form-field">
+                                        <label for="task-dueDate">Description</label>
+                                        <input id="task-dueDate" name="task-dueDate" type="text" required>
+                                </div>
                                 <label for="is-important">Important?</label>
-                                <input type="checkbox" id="is-important" name="is important" value="is-important">
+                                <input type="checkbox" id="is-important" name="task-isImportant" value="task-isImportant">
                                 <br>
+                                <label for="task-isComplete">Complete?</label>
+                                <input type="checkbox" id="is-important" name="task-isComplete" value="task-isComplete">
                                 <input id="addFormSubmitBtn" type="submit" value="add-task">
                         </form>
                 </div>

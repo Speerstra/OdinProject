@@ -3,4 +3,11 @@ import ProjectView from "./projectView";
 
 export default class MainView {
 
-};
+        getById(id) {
+                return document.getElementById(id);
+        }
+
+        getTaskFormValue(name) {
+            return this.getById('add-task-form').elements[name].value;
+        }
+    }
