@@ -12,11 +12,13 @@ export default class MainModel {
         // TASKS -----
         createTask(name, project, dueDate, isImportant) {
                 const newTask = new Task(name, project, dueDate, isImportant);
-                this.taskList.add(newTask)
-
                 return newTask;
         }
 
+        addTaskToList(task) {
+                this.taskList.add(task)
+                return this.taskList;
+        }
         deleteTask(id) {
                 this.taskList.delete(id);
         }
@@ -25,7 +27,7 @@ export default class MainModel {
 
         }
 
-        saveTaskList() {
+        saveTaskListToLocalStorage() {
                 window.localStorage.setItem('taskList', JSON.stringify(this.taskList));
         }
 

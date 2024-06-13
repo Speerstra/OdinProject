@@ -10,4 +10,8 @@ export default class MainView {
         getTaskFormValue(name) {
             return this.getById('add-task-form').elements[name].value;
         }
+
+        resetForm(formID) {
+                this.getById(formID).reset();
+        }
     }

@@ -19,14 +19,12 @@ export default class MainController {
         handleAddFormSubmit = (e) => {
             e.preventDefault(); 
 
-            var formInputs = this.getAddFormInputs()
+            let formInputs = this.getAddFormInputs()
+            let newTask = this.model.createTask(formInputs);
+            let newTaskList = this.model.addTaskToList(newTask);
+            this.model.saveTaskListToLocalStorage(newTaskList);
+            this.view.resetForm('add-task-form')
 
-            var testObject = this.model.createTask(formInputs);
-    
-            localStorage.setItem('testObject', JSON.stringify(testObject));
-
-            var retrievedObject = localStorage.getItem('testObject');
-            console.log('retrievedObject: ', JSON.parse(retrievedObject)); 
-            
+            console.log('taskList: ', JSON.parse(localStorage.getItem('taskList'))); 
         }
     }
