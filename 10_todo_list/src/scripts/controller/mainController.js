@@ -3,37 +3,30 @@ export default class MainController {
             this.model = model;
             this.view = view;
     
-            // Attach the event listener using an arrow function
-            document.getElementById('addFormSubmitBtn').addEventListener('click', (e) => this.handleAddFormSubmit(e));
+            view.getById('addFormSubmitBtn').addEventListener('click', (e) => this.handleAddFormSubmit(e));
         }
         
         getAddFormInputs() {
                 const taskName = this.view.getTaskFormValue('task-name');
-                const taskDescription = this.view.getTaskFormValue('task-description');
                 const taskProject = this.view.getTaskFormValue('task-project');
-                const taskDueDate = 'hello'//this.view.getTaskFormValue('task-dueDate');
-                const taskIsImportant= 'hello'//this.view.getTaskFormValue('task-isImportant');
-                const taskIsComplete = 'hello'//this.view.getTaskFormValue('task-isComplete');
+                const taskDueDate = this.view.getTaskFormValue('task-dueDate');
+                const taskIsImportant= this.view.getTaskFormValue('task-isImportant');
 
-                return {taskName, taskDescription, taskProject, taskDueDate, taskIsImportant, taskIsComplete}
+                return {taskName, taskProject, taskDueDate, taskIsImportant}
         }
         
 
         handleAddFormSubmit = (e) => {
-            e.preventDefault(); // Prevent the default form submission
-    
-            // Get the task name from the form
-            
-        //     console.log(taskName); // Debug: check the task name
+            e.preventDefault(); 
+
             var formInputs = this.getAddFormInputs()
-            // Create a task object
+
             var testObject = this.model.createTask(formInputs);
     
-            // Put the object into storage
             localStorage.setItem('testObject', JSON.stringify(testObject));
-    
-            // Retrieve the object from storage
+
             var retrievedObject = localStorage.getItem('testObject');
-            console.log('retrievedObject: ', JSON.parse(retrievedObject));                
+            console.log('retrievedObject: ', JSON.parse(retrievedObject)); 
+            
         }
     }

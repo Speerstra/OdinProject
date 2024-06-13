@@ -10,9 +10,8 @@ export default class MainModel {
         }
 
         // TASKS -----
-        createTask(name, description, project, dueDate, isImportant, isComplete) {
-                const newTask = new Task(name, description, project, 
-                        dueDate, isImportant, isComplete);
+        createTask(name, project, dueDate, isImportant) {
+                const newTask = new Task(name, project, dueDate, isImportant);
                 this.taskList.add(newTask)
 
                 return newTask;
