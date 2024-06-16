@@ -11,18 +11,18 @@ export default class TaskList {
         //         return Object.values(this.taskList);
         // }
 
-        add(newTask)
+        add(task)
         {
-                return this.taskList[newTask.id] = newTask;
+                return this.taskList[task.id] = task;
         }
 
-        get(id)
+        get(taskId)
         {
-                return this.taskList[id];
+                return this.taskList[taskId];
         }
 
-        delete(id)
+        delete(taskId)
         {
-                delete this.taskList[id];
+                delete this.taskList[taskId];
         }
 }

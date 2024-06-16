@@ -12,7 +12,7 @@
                         <h1>Task List</h1>
                 </header>
                 <nav>
-                        <button id="add-task-btn">Add task</button>
+                        <button id="add-task-dialog-btn">Add task</button>
                         <ul id="nav-list">
                                 <li>Today</li>
                                 <li>This week</li>
@@ -22,11 +22,12 @@
                         </ul>
                         <br>
                         <h3>Projects</h3>
-                        <button id="add-project-btn">Add Project</button>
+                        <button id="add-project-dialog-btn">Add Project</button>
+                        <div id="project-list"></div>
                 </nav>
                 <div id="content">
-                        <dialog>
-                                <form id="add-task-form" method="post">
+                        <dialog id="add-task-dialog">
+                                <form id="add-task-form" method="dialog">
                                         <div class="form-field">
                                                 <label for="task-name">Task</label>
                                                 <input id="task-name" name="task-name" type="text" required>
@@ -52,10 +53,19 @@
                                         <br>
                                         <label for="task-isComplete">Complete?</label>
                                         <input type="checkbox" id="is-important" name="task-isComplete" value="task-isComplete">
-                                        <input id="add-form-submit-btn" type="submit" value="add-task">
+                                        <input id="add-task-submit-btn" type="submit" value="add-task">
                                 </form>
                         </dialog>
-                        
+                        <dialog id="add-project-dialog">
+                                <form id="add-project-form" method="dialog">
+                                        <div class="form-field">
+                                                <label for="project-name">Project</label>
+                                                <input id="project-name" name="project-name" type="text" required>
+                                        </div>
+                                        <input id="add-project-submit-btn" type="submit" value="add-project">
+                                </form>
+                        </dialog>
+                        <div id="task-list"></div>
                 </div>
         </div>
 

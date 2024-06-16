@@ -11,19 +11,20 @@ export default class MainModel {
 
         // TASKS -----
         createTask(name, project, dueDate, isImportant) {
-                const newTask = new Task(name, project, dueDate, isImportant);
-                return newTask;
+                return new Task(name, project, dueDate, isImportant);
         }
 
         addTaskToList(task) {
-                this.taskList.add(task)
+                const newTask = this.taskList.add(task)
+                this.taskList.add(newTask);
                 return this.taskList;
         }
+
         deleteTask(id) {
                 this.taskList.delete(id);
         }
 
-        editTask() {
+        updateTask() {
 
         }
 
@@ -41,6 +42,11 @@ export default class MainModel {
                 return newProject;
         }
 
+        addProjectToList(project) {
+                this.projectList.add(project)
+                return this.projectList;
+        }
+
         deleteProject(id) {
                 this.projectList.delete(id);
         }
@@ -49,7 +55,11 @@ export default class MainModel {
 
         }
 
-        saveProjectList() {
+        saveProjectListToLocalStorage() {
                 window.localStorage.setItem('projectList', JSON.stringify(this.projectList));
+        }
+
+        getListFromLocalStorage(list) {
+                return JSON.parse(window.localStorage.getItem(list));
         }
 };
