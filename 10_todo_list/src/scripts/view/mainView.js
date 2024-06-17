@@ -16,7 +16,7 @@ export default class MainView {
                 const taskName = this.getFormField('add-task-form', 'task-name');
                 const taskProject = this.getFormField('add-task-form', 'task-project');
                 const taskDueDate = this.getFormField('add-task-form', 'task-dueDate');
-                const taskIsImportant = this.getFormField('add-task-form', 'task-isImportant');
+                const taskIsImportant = this.getById('add-task-form').elements['task-isImportant'].checked;
                 
                 return { taskName, taskProject, taskDueDate, taskIsImportant };
         }

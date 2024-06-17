@@ -51,28 +51,47 @@ export default class MainController {
                     div.removeChild(div.firstChild);
                 }
         }
+
         displayProjects = () => {
                 const projectDiv = this.view.getById('project-list');
                 this.clearDiv(projectDiv);
                 
                 const projects = this.model.getListFromLocalStorage('projectList');
                 Object.values(projects.ProjectList).forEach(project => {
-                        const projectListElement = document.createElement('p');
+                        const projectListElement = document.createElement('div');
                         projectListElement.textContent = project.name;
                         projectDiv.appendChild(projectListElement);
                 });
         }
 
         displayTasks = () => {
-                const taskDiv = this.view.getById('task-list');
-                this.clearDiv(taskDiv);
+                const taskListDiv = this.view.getById('task-list');
+                this.clearDiv(taskListDiv);
 
                 const taskList = this.model.getListFromLocalStorage('taskList');
 
                 Object.values(taskList.taskList).forEach(task => {
-                        const taskElement = document.createElement('p');
-                        taskElement.textContent = task.name;
-                        taskDiv.appendChild(taskElement);
+                        const taskDiv = document.createElement('div');
+                        
+                        const taskName = document.createElement('div');
+                        taskName.textContent = task.name;
+                        taskDiv.appendChild(taskName);
+
+                        const taskDueDate = document.createElement('div');
+                        taskDueDate.textContent = task.dueDate;
+                        taskDiv.appendChild(taskDueDate);
+                        
+                        taskDiv.classList.add(task.isImportant ? 'task-important' : null);
+
+                        if (task.isImportant) {
+                                const importantDiv = document.createElement('div');
+                                importantDiv.textContent = '⭐';
+                                importantDiv.classList.add('important-star');
+                                taskDiv.appendChild(importantDiv);
+                        }
+
+                        taskListDiv.appendChild(taskDiv);
+
                 });
 
         }
