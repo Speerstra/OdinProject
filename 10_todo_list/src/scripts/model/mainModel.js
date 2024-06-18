@@ -16,36 +16,8 @@ export default class MainModel {
         }
 
         getLocalStorage(key) {
-                // let storedItem = localStorage.getItem(key);
-                // if (storedItem === '[]') {
-                //         return [];
-                // } else{
-                //         return storedItem;
-                // }
-                return JSON.parse(localStorage.getItem(key));
-                
+                return JSON.parse(localStorage.getItem(key));    
         }
-
-        // getLocalStorage(key) {
-        //         const item = localStorage.getItem(key);
-                
-        //         if (item === null) {
-        //                 return [];
-        //         }
-        
-
-        //         const parsedItem = JSON.parse(item);
-        
-        //         if (Array.isArray(parsedItem)) {
-        //                 return parsedItem;
-        //         } else {
-        //                 return Object.values(parsedItem);
-        //                 // console.warn(`Item under key "${key}" is not an array. Returning an empty array.`);
-        //                 // return [];
-        //         } 
-
-        // }
-
 
         // TASKS -----
         createTask(name, project, dueDate, isImportant) {
@@ -53,6 +25,8 @@ export default class MainModel {
         }
         
         addTaskToList(task) {
+                let taskList = JSON.parse(localStorage.getItem('taskList')) || {};
+                console.log('hiiii', typeof(this.taskList));
                 this.taskList.add(task);
                 this.setLocalStorage('taskList', this.taskList);
                 return this.taskList;
@@ -68,6 +42,8 @@ export default class MainModel {
                 this.taskList = this.taskList.map(task => task.id === id ? updatedTask : task);
                 this.setLocalStorage('taskList', this.taskList);
         }
+
+
 
 
         // PROJECTS -----

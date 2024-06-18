@@ -17,10 +17,12 @@ export default class MainController {
     
         addTaskFromInput = (e) => {
                 e.preventDefault();
-        
+                
                 let { taskName, taskProject, taskDueDate, taskIsImportant, taskIsComplete } = this.view.getTaskFormInput();
         
                 let newTask = this.model.createTask(taskName, taskProject, taskDueDate, taskIsImportant, taskIsComplete);
+                console.log(newTask);
+                
                 this.model.addTaskToList(newTask);
         
                 this.view.resetForm('add-task-form');
