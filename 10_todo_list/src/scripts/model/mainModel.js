@@ -6,39 +6,75 @@ import TaskList from './taskList';
 export default class MainModel {
         constructor() {
                 this.taskList = new TaskList();
-                this.projectList = new ProjectList();
+                this.projectList = new ProjectList();  
         }
+
+
+        // LOCAL STORAGE ------
+        setLocalStorage(key, value) {
+                localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        getLocalStorage(key) {
+                // let storedItem = localStorage.getItem(key);
+                // if (storedItem === '[]') {
+                //         return [];
+                // } else{
+                //         return storedItem;
+                // }
+                return JSON.parse(localStorage.getItem(key));
+                
+        }
+
+        // getLocalStorage(key) {
+        //         const item = localStorage.getItem(key);
+                
+        //         if (item === null) {
+        //                 return [];
+        //         }
+        
+
+        //         const parsedItem = JSON.parse(item);
+        
+        //         if (Array.isArray(parsedItem)) {
+        //                 return parsedItem;
+        //         } else {
+        //                 return Object.values(parsedItem);
+        //                 // console.warn(`Item under key "${key}" is not an array. Returning an empty array.`);
+        //                 // return [];
+        //         } 
+
+        // }
+
 
         // TASKS -----
         createTask(name, project, dueDate, isImportant) {
                 return new Task(name, project, dueDate, isImportant);
         }
-
+        
         addTaskToList(task) {
-                const newTask = this.taskList.add(task)
-                this.taskList.add(newTask);
+                this.taskList.add(task);
+                this.setLocalStorage('taskList', this.taskList);
                 return this.taskList;
         }
 
-        deleteTask(id) {
-                this.taskList.delete(id);
+        deleteTask(taskId) {
+                this.taskList.delete(taskId);
+                this.setLocalStorage('taskList', this.taskList);
+                return this.taskList;
         }
 
-        updateTask() {
-
-        }
-
-        saveTaskListToLocalStorage() {
-                window.localStorage.setItem('taskList', JSON.stringify(this.taskList));
+        updateTask(id, updatedTask) {
+                this.taskList = this.taskList.map(task => task.id === id ? updatedTask : task);
+                this.setLocalStorage('taskList', this.taskList);
         }
 
 
         // PROJECTS -----
-
         createProject(name) {
                 const newProject = new Project(name);
                 this.projectList.add(newProject);
-
+                
                 return newProject;
         }
 
@@ -49,17 +85,13 @@ export default class MainModel {
 
         deleteProject(id) {
                 this.projectList.delete(id);
+                this.setLocalStorage('projectList', this.projectList);
         }
 
-        editProject() {
-
+        editProject(id, updatedProject) {
+                this.projectList.edit(id, updatedProject);
+                this.setLocalStorage('projectList', this.projectList);
         }
 
-        saveProjectListToLocalStorage() {
-                window.localStorage.setItem('projectList', JSON.stringify(this.projectList));
-        }
 
-        getListFromLocalStorage(list) {
-                return JSON.parse(window.localStorage.getItem(list));
-        }
 };

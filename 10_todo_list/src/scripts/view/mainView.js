@@ -24,6 +24,12 @@ export default class MainView {
         getProjectFormInput() {
                 return this.getFormField('add-project-form', 'project-name');
         }
+        
+        clearDiv(div) {
+                while (div.firstChild) {
+                        div.removeChild(div.firstChild);
+                }
+        }
 
         resetForm(formID) {
                 let form = this.getById(formID);
@@ -40,5 +46,44 @@ export default class MainView {
                 this.getById(dialogId).close();
         };  
 
+        generateProjectDiv = (project) => {
+                const projectDiv = document.createElement('div');
+                projectDiv.textContent = project.name;
+                return projectDiv;
+        }
 
+        generateTaskDiv = (task) => {
+                const taskDiv = document.createElement('div');
+                        
+                const taskName = document.createElement('div');
+                taskName.textContent = task.name;
+                taskDiv.appendChild(taskName);
+
+                const taskDueDate = document.createElement('div');
+                taskDueDate.textContent = task.dueDate;
+                taskDiv.appendChild(taskDueDate);
+                
+                taskDiv.classList.add(task.isImportant ? 'task-important' : null);
+
+                if (task.isImportant) {
+                        const importantDiv = document.createElement('div');
+                        importantDiv.textContent = '⭐';
+                        importantDiv.classList.add('important-star');
+                        taskDiv.appendChild(importantDiv);
+                }
+
+                const deleteTaskBtn = document.createElement('button');
+                deleteTaskBtn.classList.add('delete-task-btn');
+                deleteTaskBtn.innerText = 'delete';
+                // deleteTaskBtn.dataset.taskId = task.id;
+                deleteTaskBtn.addEventListener('click', function() {
+                        console.log(task.id)
+                        const taskList = this.controller.deleteTask(task.id);
+                        taskDiv.remove();
+                        localStorage.setItem('taskList', JSON.stringify(taskList));
+                });
+                taskDiv.appendChild(deleteTaskBtn);
+
+                return taskDiv;
+        }
     }

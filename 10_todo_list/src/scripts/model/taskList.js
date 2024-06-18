@@ -5,24 +5,17 @@ export default class TaskList {
         {
                 this.taskList = {};
         }
-    
-        // get taskList()
-        // {
-        //         return Object.values(this.taskList);
-        // }
 
-        add(task)
-        {
-                return this.taskList[task.id] = task;
+        add(task) {
+                this.taskList[task.id] = task;
         }
 
-        get(taskId)
-        {
-                return this.taskList[taskId];
+        delete(taskId) {
+                this.taskList = this.taskList.filter(task => task.id !== taskId);
         }
 
-        delete(taskId)
-        {
-                delete this.taskList[taskId];
+        get(taskId) {
+                return this.taskList.find(task => task.id === taskId);
         }
+
 }
