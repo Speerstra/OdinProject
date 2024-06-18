@@ -11,7 +11,6 @@ export default class MainController {
     
             // Filter displays
             // toggle task as complete
-            // delete task
             // window.addeventlistener('load', getdatafromstorage)
         }
     
@@ -68,7 +67,7 @@ export default class MainController {
                         const deleteTaskBtn = document.createElement('button');
                         deleteTaskBtn.classList.add('delete-task-btn');
                         deleteTaskBtn.innerText = 'delete';
-                        // Arrow function to retain 'this' context
+
                         deleteTaskBtn.addEventListener('click', () => {
                         this.deleteTaskcontrol(task.id);
                         taskDiv.remove();
