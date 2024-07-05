@@ -18,6 +18,13 @@ export default class App {
         this.saveProjects();
     }
 
+    deleteProject(projectID) {
+        console.log('delete project!')
+        this.projectList.deleteProject(projectID);
+        this.saveProjects();
+        this.renderProjects();
+    }
+
     addTaskToProject(projectId, taskName) {
         const project = this.projectList.findProject(projectId);
         if (project) {
@@ -35,6 +42,7 @@ export default class App {
     }
 
 
+
     // DOM Elements
     createTaskListElement(tasks) {
         const ul = document.createElement('ul');
@@ -46,6 +54,7 @@ export default class App {
         return ul;
     }
 
+
     createProjectElement(project) {
         const div = document.createElement('div');
         div.innerHTML = `
@@ -55,9 +64,39 @@ export default class App {
         
         const taskListElement = this.createTaskListElement(project.tasks);
         div.appendChild(taskListElement);
+
+        const addTaskForm = document.createElement('form');
+        addTaskForm.innerHTML = `
+        <input type="text" placeholder="Enter task name" id="taskInput">
+        <button type="submit">Add Task</button>
+        `;
+        addTaskForm.classList.add('taskForm');
+        addTaskForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const taskName = document.getElementById('taskInput').value.trim();
+            if (taskName === '') {
+                return;
+            }
         
+            this.addTaskToProject(project.id, taskName);
+            document.getElementById('taskInput').value = '';
+            this.renderProjects()
+        })
+        
+        div.appendChild(addTaskForm)
+        const deleteProjectButton = document.createElement('button')
+        deleteProjectButton.innerHTML = 'X';
+        deleteProjectButton.classList.add('delete-project-button');
+        deleteProjectButton.setAttribute('data-project-id', project.id)
+        deleteProjectButton.addEventListener('click', () => {
+            this.deleteProject(project.id);
+        })
+        div.appendChild(deleteProjectButton)
+
         return div;
     }
+
+
 
     clearElement(element) {
         while (element.firstChild) {
@@ -65,6 +104,18 @@ export default class App {
         }
     }
 
+    renderProjects() {
+        const projectListContainer = document.getElementById('projectList');
+
+        this.clearElement(projectListContainer);
+    
+        const projects = Storage.getProjects(); 
+    
+        projects.forEach(project => {
+            const projectElement = this.createProjectElement(project);
+            projectListContainer.appendChild(projectElement);
+        });
+    }
 
 
     // Event Listeners
@@ -79,36 +130,7 @@ export default class App {
             }
         });
 
-        // Add task to project
-        document.getElementById('taskForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
-        
-            const taskName = document.getElementById('taskInput').value.trim();
-        
-            if (taskName === '') {
-                return;
-            }
-        
-            const newTaskElement = this.createTaskElement(taskName);
-        
-            const taskList = document.getElementById('taskList');
-            taskList.appendChild(newTaskElement);
-        
-            // Clear form field
-            document.getElementById('taskInput').value = '';
-        });
-    }
 
-    renderProjects() {
-        const projectListContainer = document.getElementById('projectList');
-        console.log(projectListContainer);
-        this.clearElement(projectListContainer);
-    
-        const projects = Storage.getProjects(); 
-    
-        projects.forEach(project => {
-            const projectElement = this.createProjectElement(project);
-            projectListContainer.appendChild(projectElement);
-        });
+
     }
 }
