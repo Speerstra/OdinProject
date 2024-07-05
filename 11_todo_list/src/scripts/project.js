@@ -13,4 +13,8 @@ export default class Project {
         const task = new Task(taskName);
         this.tasks.push(task);
     }
+
+    deleteTask(taskId) {
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+    }
 }
