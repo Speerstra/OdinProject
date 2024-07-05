@@ -20,13 +20,23 @@ export default class MainModel {
         }
 
         // TASKS -----
-        createTask(name, project, dueDate, isImportant) {
-                return new Task(name, project, dueDate, isImportant);
+        getTaskById(taskId) {
+                return this.taskList[taskId];
         }
+
+        createTask(name, project, dueDate, isImportant, isComplete = false) {
+                return new Task(name, project, dueDate, isImportant, isComplete);
+        }
+
+        editTask(taskId, name, project, dueDate, isImportant, isComplete) {
+                getTaskById(taskId)
+                // edit task
+        }
+
+
         
         addTaskToList(task) {
                 let taskList = JSON.parse(localStorage.getItem('taskList')) || {};
-                console.log('hiiii', typeof(this.taskList));
                 this.taskList.add(task);
                 this.setLocalStorage('taskList', this.taskList);
                 return this.taskList;
@@ -42,8 +52,6 @@ export default class MainModel {
                 this.taskList = this.taskList.map(task => task.id === id ? updatedTask : task);
                 this.setLocalStorage('taskList', this.taskList);
         }
-
-
 
 
         // PROJECTS -----
@@ -68,6 +76,4 @@ export default class MainModel {
                 this.projectList.edit(id, updatedProject);
                 this.setLocalStorage('projectList', this.projectList);
         }
-
-
 };

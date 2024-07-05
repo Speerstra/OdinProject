@@ -3,7 +3,6 @@ export default class TaskList {
         
         constructor()
         {
-                // this.taskList = {};
                 let taskList = localStorage.getItem('taskList');
                 taskList = taskList ? JSON.parse(taskList) : {};
         }
@@ -21,10 +20,12 @@ export default class TaskList {
         }
 
         get(taskId) {
-                return this.taskList.find(task => task.id === taskId);
+                return this.tasks.find(task => task.id === id);
         }
 
         save() {
                 localStorage.setItem('taskList', JSON.stringify(this.taskList));
-            }
+        }
+
+        
 }

@@ -6,36 +6,11 @@ export default class MainView {
         getById(id) {
                 return document.getElementById(id);
         }
-
-        getFormField(formId, fieldName) {
-                const form = this.getById(formId);
-                return form.elements[fieldName].value;
-        }
-
-        getTaskFormInput() {
-                const taskName = this.getFormField('add-task-form', 'task-name');
-                const taskProject = this.getFormField('add-task-form', 'task-project');
-                const taskDueDate = this.getFormField('add-task-form', 'task-dueDate');
-                const taskIsImportant = this.getById('add-task-form').elements['task-isImportant'].checked;
-                
-                return { taskName, taskProject, taskDueDate, taskIsImportant };
-        }
-
-        getProjectFormInput() {
-                return this.getFormField('add-project-form', 'project-name');
-        }
         
         clearDiv(div) {
                 while (div.firstChild) {
                         div.removeChild(div.firstChild);
                 }
-        }
-
-        resetForm(formID) {
-                let form = this.getById(formID);
-                if (form) {
-                        form.reset();
-                    }
         }
 
         openDialog = (dialogId) => {
@@ -46,10 +21,24 @@ export default class MainView {
                 this.getById(dialogId).close();
         };  
 
-        generateProjectDiv = (project) => {
-                const projectDiv = document.createElement('div');
-                projectDiv.textContent = project.name;
-                return projectDiv;
+        resetForm(formID) {
+                let form = this.getById(formID);
+                if (form) {
+                        form.reset();
+                    }
+        }
+
+        getFormField(formId, fieldName) {
+                const form = this.getById(formId);
+                return form.elements[fieldName].value;
+        }
+
+        getTaskFormInput() {
+                const taskName = this.getFormField('add-task-form', 'task-name');
+                const taskDueDate = this.getFormField('add-task-form', 'task-dueDate');
+                const taskIsImportant = this.getById('add-task-form').elements['task-isImportant'].checked;
+                
+                return { taskName, taskDueDate, taskIsImportant };
         }
 
         generateTaskDiv = (task) => {
@@ -75,7 +64,6 @@ export default class MainView {
                 const deleteTaskBtn = document.createElement('button');
                 deleteTaskBtn.classList.add('delete-task-btn');
                 deleteTaskBtn.innerText = 'delete';
-                // deleteTaskBtn.dataset.taskId = task.id;
                 deleteTaskBtn.addEventListener('click', function() {
                         console.log(task.id)
                         const taskList = this.controller.deleteTask(task.id);
@@ -86,4 +74,18 @@ export default class MainView {
 
                 return taskDiv;
         }
-    }
+
+        toggleTaskComplete() {
+
+        }
+
+        getProjectFormInput() {
+                return this.getFormField('add-project-form', 'project-name');
+        }
+
+        generateProjectDiv = (project) => {
+                const projectDiv = document.createElement('div');
+                projectDiv.textContent = project.name;
+                return projectDiv;
+        }
+}

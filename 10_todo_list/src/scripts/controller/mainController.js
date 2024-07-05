@@ -12,14 +12,28 @@ export default class MainController {
             // Filter displays
             // toggle task as complete
             // window.addeventlistener('load', getdatafromstorage)
+
+            document.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('complete-task-btn')) {
+                        const taskId = e.target.dataset.taskId;
+                        console.log(taskId)
+                        const task = this.model.getTaskById(taskId);
+                        console.log('task', task)
+                        if (task) {
+                                task.toggleComplete();
+                                this.model.updateTask(taskId, task);
+                                this.displayTasks();
+                        }
+                        }
+                });
         }
     
         addTaskFromInput = (e) => {
                 e.preventDefault();
                 
-                let { taskName, taskProject, taskDueDate, taskIsImportant, taskIsComplete } = this.view.getTaskFormInput();
+                let { taskName, taskDueDate, taskIsImportant, taskIsComplete } = this.view.getTaskFormInput();
         
-                let newTask = this.model.createTask(taskName, taskProject, taskDueDate, taskIsImportant, taskIsComplete);
+                let newTask = this.model.createTask(taskName, taskDueDate, taskIsImportant, taskIsComplete);
                 console.log(newTask);
                 
                 this.model.addTaskToList(newTask);
@@ -74,6 +88,17 @@ export default class MainController {
                         localStorage.setItem('taskList', JSON.stringify(taskList));
                         });
                         taskDiv.appendChild(deleteTaskBtn);
+
+
+                        const completeTaskBtn = document.createElement('button');
+                        completeTaskBtn.classList.add('complete-task-btn');
+                        completeTaskBtn.innerText = 'mark as complete';
+                        completeTaskBtn.dataset.taskId = task.id; 
+                        completeTaskBtn.addEventListener('click', () => {
+                                console.log(task)
+                        });
+                        taskDiv.appendChild(completeTaskBtn);
+
                         taskListDiv.appendChild(taskDiv);
                 });
                 

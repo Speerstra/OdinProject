@@ -15,7 +15,7 @@ export default class ProjectList {
         //         return Object.values(this.ProjectList);
         // }
 
-        getsdf(id)
+        get(id)
         {
                 return this.ProjectList[id];
         }
@@ -24,4 +24,8 @@ export default class ProjectList {
         {
                 delete this.ProjectList[id];
         }
+
+        // set current project
+
+        // get current project
 }
