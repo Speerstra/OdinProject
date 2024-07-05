@@ -1,7 +1,5 @@
-// app.js
-
 import ProjectList from './projectList.js';
-import { saveProjectsToLocalStorage, getProjectsFromLocalStorage } from './storage.js';
+import Storage from './storage.js';
 
 export default class App {
     constructor() {
@@ -11,7 +9,7 @@ export default class App {
     }
 
     loadProjects() {
-        const storedProjects = getProjectsFromLocalStorage();
+        const storedProjects = Storage.getProjects();
         this.projectList.projects = storedProjects;
     }
 
@@ -29,53 +27,88 @@ export default class App {
     }
 
     saveProjects() {
-        saveProjectsToLocalStorage(this.projectList.projects);
+        Storage.saveProjects(this.projectList.projects);
     }
 
     getProjects() {
         return this.projectList.projects;
     }
 
+
+    // DOM Elements
+    createTaskListElement(tasks) {
+        const ul = document.createElement('ul');
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.textContent = task.name;
+            ul.appendChild(li);
+        });
+        return ul;
+    }
+
+    createProjectElement(project) {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <h3>${project.name}</h3>
+            <h4>Tasks:</h4>
+        `;
+        
+        const taskListElement = this.createTaskListElement(project.tasks);
+        div.appendChild(taskListElement);
+        
+        return div;
+    }
+
+    clearElement(element) {
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+    }
+
+
+
+    // Event Listeners
     initEventListeners() {
-        // Event listener for adding a new project
+
+        // Add project
         document.getElementById('addProjectButton').addEventListener('click', () => {
-            console.log('test test')
             const projectName = document.getElementById('projectNameInput').value;
             if (projectName) {
-                console.log(projectName);
                 this.addProject(projectName);
                 this.renderProjects();
             }
         });
 
-        // Event listener for adding a new task (this would need to be updated to reflect how you structure your HTML)
-        document.addEventListener('click', (event) => {
-            if (event.target && event.target.classList.contains('addTaskButton')) {
-                const projectId = event.target.dataset.projectId;
-                const taskName = event.target.previousElementSibling.value;
-                if (taskName) {
-                    this.addTaskToProject(projectId, taskName);
-                    this.renderProjects();
-                }
+        // Add task to project
+        document.getElementById('taskForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+        
+            const taskName = document.getElementById('taskInput').value.trim();
+        
+            if (taskName === '') {
+                return;
             }
+        
+            const newTaskElement = this.createTaskElement(taskName);
+        
+            const taskList = document.getElementById('taskList');
+            taskList.appendChild(newTaskElement);
+        
+            // Clear form field
+            document.getElementById('taskInput').value = '';
         });
     }
 
     renderProjects() {
-        const projectContainer = document.getElementById('projectContainer');
-        projectContainer.innerHTML = '';
-        this.getProjects().forEach(project => {
-            const projectElement = document.createElement('div');
-            projectElement.className = 'project';
-            projectElement.innerHTML = `
-                <h3>${project.name}</h3>
-                <input type="text" placeholder="New Task">
-                <button class="addTaskButton" data-project-id="${project.id}">Add Task</button>
-                <ul>
-                    ${project.tasks.map(task => `<li>${task.name}</li>`).join('')}
-                </ul>
-            `;
-            projectContainer.appendChild(projectElement);
+        const projectListContainer = document.getElementById('projectList');
+        console.log(projectListContainer);
+        this.clearElement(projectListContainer);
+    
+        const projects = Storage.getProjects(); 
+    
+        projects.forEach(project => {
+            const projectElement = this.createProjectElement(project);
+            projectListContainer.appendChild(projectElement);
         });
     }
 }

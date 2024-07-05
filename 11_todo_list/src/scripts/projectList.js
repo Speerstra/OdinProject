@@ -13,6 +13,6 @@ export default class ProjectList {
     }
 
     findProject(projectId) {
-        return this.projects.find(project => project.id === projectId);
+        return this.projects.find(project => project.id === parseInt(projectId));
     }
 }
