@@ -1,158 +1,92 @@
 import ProjectList from './projectList.js';
 import Storage from './storage.js';
+import DOMElements from './domElements.js';
+
 
 export default class App {
     constructor() {
         this.projectList = new ProjectList();
+        this.domElements = new DOMElements(
+            this.addTaskToProject.bind(this),
+            this.deleteProject.bind(this),
+            this.deleteTaskFromProject.bind(this),
+            this.toggleTaskComplete.bind(this)
+        );
         this.loadProjects();
         this.initEventListeners();
+        this.renderProjects();
     }
 
-    loadProjects() {
-        const storedProjects = Storage.getProjects();
-        this.projectList.projects = storedProjects;
+    loadProjects = () => {
+        this.projectList.projects = Storage.getProjects();
     }
 
-    addProject(projectName) {
+    addProject = (projectName) => {
         this.projectList.addProject(projectName);
-        this.saveProjects();
+        this.saveProjectsAndRender();
     }
 
-    deleteProject(projectID) {
-        console.log('delete project!')
+    deleteProject = (projectID) => {
         this.projectList.deleteProject(projectID);
+        this.saveProjectsAndRender();
+    }
+
+    addTaskToProject = (projectId, taskName) => {
+        const project = this.projectList.findProject(projectId);
+        if (project) {
+            project.addTask(taskName);
+            this.saveProjectsAndRender();
+        }
+    }
+
+    deleteTaskFromProject = (projectId, taskId) => {
+        const project = this.projectList.findProject(projectId);
+        if (project) {
+            project.deleteTask(taskId);
+            this.saveProjectsAndRender();
+        }
+    }
+
+    toggleTaskComplete(projectId, taskId) {
+        console.log(this.projectList);
+        const project = this.projectList.findProject(projectId);
+        console.log(project);
+        if (project) {
+            const task = project.tasks.find(task => task.id === taskId);
+            console.log(`task: ${task.id}`)
+            if (task) {
+                task.isComplete = !task.isComplete;
+                this.saveProjectsAndRender();
+            }
+        }
+    }
+
+    saveProjectsAndRender = () => {
         this.saveProjects();
         this.renderProjects();
     }
 
-    addTaskToProject(projectId, taskName) {
-        const project = this.projectList.findProject(projectId);
-        if (project) {
-            project.addTask(taskName);
-            this.saveProjects();
-        }
-    }
-
-    deleteTaskFromProject(projectId, taskId) {
-        const project = this.projectList.findProject(projectId);
-        if (project) {
-            project.deleteTask(taskId);
-            this.saveProjects();
-        }
-    }
-
-    saveProjects() {
+    saveProjects = () => {
         Storage.saveProjects(this.projectList.projects);
     }
 
-    getProjects() {
-        return this.projectList.projects;
-    }
-
-
-
-    // DOM Elements
-    createTaskListElement(project) {
-        const ul = document.createElement('ul');
-        const tasks = project.tasks
-        tasks.forEach(task => {
-            const li = document.createElement('li');
-            li.textContent = task.name;
-
-            const deleteTaskButton = document.createElement('button');
-            deleteTaskButton.textContent = 'delete Task';
-            deleteTaskButton.addEventListener('click', () => {
-                this.deleteTaskFromProject(project.id, task.id); 
-                this.renderProjects(); 
-            });
-
-            li.appendChild(deleteTaskButton)
-
-            
-            ul.appendChild(li);
-        });
-        return ul;
-    }
-
-
-    createProjectElement(project) {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <h3>${project.name}</h3>
-            <h4>Tasks:</h4>
-        `;
-        
-        const taskListElement = this.createTaskListElement(project);
-        div.appendChild(taskListElement);
-    
-        div.appendChild(this.createAddTaskForm(project));
-    
-        const deleteProjectButton = document.createElement('button')
-        deleteProjectButton.innerHTML = 'X';
-        deleteProjectButton.classList.add('delete-project-button');
-        deleteProjectButton.setAttribute('data-project-id', project.id)
-        deleteProjectButton.addEventListener('click', () => {
-            this.deleteProject(project.id);
-        })
-        div.appendChild(deleteProjectButton)
-    
-        return div;
-    }
-
-    createAddTaskForm(project) {
-        const addTaskForm = document.createElement('form');
-        addTaskForm.innerHTML = `
-            <input type="text" placeholder="Enter task name" id="taskInput">
-            <button type="submit">Add Task</button>
-        `;
-        addTaskForm.classList.add('taskForm');
-        
-        addTaskForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const taskName = document.getElementById('taskInput').value.trim();
-            if (taskName === '') {
-                return;
-            }
-        
-            this.addTaskToProject(project.id, taskName);
-            document.getElementById('taskInput').value = '';
-            this.renderProjects();
-        });
-    
-        return addTaskForm;
-    }
-
-
-
-    clearElement(element) {
-        while (element.firstChild) {
-            element.removeChild(element.firstChild);
-        }
-    }
-
-    renderProjects() {
+    renderProjects = () => {
         const projectListContainer = document.getElementById('projectList');
+        this.domElements.clearElement(projectListContainer);
 
-        this.clearElement(projectListContainer);
-    
-        const projects = Storage.getProjects(); 
-    
-        projects.forEach(project => {
-            const projectElement = this.createProjectElement(project);
+        this.projectList.projects.forEach(project => {
+            const projectElement = this.domElements.createProjectElement(project);
             projectListContainer.appendChild(projectElement);
         });
     }
 
-
-    // Event Listeners
-    initEventListeners() {
-
-        // Add project
+    initEventListeners = () => {
         document.getElementById('addProjectButton').addEventListener('click', () => {
-            const projectName = document.getElementById('projectNameInput').value;
+            const projectNameInput = document.getElementById('projectNameInput');
+            const projectName = projectNameInput.value.trim();
             if (projectName) {
                 this.addProject(projectName);
-                this.renderProjects();
+                projectNameInput.value = '';
             }
         });
     }
