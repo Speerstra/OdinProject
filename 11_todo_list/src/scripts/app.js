@@ -10,28 +10,30 @@ export default class App {
             this.addTaskToProject.bind(this),
             this.deleteProject.bind(this),
             this.deleteTaskFromProject.bind(this),
-            this.toggleTaskComplete.bind(this)
+            this.toggleTaskComplete.bind(this),
+            this.updateTaskName.bind(this),
+            this.updateTaskDueDate.bind(this)
         );
         this.loadProjects();
         this.initEventListeners();
         this.renderProjects();
     }
 
-    loadProjects = () => {
+    loadProjects() {
         this.projectList.projects = Storage.getProjects();
     }
 
-    addProject = (projectName) => {
+    addProject (projectName) {
         this.projectList.addProject(projectName);
         this.saveProjectsAndRender();
     }
 
-    deleteProject = (projectID) => {
+    deleteProject(projectID) {
         this.projectList.deleteProject(projectID);
         this.saveProjectsAndRender();
     }
 
-    addTaskToProject = (projectId, taskName) => {
+    addTaskToProject(projectId, taskName) {
         const project = this.projectList.findProject(projectId);
         if (project) {
             project.addTask(taskName);
@@ -39,7 +41,7 @@ export default class App {
         }
     }
 
-    deleteTaskFromProject = (projectId, taskId) => {
+    deleteTaskFromProject(projectId, taskId) {
         const project = this.projectList.findProject(projectId);
         if (project) {
             project.deleteTask(taskId);
@@ -48,14 +50,33 @@ export default class App {
     }
 
     toggleTaskComplete(projectId, taskId) {
-        console.log(this.projectList);
         const project = this.projectList.findProject(projectId);
-        console.log(project);
         if (project) {
             const task = project.tasks.find(task => task.id === taskId);
-            console.log(`task: ${task.id}`)
             if (task) {
-                task.isComplete = !task.isComplete;
+                task.toggleComplete();
+                this.saveProjectsAndRender();
+            }
+        }
+    }
+
+    updateTaskName(projectId, taskId, newName) {
+        const project = this.projectList.findProject(projectId);
+        if (project) {
+            const task = project.tasks.find(task => task.id === taskId);
+            if (task) {
+                task.updateName(newName);
+                this.saveProjectsAndRender();
+            }
+        }
+    }
+
+    updateTaskDueDate(projectId, taskId, newDueDate) {
+        const project = this.projectList.findProject(projectId);
+        if (project) {
+            const task = project.tasks.find(task => task.id === taskId);
+            if (task) {
+                task.updateDueDate(newDueDate);
                 this.saveProjectsAndRender();
             }
         }

@@ -3,7 +3,18 @@ import Task from './task.js';
 
 export default class Storage {
     static saveProjects(projects) {
-        localStorage.setItem('projects', JSON.stringify(projects));
+        const projectsData = projects.map(project => ({
+            id: project.id,
+            name: project.name,
+            tasks: project.tasks.map(task => ({
+                id: task.id,
+                name: task.name,
+                completed: task.completed,
+                dueDate: task.dueDate,
+            })),
+        }));
+
+        localStorage.setItem('projects', JSON.stringify(projectsData));
     }
 
     static getProjects() {
