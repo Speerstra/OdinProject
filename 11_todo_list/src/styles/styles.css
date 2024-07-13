@@ -1,0 +1,192 @@
+:root {
+  /* Colors */
+  --color-purple: #241282;
+  --color-turquoise: #7fbaba;
+  --color-turquoise-darker: #659b9b;
+  --color-lavender: #c1b2d9;
+  --color-white-light: #f0f5f9;
+  --color-white-darker: #edf2f7;
+  --color-grey: rgb(209, 205, 219);
+  --color-dark-blue: #05212c;
+
+  /* Padding, misc formatting */
+  --padding-body: 2rem;
+  --padding-button: 0.5rem 1.5rem;
+  --border-radius: 8px;
+}
+
+/* Text */
+@font-face {
+  font-family: "BalooBhaijaan2";
+  src: url("../assets/fonts/BalooBhaijaan2-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "BalooBhaijaan2", sans-serif;
+}
+
+h1 {
+  font-weight: 600;
+  color: var(--color-purple);
+}
+
+h3 {
+  font-weight: 600;
+  color: var(--color-purple);
+  margin: 0;
+}
+
+/* -------------------------------------------- */
+/* ------------------ LAYOUT ------------------ */
+/* -------------------------------------------- */
+
+#layout {
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+#layout,
+.header {
+  background-color: var(--color-cool-white-light);
+  padding: var(--padding-body);
+  padding-bottom: 0;
+}
+
+/* ---------------------------------------------- */
+/* ------------------ PROJECTS ------------------ */
+/* ---------------------------------------------- */
+
+/* Project card */
+.project {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px var(--color-grey);
+  background-color: var(--color-white-darker);
+}
+
+/* Header */
+.project-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Add project form */
+#add-project-input {
+  background-color: transparent;
+  border: none;
+  color: var(--color-dark-blue);
+}
+
+#add-project-input::placeholder {
+  color: var(--color-dark-blue);
+}
+
+/* #add-project-input:focus {
+        outline-color: var(--color-purple);
+} */
+
+/* Delete project button */
+.delete-project-button {
+  background-color: transparent;
+  color: var(--color-purple);
+  border: none;
+  cursor: pointer;
+}
+
+.delete-project-button:hover {
+  color: var(--color-lavender);
+}
+
+/* ------------------------------------------- */
+/* ------------------ TASKS ------------------ */
+/* ------------------------------------------- */
+
+/* Task List */
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+/* Task checkbox */
+.task-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--color-turquoise);
+  margin: 0;
+  padding: 0;
+}
+
+.task-checkbox:checked {
+  background-color: var(--color-turquoise);
+}
+
+/* Task name */
+.task-name {
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.2 2rem;
+  width: auto;
+  font-size: 1.1rem;
+  color: var(--color-dark-blue);
+}
+
+.task-name:hover {
+  background-color: var(--color-turquoise);
+}
+
+.task-name:focus {
+  outline-color: #58888f;
+}
+
+.task-is-complete {
+  text-decoration: line-through;
+  color: var(--color-turquoise-darker);
+  text-decoration-color: var(--color-turquoise-darker);
+}
+
+/* Due date form */
+.due-date-input {
+  margin-right: 10px;
+}
+
+/* Delete task button */
+.delete-task-button {
+  background-color: transparent;
+  border: none;
+  align-self: flex-end;
+}
+
+/* Add task form */
+.add-task-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.task-form {
+  background-color: transparent;
+  border: none;
+  color: black;
+}
+
+.task-form:focus {
+  background-color: #7fbaba;
+}

@@ -1,153 +1,297 @@
 export default class DOMElements {
-        constructor(addTaskCallback, 
-                deleteProjectCallback, 
-                deleteTaskCallback,
-                toggleTaskCallback,
-                updateTaskNameCallback,
-                updateTaskDueDateCallback) {
-                this.addTaskCallback = addTaskCallback;
-                this.deleteProjectCallback = deleteProjectCallback;
-                this.deleteTaskCallback = deleteTaskCallback;
-                this.toggleTaskCallback = toggleTaskCallback;
-                this.updateTaskNameCallback = updateTaskNameCallback;
-                this.updateTaskDueDateCallback = updateTaskDueDateCallback;
-        }
+  constructor(
+    addProjectCallback,
+    addTaskCallback,
+    deleteProjectCallback,
+    deleteTaskCallback,
+    toggleTaskCallback,
+    updateTaskNameCallback,
+    updateTaskDueDateCallback
+  ) {
+    this.addProjectCallback = addProjectCallback;
+    this.addTaskCallback = addTaskCallback;
+    this.deleteProjectCallback = deleteProjectCallback;
+    this.deleteTaskCallback = deleteTaskCallback;
+    this.toggleTaskCallback = toggleTaskCallback;
+    this.updateTaskNameCallback = updateTaskNameCallback;
+    this.updateTaskDueDateCallback = updateTaskDueDateCallback;
+  }
 
-        createTaskListElement(project) {
-                const ul = document.createElement('ul');
-                project.tasks.forEach(task => {
-                        const li = this.createTaskListItem(project.id, task);
-                        ul.appendChild(li);
-                });
-                return ul;
-        }
+  renderProjects(projects) {
+    const projectListElement = document.getElementById("project-list");
+    this.clearElement(projectListElement);
 
-        createTaskListItem(projectId, task) {
-                const li = document.createElement('li');
+    projects.forEach((project) => {
+      const projectElement = this.createProjectElement(project);
+      projectListElement.appendChild(projectElement);
+    });
+  }
 
-                const taskCheckbox = this.createTaskCheckbox(projectId, task);
-                li.append(taskCheckbox)
+  clearElement(element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  }
 
-                if (task.isComplete) {
-                        li.classList.add('isComplete');
-                }
+  handleKeyDown(event, callback, currentValue, originalValue) {
+    if (event.key !== "Enter") return;
 
-                const taskNameInput = this.createTaskNameInput(projectId, task);
-                li.appendChild(taskNameInput);
+    const newValue = currentValue.trim();
+    if (newValue && newValue !== originalValue) {
+      callback(newValue);
+    }
+    event.target.blur();
+  }
 
-                const dueDateInput = this.createDueDateInput(projectId, task);
-                li.appendChild(dueDateInput);
+  handleAddProjectForm() {
+    const input = document.getElementById("add-project-input");
+    input.placeholder = "Start a new project...";
+    input.focus();
+    input.addEventListener("keydown", (e) => {
+      this.handleKeyDown(
+        e,
+        (newName) => {
+          this.addProjectCallback(newName);
+          input.value = "";
+        },
+        input.value,
+        ""
+      );
+    });
+  }
 
-                const deleteTaskButton = this.createDeleteTaskButton(projectId, task.id);
-                li.appendChild(deleteTaskButton);
+  createProjectElement(project) {
+    const projectElement = document.createElement("div");
+    projectElement.classList.add("project");
+    projectElement.setAttribute("data-project-id", project.id);
+    projectElement.setAttribute("data-project-name", project.name);
 
-                return li;
-        }
+    const projectHeaderElement = document.createElement("div");
+    projectHeaderElement.classList.add("project-header");
 
-        createTaskCheckbox(projectId, task) {
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = task.isComplete;
-                checkbox.addEventListener('change', () => {
-                        this.toggleTaskCallback(projectId, task.id);
-                });
-                return checkbox;
-        }
+    const projectNameElement = document.createElement("h3");
+    projectNameElement.classList.add("project-name");
+    projectNameElement.textContent = project.name;
+    projectHeaderElement.appendChild(projectNameElement);
 
-        createDeleteTaskButton(projectId, taskId) {
-                const deleteTaskButton = document.createElement('button');
-                deleteTaskButton.textContent = 'Delete Task';
-                deleteTaskButton.addEventListener('click', () => {
-                        this.deleteTaskCallback(projectId, taskId);
-                });
-                return deleteTaskButton;
-        }
+    const deleteProjectButton = this.createDeleteProjectButton(project);
+    projectHeaderElement.appendChild(deleteProjectButton);
 
-        createTaskNameInput(projectId, task) {
-                const nameInput = document.createElement('input');
-                nameInput.type = 'text';
-                nameInput.value = task.name;
-                nameInput.classList.add('task-name-input');
-                nameInput.disabled = task.isComplete;
-        
-                nameInput.addEventListener('blur', () => {
-                    const newName = nameInput.value.trim();
-                    if (newName && newName !== task.name) {
-                        this.updateTaskNameCallback(projectId, task.id, newName);
-                    }
-                });
-        
-                return nameInput;
-        }
+    projectElement.appendChild(projectHeaderElement);
 
-        createDueDateInput(projectId, task) {
-                const dateInput = document.createElement('input');
-                dateInput.type = 'date';
-                dateInput.value = task.dueDate || ''; 
-                dateInput.classList.add('due-date-input');
-                dateInput.disabled = task.isComplete; 
-        
-                dateInput.addEventListener('change', () => {
-                    const dueDate = dateInput.value;
-                    this.updateTaskDueDateCallback(projectId, task.id, dueDate);
-                });
-        
-                return dateInput;
-            }
-        
+    const taskListElement = this.createTaskListElement(project);
+    projectElement.appendChild(taskListElement);
 
-        createAddTaskForm(project) {
-                const form = document.createElement('form');
-                form.classList.add('taskForm');
+    const addTaskForm = this.createAddTaskForm(project);
+    projectElement.appendChild(addTaskForm);
 
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.placeholder = 'Enter task name';
-                input.id = `taskInput_${project.id}`;
+    return projectElement;
+  }
 
-                form.appendChild(input);
+  createDeleteProjectButton(project) {
+    const deleteProjectButton = document.createElement("button");
+    deleteProjectButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    `;
 
-                form.addEventListener('submit', (event) => {
-                        event.preventDefault();
-                        const taskName = input.value.trim();
-                        if (taskName) {
-                                this.addTaskCallback(project.id, taskName);
-                                input.value = '';
-                        }
-                });
+    deleteProjectButton.classList.add("delete-project-button");
+    deleteProjectButton.addEventListener("click", () => {
+      this.deleteProjectCallback(project.id);
+    });
 
-                return form;
-        }
+    return deleteProjectButton;
+  }
 
-        createProjectElement(project) {
-                const div = document.createElement('div');
-                div.setAttribute('data-project-id', project.id);
-                div.setAttribute('data-project-name', project.name);
-                div.innerHTML = `
-                    <h3>${project.name}</h3>
-                    <h4>Tasks:</h4>
-                `;
+  createTaskListElement(project) {
+    const ul = document.createElement("ul");
+    ul.classList.add("task-list");
+    project.tasks.forEach((task) => {
+      const li = this.createTaskListItem(project.id, task);
+      li.classList.add("task");
+      ul.appendChild(li);
+    });
+    return ul;
+  }
 
-                const taskListElement = this.createTaskListElement(project);
-                div.appendChild(taskListElement);
+  createTaskListItem(projectId, task) {
+    const li = document.createElement("li");
 
-                const addTaskForm = this.createAddTaskForm(project);
-                div.appendChild(addTaskForm);
+    const taskCheckbox = this.createTaskCheckbox(projectId, task);
+    taskCheckbox.classList.add("task-checkbox");
+    li.append(taskCheckbox);
 
-                const deleteProjectButton = document.createElement('button');
-                deleteProjectButton.textContent = 'X';
-                deleteProjectButton.classList.add('delete-project-button');
-                deleteProjectButton.addEventListener('click', () => {
-                        this.deleteProjectCallback(project.id);
-                });
-                div.appendChild(deleteProjectButton);
+    const taskNameInput = this.createTaskNameInput(projectId, task);
+    li.appendChild(taskNameInput);
 
-                return div;
-        }
+    const dueDateElement = this.createDueDateElement(projectId, task);
+    li.appendChild(dueDateElement);
 
-        clearElement(element) {
-                while (element.firstChild) {
-                        element.removeChild(element.firstChild);
-                }
-            }
+    const deleteTaskButton = this.createDeleteTaskButton(projectId, task.id);
+    li.appendChild(deleteTaskButton);
+
+    return li;
+  }
+
+  createTaskCheckbox(projectId, task) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.isComplete;
+    checkbox.addEventListener("change", () => {
+      this.toggleTaskCallback(projectId, task.id);
+    });
+    return checkbox;
+  }
+
+  createTaskNameInput(projectId, task) {
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.value = task.name;
+    nameInput.classList.add("task-name");
+    nameInput.disabled = task.isComplete;
+
+    if (task.isComplete) {
+      nameInput.classList.add("task-is-complete");
+    }
+
+    nameInput.addEventListener("keydown", (e) => {
+      this.handleKeyDown(
+        e,
+        (newName) => {
+          this.updateTaskNameCallback(projectId, task.id, newName);
+        },
+        nameInput.value,
+        task.name
+      );
+    });
+
+    return nameInput;
+  }
+
+  createDueDateElement(projectId, task) {
+    const dateContainer = document.createElement("div");
+    dateContainer.classList.add("date-container");
+
+    if (task.dueDate) {
+      const { dateText, dateInput } = this.createDateElements(
+        task.dueDate,
+        task.isComplete
+      );
+
+      dateText.addEventListener("click", () =>
+        this.toggleDateInput(dateText, dateInput)
+      );
+      dateInput.addEventListener("blur", () =>
+        this.handleDateChange(dateText, dateInput, projectId, task)
+      );
+      dateInput.addEventListener("change", () =>
+        this.handleDateChange(dateText, dateInput, projectId, task)
+      );
+
+      dateContainer.appendChild(dateText);
+      dateContainer.appendChild(dateInput);
+    } else {
+      const dateInput = this.createDateInputElement(
+        task.dueDate,
+        task.isComplete
+      );
+      dateInput.addEventListener("change", () =>
+        this.updateDueDate(projectId, task, dateInput.value)
+      );
+      dateContainer.appendChild(dateInput);
+    }
+
+    console.log(task.dueDate); // Check if dueDate is being logged correctly
+
+    return dateContainer;
+  }
+
+  createDateElements(dueDate, isComplete) {
+    const dateText = document.createElement("span");
+    dateText.innerHTML = new Date(dueDate).toLocaleDateString();
+    dateText.classList.add("date-text");
+
+    const dateInput = this.createDateInputElement(dueDate, isComplete);
+    dateInput.style.display = "none";
+
+    return { dateText, dateInput };
+  }
+
+  createDateInputElement(dueDate, isComplete) {
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.value = dueDate || "";
+    dateInput.classList.add("due-date-input");
+    dateInput.disabled = isComplete;
+    return dateInput;
+  }
+
+  toggleDateInput(dateText, dateInput) {
+    dateText.style.display = "none";
+    dateInput.style.display = "inline";
+    dateInput.focus();
+  }
+
+  handleDateChange(dateText, dateInput, projectId, task) {
+    if (dateInput.value !== task.dueDate) {
+      this.updateDueDate(projectId, task, dateInput.value);
+      dateText.innerHTML = new Date(dateInput.value).toLocaleDateString();
+    }
+    dateText.style.display = "inline";
+    dateInput.style.display = "none";
+  }
+
+  updateDueDate(projectId, task, dueDate) {
+    this.updateTaskDueDateCallback(projectId, task.id, dueDate);
+    task.dueDate = dueDate;
+    this.saveProjectsToLocalStorage();
+  }
+
+  createDeleteTaskButton(projectId, taskId) {
+    const deleteTaskButton = document.createElement("button");
+    deleteTaskButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>`;
+    deleteTaskButton.classList.add("delete-task-button");
+    deleteTaskButton.addEventListener("click", () => {
+      this.deleteTaskCallback(projectId, taskId);
+    });
+    return deleteTaskButton;
+  }
+
+  createAddTaskForm(project) {
+    const addTaskElement = document.createElement("div");
+    addTaskElement.classList.add("add-task-container");
+
+    const plusIcon = document.createElement("div");
+    plusIcon.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="4" width="4" height="16" rx="2" ry="2" fill="currentColor"/>
+    <rect x="4" y="10" width="16" height="4" rx="2" ry="2" fill="currentColor"/>
+</svg>
+    `;
+    addTaskElement.appendChild(plusIcon);
+
+    const form = document.createElement("form");
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Add a task";
+    input.classList.add("task-form");
+    form.appendChild(input);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const taskName = input.value.trim();
+      if (taskName) {
+        this.addTaskCallback(project.id, taskName);
+        input.value = "";
+        input.blur();
+      }
+    });
+    addTaskElement.appendChild(form);
+    return addTaskElement;
+  }
 }

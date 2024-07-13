@@ -17,4 +17,5 @@ export default class Project {
     deleteTask(taskId) {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
     }
+    
 }
