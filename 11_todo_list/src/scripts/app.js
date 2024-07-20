@@ -11,6 +11,7 @@ export default class App {
       this.deleteProject.bind(this),
       this.deleteTaskFromProject.bind(this),
       this.toggleTaskComplete.bind(this),
+      this.updateProjectName.bind(this),
       this.updateTaskName.bind(this),
       this.updateTaskDueDate.bind(this)
     );
@@ -30,6 +31,11 @@ export default class App {
 
   addProject(projectName) {
     this.projectList.addProject(projectName);
+    this.saveProjectsAndRender();
+  }
+
+  updateProjectName(projectId, newProjectName) {
+    this.projectList.updateProjectName(projectId, newProjectName);
     this.saveProjectsAndRender();
   }
 

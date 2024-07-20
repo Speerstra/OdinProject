@@ -5,6 +5,7 @@ export default class DOMElements {
     deleteProjectCallback,
     deleteTaskCallback,
     toggleTaskCallback,
+    updateProjectNameCallback,
     updateTaskNameCallback,
     updateTaskDueDateCallback
   ) {
@@ -13,6 +14,7 @@ export default class DOMElements {
     this.deleteProjectCallback = deleteProjectCallback;
     this.deleteTaskCallback = deleteTaskCallback;
     this.toggleTaskCallback = toggleTaskCallback;
+    this.updateProjectNameCallback = updateProjectNameCallback;
     this.updateTaskNameCallback = updateTaskNameCallback;
     this.updateTaskDueDateCallback = updateTaskDueDateCallback;
   }
@@ -69,9 +71,7 @@ export default class DOMElements {
     const projectHeaderElement = document.createElement("div");
     projectHeaderElement.classList.add("project-header");
 
-    const projectNameElement = document.createElement("h3");
-    projectNameElement.classList.add("project-name");
-    projectNameElement.textContent = project.name;
+    const projectNameElement = this.createProjectName(project);
     projectHeaderElement.appendChild(projectNameElement);
 
     const deleteProjectButton = this.createDeleteProjectButton(project);
@@ -86,6 +86,27 @@ export default class DOMElements {
     projectElement.appendChild(addTaskForm);
 
     return projectElement;
+  }
+
+  createProjectName(project) {
+    const projectNameElement = document.createElement("input");
+    projectNameElement.type = "text";
+    projectNameElement.value = project.name;
+    projectNameElement.classList.add("project-name");
+    projectNameElement.textContent = project.name;
+
+    projectNameElement.addEventListener("keydown", (e) => {
+      this.handleKeyDown(
+        e,
+        (newProjectName) => {
+          this.updateProjectNameCallback(project.id, newProjectName);
+        },
+        projectNameElement.value,
+        project.name
+      );
+    });
+
+    return projectNameElement;
   }
 
   createDeleteProjectButton(project) {

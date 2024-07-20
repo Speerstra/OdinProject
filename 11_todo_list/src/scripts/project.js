@@ -1,21 +1,24 @@
 // project.js
 
-import Task from './task.js';
+import Task from "./task.js";
 
 export default class Project {
-    constructor(name) {
-        this.id = new Date().getTime();
-        this.name = name;
-        this.tasks = [];
-    }
+  constructor(name) {
+    this.id = new Date().getTime();
+    this.name = name;
+    this.tasks = [];
+  }
 
-    addTask(taskName) {
-        const task = new Task(taskName);
-        this.tasks.push(task);
-    }
+  addTask(taskName) {
+    const task = new Task(taskName);
+    this.tasks.push(task);
+  }
 
-    deleteTask(taskId) {
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
-    }
-    
+  deleteTask(taskId) {
+    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+  }
+
+  updateProjectName(newProjectName) {
+    this.name = newProjectName;
+  }
 }

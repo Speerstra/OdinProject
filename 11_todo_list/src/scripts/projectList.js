@@ -38,6 +38,11 @@ export default class ProjectList {
     );
   }
 
+  updateProjectName(projectId, newProjectName) {
+    const project = this.findProject(projectId);
+    project.updateProjectName(newProjectName);
+  }
+
   sortProjects() {
     this.projects.sort((a, b) => a.name.localeCompare(b.name));
   }
