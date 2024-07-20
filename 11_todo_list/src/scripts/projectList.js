@@ -37,4 +37,8 @@ export default class ProjectList {
       (project) => project.id !== parseInt(projectId)
     );
   }
+
+  sortProjects() {
+    this.projects.sort((a, b) => a.name.localeCompare(b.name));
+  }
 }
