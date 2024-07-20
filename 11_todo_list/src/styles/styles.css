@@ -39,6 +39,7 @@ h1 {
 }
 
 h3,
+.project-name,
 #add-project-input,
 #add-project-input::placeholder {
   font-size: 1.5rem;
@@ -118,7 +119,8 @@ h3,
 }
 
 /* Add project form */
-#add-project-input {
+#add-project-input,
+.project-name {
   background-color: transparent;
   border: none;
   width: auto;
@@ -127,7 +129,8 @@ h3,
   min-height: 3rem;
 }
 
-#add-project-input:focus {
+#add-project-input:focus,
+.project-name:focus {
   outline: none;
 }
 
