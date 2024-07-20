@@ -198,12 +198,10 @@ export default class DOMElements {
         task.isComplete
       );
       dateInput.addEventListener("change", () =>
-        this.updateDueDate(projectId, task, dateInput.value)
+        this.updateTaskDueDateCallback(projectId, task.id, dateInput.value)
       );
       dateContainer.appendChild(dateInput);
     }
-
-    console.log(task.dueDate); // Check if dueDate is being logged correctly
 
     return dateContainer;
   }
@@ -212,6 +210,10 @@ export default class DOMElements {
     const dateText = document.createElement("span");
     dateText.innerHTML = new Date(dueDate).toLocaleDateString();
     dateText.classList.add("date-text");
+
+    if (isComplete) {
+      dateText.classList.add("task-is-complete");
+    }
 
     const dateInput = this.createDateInputElement(dueDate, isComplete);
     dateInput.style.display = "none";
@@ -236,17 +238,11 @@ export default class DOMElements {
 
   handleDateChange(dateText, dateInput, projectId, task) {
     if (dateInput.value !== task.dueDate) {
-      this.updateDueDate(projectId, task, dateInput.value);
+      this.updateTaskDueDateCallback(projectId, task.id, dateInput.value);
       dateText.innerHTML = new Date(dateInput.value).toLocaleDateString();
     }
     dateText.style.display = "inline";
     dateInput.style.display = "none";
-  }
-
-  updateDueDate(projectId, task, dueDate) {
-    this.updateTaskDueDateCallback(projectId, task.id, dueDate);
-    task.dueDate = dueDate;
-    this.saveProjectsToLocalStorage();
   }
 
   createDeleteTaskButton(projectId, taskId) {
@@ -267,11 +263,12 @@ export default class DOMElements {
     addTaskElement.classList.add("add-task-container");
 
     const plusIcon = document.createElement("div");
-    plusIcon.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    plusIcon.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="10" y="4" width="4" height="16" rx="2" ry="2" fill="currentColor"/>
     <rect x="4" y="10" width="16" height="4" rx="2" ry="2" fill="currentColor"/>
 </svg>
     `;
+    plusIcon.classList.add("add-task-plus-icon");
     addTaskElement.appendChild(plusIcon);
 
     const form = document.createElement("form");

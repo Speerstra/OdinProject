@@ -1,18 +1,23 @@
 :root {
   /* Colors */
   --color-purple: #241282;
+  --color-purple-muted: #564e7c;
   --color-turquoise: #7fbaba;
   --color-turquoise-darker: #659b9b;
   --color-lavender: #c1b2d9;
+  --color-white: #f6f6f6;
   --color-white-light: #f0f5f9;
-  --color-white-darker: #edf2f7;
+  --color-white-dark: #edf2f7;
+  --color-white-darker: #d0deed;
   --color-grey: rgb(209, 205, 219);
   --color-dark-blue: #05212c;
+  --color-dark-blue-muted: #6c7a80;
 
   /* Padding, misc formatting */
   --padding-body: 2rem;
   --padding-button: 0.5rem 1.5rem;
   --border-radius: 8px;
+  --padding-task: 0.2rem;
 }
 
 /* Text */
@@ -30,30 +35,66 @@ body {
 
 h1 {
   font-weight: 600;
-  color: var(--color-purple);
+  color: var(--color-white);
 }
 
-h3 {
+h3,
+#add-project-input,
+#add-project-input::placeholder {
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-purple);
   margin: 0;
 }
 
+#add-project-input::placeholder {
+  color: var(--color-purple-muted);
+}
+
 /* -------------------------------------------- */
-/* ------------------ LAYOUT ------------------ */
+/* -------------- page layout ----------------- */
 /* -------------------------------------------- */
 
-#layout {
+#page-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+}
+
+.header {
+  background-color: var(--color-purple-muted);
+  padding: 0 var(--padding-body);
+}
+
+.footer {
+  background-color: var(--color-purple-muted);
+  color: var(--color-white-light);
+  padding: 1rem;
+  text-align: center;
+}
+
+.github-logo {
+  height: 1rem;
+  width: auto;
+  margin: 0 0.5rem;
+}
+
+.footer > a {
+  text-decoration: none;
+  color: var(--color-white-light);
+}
+/* -------------------------------------------- */
+/* ------------------ content ------------------ */
+/* -------------------------------------------- */
+
+#content {
   width: 100vw;
-  min-height: 100vh;
   box-sizing: border-box;
 }
 
-#layout,
-.header {
+#content {
   background-color: var(--color-cool-white-light);
   padding: var(--padding-body);
-  padding-bottom: 0;
 }
 
 /* ---------------------------------------------- */
@@ -66,7 +107,7 @@ h3 {
   margin-bottom: 2rem;
   border-radius: var(--border-radius);
   box-shadow: 0 2px 4px var(--color-grey);
-  background-color: var(--color-white-darker);
+  background-color: var(--color-white-dark);
 }
 
 /* Header */
@@ -80,16 +121,15 @@ h3 {
 #add-project-input {
   background-color: transparent;
   border: none;
-  color: var(--color-dark-blue);
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 3rem;
 }
 
-#add-project-input::placeholder {
-  color: var(--color-dark-blue);
+#add-project-input:focus {
+  outline: none;
 }
-
-/* #add-project-input:focus {
-        outline-color: var(--color-purple);
-} */
 
 /* Delete project button */
 .delete-project-button {
@@ -119,19 +159,26 @@ h3 {
   flex-direction: row;
   align-items: center;
   justify-content: left;
+  border-radius: var(--border-radius);
+  padding: 0.2rem;
+}
+
+.task:hover {
+  background-color: var(--color-white-darker);
 }
 
 /* Task checkbox */
 .task-checkbox {
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 1rem;
+  height: 1rem;
   background-color: transparent;
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid var(--color-turquoise);
-  margin: 0;
+  margin: 0 0.7rem 0 0;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .task-checkbox:checked {
@@ -144,13 +191,10 @@ h3 {
   border: none;
   border-radius: var(--border-radius);
   padding: 0.2 2rem;
+  flex-grow: 1;
   width: auto;
   font-size: 1.1rem;
   color: var(--color-dark-blue);
-}
-
-.task-name:hover {
-  background-color: var(--color-turquoise);
 }
 
 .task-name:focus {
@@ -172,21 +216,63 @@ h3 {
 .delete-task-button {
   background-color: transparent;
   border: none;
-  align-self: flex-end;
+  justify-self: flex-end;
+  margin-left: auto;
+  visibility: hidden; /* Hide the button by default */
+}
+
+.task:hover .delete-task-button {
+  visibility: visible; /* Show the button when hovering over .task */
 }
 
 /* Add task form */
 .add-task-container {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-task);
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.add-task-container:hover {
+  background-color: var(--color-white-darker);
+}
+
+.add-task-plus-icon {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: var(--color-turquoise);
+}
+
+.add-task-plus-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .task-form {
   background-color: transparent;
   border: none;
-  color: black;
+  border-radius: var(--border-radius);
+  flex-grow: 1;
+  width: auto;
+  font-size: 1rem;
+  color: var(--color-dark-blue-muted);
 }
 
 .task-form:focus {
-  background-color: #7fbaba;
+  outline: none;
+}
+
+.task-form::placeholder {
+  color: var(--color-dark-blue-muted);
 }

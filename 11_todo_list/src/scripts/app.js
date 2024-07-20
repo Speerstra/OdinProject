@@ -71,6 +71,7 @@ export default class App {
   }
 
   updateTaskDueDate(projectId, taskId, newDueDate) {
+    console.log(taskId);
     const task = this.projectList.findTask(projectId, taskId);
     if (task) {
       task.updateDueDate(newDueDate);

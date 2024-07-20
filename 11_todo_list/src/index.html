@@ -6,15 +6,33 @@
   </head>
 
   <body>
-    <h1 class="header">Task Manager</h1>
-    <div id="layout">
-      <div id="project-list"></div>
-      <div class="project">
-        <form id="project-form">
-          <input type="text" id="add-project-input" />
-        </form>
+    <div id="page-layout">
+      <div class="header">
+        <h1>Task Manager</h1>
+      </div>
+      <div id="content">
+        <div id="project-list"></div>
+        <div class="project">
+          <form id="project-form">
+            <input type="text" id="add-project-input" />
+          </form>
+        </div>
+      </div>
+      <div class="footer">
+        <a
+          href="https://github.com/Speerstra/OdinProject/tree/main/11_todo_list"
+          target="_blank"
+        >
+          © Sietske Speerstra
+          <img
+            src="../src/assets/github.svg"
+            alt="GitHub Logo"
+            class="github-logo"
+          />
+        </a>
       </div>
     </div>
+
     <script src="main.js"></script>
   </body>
 </html>
