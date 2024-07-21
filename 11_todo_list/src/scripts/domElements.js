@@ -1,3 +1,5 @@
+import DateElement from "./dateElement.js";
+
 export default class DOMElements {
   constructor(
     addProjectCallback,
@@ -93,7 +95,6 @@ export default class DOMElements {
     projectNameElement.type = "text";
     projectNameElement.value = project.name;
     projectNameElement.classList.add("project-name");
-    projectNameElement.textContent = project.name;
 
     projectNameElement.addEventListener("keydown", (e) => {
       this.handleKeyDown(
@@ -147,7 +148,11 @@ export default class DOMElements {
     const taskNameInput = this.createTaskNameInput(projectId, task);
     li.appendChild(taskNameInput);
 
-    const dueDateElement = this.createDueDateElement(projectId, task);
+    const dueDateElement = DateElement.createDueDateElement(
+      projectId,
+      task,
+      this.updateTaskDueDateCallback
+    );
     li.appendChild(dueDateElement);
 
     const deleteTaskButton = this.createDeleteTaskButton(projectId, task.id);
@@ -191,81 +196,6 @@ export default class DOMElements {
     return nameInput;
   }
 
-  createDueDateElement(projectId, task) {
-    const dateContainer = document.createElement("div");
-    dateContainer.classList.add("date-container");
-
-    if (task.dueDate) {
-      const { dateText, dateInput } = this.createDateElements(
-        task.dueDate,
-        task.isComplete
-      );
-
-      dateText.addEventListener("click", () =>
-        this.toggleDateInput(dateText, dateInput)
-      );
-      dateInput.addEventListener("blur", () =>
-        this.handleDateChange(dateText, dateInput, projectId, task)
-      );
-      dateInput.addEventListener("change", () =>
-        this.handleDateChange(dateText, dateInput, projectId, task)
-      );
-
-      dateContainer.appendChild(dateText);
-      dateContainer.appendChild(dateInput);
-    } else {
-      const dateInput = this.createDateInputElement(
-        task.dueDate,
-        task.isComplete
-      );
-      dateInput.addEventListener("change", () =>
-        this.updateTaskDueDateCallback(projectId, task.id, dateInput.value)
-      );
-      dateContainer.appendChild(dateInput);
-    }
-
-    return dateContainer;
-  }
-
-  createDateElements(dueDate, isComplete) {
-    const dateText = document.createElement("span");
-    dateText.innerHTML = new Date(dueDate).toLocaleDateString();
-    dateText.classList.add("date-text");
-
-    if (isComplete) {
-      dateText.classList.add("task-is-complete");
-    }
-
-    const dateInput = this.createDateInputElement(dueDate, isComplete);
-    dateInput.style.display = "none";
-
-    return { dateText, dateInput };
-  }
-
-  createDateInputElement(dueDate, isComplete) {
-    const dateInput = document.createElement("input");
-    dateInput.type = "date";
-    dateInput.value = dueDate || "";
-    dateInput.classList.add("due-date-input");
-    dateInput.disabled = isComplete;
-    return dateInput;
-  }
-
-  toggleDateInput(dateText, dateInput) {
-    dateText.style.display = "none";
-    dateInput.style.display = "inline";
-    dateInput.focus();
-  }
-
-  handleDateChange(dateText, dateInput, projectId, task) {
-    if (dateInput.value !== task.dueDate) {
-      this.updateTaskDueDateCallback(projectId, task.id, dateInput.value);
-      dateText.innerHTML = new Date(dateInput.value).toLocaleDateString();
-    }
-    dateText.style.display = "inline";
-    dateInput.style.display = "none";
-  }
-
   createDeleteTaskButton(projectId, taskId) {
     const deleteTaskButton = document.createElement("button");
     deleteTaskButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -285,9 +215,9 @@ export default class DOMElements {
 
     const plusIcon = document.createElement("div");
     plusIcon.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="10" y="4" width="4" height="16" rx="2" ry="2" fill="currentColor"/>
-    <rect x="4" y="10" width="16" height="4" rx="2" ry="2" fill="currentColor"/>
-</svg>
+      <rect x="10" y="4" width="4" height="16" rx="2" ry="2" fill="currentColor"/>
+      <rect x="4" y="10" width="16" height="4" rx="2" ry="2" fill="currentColor"/>
+      </svg>
     `;
     plusIcon.classList.add("add-task-plus-icon");
     addTaskElement.appendChild(plusIcon);

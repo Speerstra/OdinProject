@@ -116,6 +116,11 @@ h3,
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
+}
+
+.project-name:hover {
+  background-color: var(--color-white-darker);
 }
 
 /* Add project form */
@@ -123,10 +128,11 @@ h3,
 .project-name {
   background-color: transparent;
   border: none;
-  width: auto;
+  border-radius: var(--border-radius);
+  flex-grow: 1;
   height: auto;
-  min-width: 100%;
-  min-height: 3rem;
+  min-height: 2rem;
+  padding-bottom: 0.5rem;
 }
 
 #add-project-input:focus,
@@ -140,6 +146,7 @@ h3,
   color: var(--color-purple);
   border: none;
   cursor: pointer;
+  padding: 0 0.5rem;
 }
 
 .delete-project-button:hover {
@@ -195,7 +202,7 @@ h3,
   border-radius: var(--border-radius);
   padding: 0.2 2rem;
   flex-grow: 1;
-  width: auto;
+  /* width: auto; */
   font-size: 1.1rem;
   color: var(--color-dark-blue);
 }
@@ -213,6 +220,15 @@ h3,
 /* Due date form */
 .due-date-input {
   margin-right: 10px;
+}
+
+.add-date-button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-dark-blue-muted);
+  font-size: 1rem;
+  text-align: right;
+  padding: 0;
 }
 
 /* Delete task button */
