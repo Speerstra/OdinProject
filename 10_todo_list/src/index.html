@@ -1,58 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-</head>
-<body>
-        <div id="main">
-                <header>
-                        <div id="logo"></div>
-                        <h1>Task List</h1>
-                </header>
-                <nav>
-                        <button id="add-task-dialog-btn">Add task</button>
-                        <ul id="nav-list">
-                                <li>Today</li>
-                                <li>This week</li>
-                                <li>Important</li>
-                        </ul>
-                        </ul>
-                        <br>
-                        <h3>Projects</h3>
-                        <button id="add-project-dialog-btn">Add Project</button>
-                        <div id="project-list"></div>
-                </nav>
-                <div id="content">
-                        <dialog id="add-task-dialog">
-                                <form id="add-task-form" method="dialog">
-                                        <div class="form-field">
-                                                <label for="task-name">Task</label>
-                                                <input id="task-name" name="task-name" type="text" required>
-                                        </div>
-                                        <div class="form-field">
-                                                <label for="task-dueDate">Due Date</label>
-                                                <input id="task-dueDate" name="task-dueDate" type="date" required>
-                                        </div>
-                                        <label for="is-important">Important?</label>
-                                        <input type="checkbox" id="task-isImportant" name="task-isImportant">
-                                        <br>
-                                        <input id="add-task-submit-btn" type="submit" value="add-task">
-                                </form>
-                        </dialog>
-                        <dialog id="add-project-dialog">
-                                <form id="add-project-form" method="dialog">
-                                        <div class="form-field">
-                                                <label for="project-name">Project</label>
-                                                <input id="project-name" name="project-name" type="text" required>
-                                        </div>
-                                        <input id="add-project-submit-btn" type="submit" value="add-project">
-                                </form>
-                        </dialog>
-                        <div id="task-list"></div>
-                </div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TODO</title>
+		<link rel="icon" href="../src/assets/favicon.ico"><script defer src="main.js"></script></head>
+  </head>
 
-</body>
+  <body>
+    <div id="page-layout">
+      <div class="header">
+        <h1>TODO</h1>
+      </div>
+      <div id="content">
+        <div id="project-list"></div>
+        <div class="project">
+          <form id="project-form">
+            <input type="text" id="add-project-input" />
+          </form>
+        </div>
+      </div>
+      <div class="footer">
+        <a
+          href="https://github.com/Speerstra/OdinProject/tree/main/11_todo_list"
+          target="_blank"
+        >
+          © Sietske Speerstra
+          <img
+            src="../src/assets/github.svg"
+            alt="GitHub Logo"
+            class="github-logo"
+          />
+        </a>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
 </html>

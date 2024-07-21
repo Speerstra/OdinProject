@@ -1,92 +1,328 @@
-
-@font-face {
-        font-family: Quicksand;
-        src: url('../assets/fonts/Quicksand-Regular.ttf');
-}
-
-@font-face {
-        font-family: Quicksand-Bold;
-        src: url('../assets/fonts/Quicksand-Bold.ttf');
-}
-
-@font-face {
-        font-family: Quicksand-Light;
-        src: url('../assets/fonts/Quicksand-Light.ttf');
-}
-
-* {
-        /* border: red solid; */
-        font-family: Quicksand, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
 :root {
-        --nav-background: rgb(12, 12, 92);
-        --content-background: rgb(226, 232, 245);
+  /* Colors */
+  --color-header-and-footer: #332a5f;
+  --color-project-header: #241282;
+  --color-new-project-header: #afacbf;
+  --color-completed-text: #659b9b;
+  --color-icons: #7fbaba;
+  --color-project-card: #f0f5f9;
+  --color-new-project-card: rgb(246, 248, 250);
+  --color-hover-project-or-task: #d0deed;
+  --color-white: #f6f6f6;
+  --color-grey-box-shadow: #d1cddb;
+  --color-placeholder-text: #6c7a80;
+  --color-over-due: #e21474;
+
+  /* Padding */
+  --padding-body: 2rem;
+  --padding-button: 0.5rem 1.5rem;
+  --padding-task: 0.2rem;
+  --padding-project: 2rem;
+
+  /* Border radius */
+  --border-radius: 8px;
 }
+
+/* Text */
+@font-face {
+  font-family: "BalooBhaijaan2";
+  src: url("../assets/fonts/BalooBhaijaan2-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
-        margin: 0;
+  margin: 0;
+  font-family: "BalooBhaijaan2", sans-serif;
 }
 
-#main {
-        overflow: hidden;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        display: grid;
-        grid-template-areas: 
-                "header header"
-                "nav  content";
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 300px 1fr;
+h1 {
+  font-weight: 600;
+  color: var(--color-white);
+  letter-spacing: 0.2em;
 }
 
-/* HEADER */
-
-header {
-        grid-area: header;
-        background-color: var(--nav-background);
-        box-shadow: 0 4px 2px -2px rgb(113, 85, 85);
+h3,
+.project-name,
+#add-project-input,
+#add-project-input::placeholder {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-project-header);
+  margin: 0;
 }
 
-header > h1 {
-        color: var(--content-background);
-        font-family: Quicksand-Bold;
-        font-size: 3rem;
-        margin: 1.5rem;
-        padding: 0;
+#add-project-input::placeholder {
+  color: var(--color-new-project-header);
+  font-style: italic;
 }
 
-nav {
-        grid-area: nav;
-        background-color: rgb(181, 187, 230);
-        padding: 2rem 0 0 1.5rem;
+/* -------------------------------------------- */
+/* -------------- page layout ----------------- */
+/* -------------------------------------------- */
+
+#page-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
 }
 
-
-#add-task-btn {
-        background-color: var(--nav-background); 
-        color: rgb(181, 187, 230);
-        padding: 0.5rem 2rem;
-        font-size: 2rem;
-        border: 0;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        border-radius: 0.5rem;
+.header {
+  background-color: var(--color-header-and-footer);
+  padding: 0 calc(var(--padding-body) + var(--padding-project));
+  box-shadow: 0 2px 4px var(--color-grey-box-shadow);
 }
 
-nav > ul {
-        padding: 0;
+.footer {
+  background-color: var(--color-header-and-footer);
+  color: var(--color-white);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 -2px 4px var(--color-grey-box-shadow);
 }
 
-nav > ul > li {
-        list-style-type: none;
-        color: black;
-        font-size: 2rem;
-        margin: 0.5rem 0;
-        padding: 0;
+.github-logo {
+  height: 1rem;
+  width: auto;
+  margin: 0 0.5rem;
 }
 
-/* CONTENT */
+.footer > a {
+  text-decoration: none;
+  color: var(--color-white);
+}
+/* -------------------------------------------- */
+/* ------------------ content ------------------ */
+/* -------------------------------------------- */
+
 #content {
-        grid-area: content;
-        background-color: var( --content-background);
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+#content {
+  background-color: var(--color-cool-white-light);
+  padding: var(--padding-body);
+}
+
+/* ---------------------------------------------- */
+/* ------------------ PROJECTS ------------------ */
+/* ---------------------------------------------- */
+
+/* Project card */
+.project {
+  padding: var(--padding-project);
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px var(--color-grey-box-shadow);
+  background-color: var(--color-project-card);
+  border-radius: var(--border-radius);
+}
+
+/* Header */
+.project-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.project-header:hover {
+  background-color: var(--color-hover-project-or-task);
+}
+
+/* Add project form */
+
+.project:has(#add-project-input) {
+  background-color: var(--color-new-project-card);
+  padding: 0.5rem var(--padding-project);
+  box-shadow: 0 1px 2px var(--color-grey-box-shadow);
+}
+
+#add-project-input,
+.project-name {
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  flex-grow: 1;
+  height: auto;
+  min-height: 2rem;
+}
+
+#add-project-input:focus,
+.project-name:focus {
+  outline: none;
+}
+
+/* Delete project button */
+
+.delete-project-button {
+  background-color: transparent;
+  color: var(--color-icons);
+  border: none;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  visibility: hidden;
+}
+
+.project-header:hover .delete-project-button {
+  visibility: visible;
+}
+
+.delete-project-button:hover {
+  color: var(--color-project-header);
+}
+
+/* ------------------------------------------- */
+/* ------------------ TASKS ------------------ */
+/* ------------------------------------------- */
+
+/* Task List */
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: left;
+  border-radius: var(--border-radius);
+  padding: var(--padding-task);
+}
+
+.task:hover {
+  background-color: var(--color-hover-project-or-task);
+}
+
+/* Task checkbox */
+.task-checkbox {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  align-self: center;
+  border: 2px solid var(--color-icons);
+  margin: 0 0.7rem 0 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.task-checkbox:checked {
+  background-color: var(--color-icons);
+}
+
+/* Task name */
+.task-name {
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.2 2rem;
+  flex-grow: 1;
+  font-size: 1.1rem;
+  color: var(--color-dark-blue);
+}
+
+.task-name:focus {
+  outline-color: #58888f;
+}
+
+.due-date-overdue {
+  color: var(--color-over-due);
+}
+
+.task-is-complete {
+  text-decoration: line-through;
+  color: var(--color-completed-text);
+  text-decoration-color: var(--color-completed-text);
+}
+
+/* Due date form */
+.due-date-input {
+  margin-right: 10px;
+}
+
+.add-due-date-button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-placeholder-text);
+  font-size: 1rem;
+  font-style: italic;
+  text-align: right;
+  padding: 0;
+}
+
+/* Delete task button */
+.delete-task-button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-icons);
+  justify-self: flex-end;
+  margin-left: auto;
+  visibility: hidden; /* Hide the button by default */
+}
+
+.task:hover .delete-task-button {
+  visibility: visible; /* Show the button when hovering over .task */
+}
+
+.delete-task-button:hover {
+  color: var(--color-project-header);
+}
+
+/* Add task form */
+.add-task-container {
+  display: flex;
+  align-items: center;
+  padding: var(--padding-task);
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.add-task-container:hover {
+  background-color: var(--color-hover-project-or-task);
+}
+
+.add-task-plus-icon {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: var(--color-icons);
+}
+
+.add-task-plus-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.task-form {
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  flex-grow: 1;
+  width: auto;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-placeholder-text);
+}
+
+.task-form:focus {
+  outline: none;
+}
+
+.task-form::placeholder {
+  color: var(--color-placeholder-text);
 }
