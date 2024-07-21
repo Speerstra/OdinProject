@@ -1,5 +1,7 @@
 # T O D O productivity app
 
+![alt text](preview.png)
+
 ## Features
 
 - Dynamically add new projects and tasks
