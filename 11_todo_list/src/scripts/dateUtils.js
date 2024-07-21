@@ -1,11 +1,11 @@
-function formatDate(date) {
+export function formatDate(date) {
   if (!date) return "No due date";
 
   const options = { month: "long", day: "numeric" };
   return new Date(date).toLocaleDateString(undefined, options);
 }
 
-function isOverdue(date) {
+export function isOverdue(date) {
   if (!date) return false;
 
   const dueDate = new Date(date);
@@ -53,11 +53,16 @@ export function createDueDateElement(
     dateContainer.appendChild(dateText);
     dateContainer.appendChild(dateInput);
   } else {
-    const dateInput = createDateInputElement(task.dueDate, task.isComplete);
-    dateInput.addEventListener("change", () =>
-      updateTaskDueDateCallback(projectId, task.id, dateInput.value)
+    const addDateButton = createAddDateButton();
+    addDateButton.addEventListener("click", () =>
+      handleAddDateButtonClick(
+        dateContainer,
+        projectId,
+        task,
+        updateTaskDueDateCallback
+      )
     );
-    dateContainer.appendChild(dateInput);
+    dateContainer.appendChild(addDateButton);
   }
 
   return dateContainer;
@@ -93,6 +98,13 @@ function createDateInputElement(dueDate, isComplete) {
   return dateInput;
 }
 
+function createAddDateButton() {
+  const button = document.createElement("button");
+  button.textContent = "Add a due date";
+  button.classList.add("add-due-date-button");
+  return button;
+}
+
 function toggleDateInput(dateText, dateInput) {
   dateText.style.display = "none";
   dateInput.style.display = "inline";
@@ -112,4 +124,21 @@ function handleDateChange(
   }
   dateText.style.display = "inline";
   dateInput.style.display = "none";
+}
+
+function handleAddDateButtonClick(
+  dateContainer,
+  projectId,
+  task,
+  updateTaskDueDateCallback
+) {
+  const dateInput = createDateInputElement(null, false);
+  dateInput.style.display = "inline";
+  dateInput.addEventListener("change", () => {
+    updateTaskDueDateCallback(projectId, task.id, dateInput.value);
+    dateContainer.removeChild(dateInput);
+  });
+
+  dateContainer.appendChild(dateInput);
+  dateInput.focus();
 }

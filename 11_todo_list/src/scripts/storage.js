@@ -3,6 +3,12 @@ import Task from "./task.js";
 import initialProjectList from "./initialProjectList.js";
 
 export default class Storage {
+  static initialize() {
+    if (!localStorage.getItem("projects")) {
+      localStorage.setItem("projects", initialProjectList);
+    }
+  }
+
   static saveProjects(projects) {
     const projectsData = projects.map((project) => ({
       id: project.id,
@@ -19,8 +25,8 @@ export default class Storage {
   }
 
   static getProjects() {
-    const projectsData =
-      JSON.parse(localStorage.getItem("projects")) || initialProjectList;
+    const projectsData = JSON.parse(localStorage.getItem("projects")) || [];
+
     return projectsData.map((projectData) => {
       const project = new Project(projectData.name);
       project.id = projectData.id;
@@ -33,24 +39,5 @@ export default class Storage {
       });
       return project;
     });
-  }
-
-  static initialize() {
-    if (!localStorage.getItem("projects")) {
-      this.saveProjects(
-        initialProjectList.map((projectData) => {
-          const project = new Project(projectData.name);
-          project.id = projectData.id;
-          project.tasks = projectData.tasks.map((taskData) => {
-            const task = new Task(taskData.name);
-            task.id = taskData.id;
-            task.isComplete = taskData.isComplete;
-            task.dueDate = taskData.dueDate;
-            return task;
-          });
-          return project;
-        })
-      );
-    }
   }
 }

@@ -1,14 +1,14 @@
-const initialProjectList = [
+const initialProjectList = JSON.stringify([
   {
     id: 1111,
-    name: "Odin Javascript",
+    name: "1. Odin Javascript",
     tasks: [
       {
         id: 101,
         name: "Library",
         isComplete: true,
         dueDate: new Date(
-          new Date().setMonth(new Date().getMonth() - 2)
+          new Date().setDate(new Date().getDate() - 88)
         ).toISOString(),
       },
       {
@@ -16,7 +16,7 @@ const initialProjectList = [
         name: "TicTacToe",
         isComplete: true,
         dueDate: new Date(
-          new Date().setMonth(new Date().getMonth() - 1)
+          new Date().setDate(new Date().getDate() - 56)
         ).toISOString(),
       },
       {
@@ -24,7 +24,7 @@ const initialProjectList = [
         name: "Restaurant Page",
         isComplete: true,
         dueDate: new Date(
-          new Date().setMonth(new Date().getMonth() - 1)
+          new Date().setDate(new Date().getDate() - 33)
         ).toISOString(),
       },
       {
@@ -32,7 +32,7 @@ const initialProjectList = [
         name: "To Do List",
         isComplete: false,
         dueDate: new Date(
-          new Date().setDate(new Date().getDate() + 7)
+          new Date().setDate(new Date().getDate() - 7)
         ).toISOString(),
       },
       {
@@ -47,11 +47,11 @@ const initialProjectList = [
   },
   {
     id: 2222,
-    name: "Garden",
+    name: "2. Garden",
     tasks: [
       { id: 201, name: "Plant tomatoes", isComplete: false, dueDate: null },
     ],
   },
-];
+]);
 
 export default initialProjectList;
