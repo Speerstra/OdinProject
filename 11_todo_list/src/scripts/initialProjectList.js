@@ -1,10 +1,10 @@
 const initialProjectList = [
   {
-    id: "1",
+    id: 1111,
     name: "Odin Javascript",
     tasks: [
       {
-        id: "1",
+        id: 101,
         name: "Library",
         isComplete: true,
         dueDate: new Date(
@@ -12,7 +12,7 @@ const initialProjectList = [
         ).toISOString(),
       },
       {
-        id: "2",
+        id: 102,
         name: "TicTacToe",
         isComplete: true,
         dueDate: new Date(
@@ -20,7 +20,7 @@ const initialProjectList = [
         ).toISOString(),
       },
       {
-        id: "3",
+        id: 103,
         name: "Restaurant Page",
         isComplete: true,
         dueDate: new Date(
@@ -28,7 +28,7 @@ const initialProjectList = [
         ).toISOString(),
       },
       {
-        id: "4",
+        id: 104,
         name: "To Do List",
         isComplete: false,
         dueDate: new Date(
@@ -36,7 +36,7 @@ const initialProjectList = [
         ).toISOString(),
       },
       {
-        id: "5",
+        id: 105,
         name: "Weather App",
         isComplete: false,
         dueDate: new Date(
@@ -46,10 +46,10 @@ const initialProjectList = [
     ],
   },
   {
-    id: "2",
+    id: 2222,
     name: "Garden",
     tasks: [
-      { id: "6", name: "Plant tomatoes", isComplete: false, dueDate: null },
+      { id: 201, name: "Plant tomatoes", isComplete: false, dueDate: null },
     ],
   },
 ];
