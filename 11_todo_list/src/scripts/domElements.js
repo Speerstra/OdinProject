@@ -1,4 +1,4 @@
-import DateElement from "./dateElement.js";
+import { createDueDateElement } from "./dateUtils.js";
 
 export default class DOMElements {
   constructor(
@@ -148,7 +148,7 @@ export default class DOMElements {
     const taskNameInput = this.createTaskNameInput(projectId, task);
     li.appendChild(taskNameInput);
 
-    const dueDateElement = DateElement.createDueDateElement(
+    const dueDateElement = createDueDateElement(
       projectId,
       task,
       this.updateTaskDueDateCallback

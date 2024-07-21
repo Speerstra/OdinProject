@@ -46,4 +46,17 @@ export default class ProjectList {
   sortProjects() {
     this.projects.sort((a, b) => a.name.localeCompare(b.name));
   }
+
+  sortTasks(project) {
+    project.tasks.sort((a, b) => {
+      const dueDateA = a.dueDate ? new Date(a.dueDate) : Infinity;
+      const dueDateB = b.dueDate ? new Date(b.dueDate) : Infinity;
+      return dueDateA - dueDateB;
+    });
+  }
+
+  sortProjectsAndTasks() {
+    this.sortProjects();
+    this.projects.forEach((project) => this.sortTasks(project));
+  }
 }

@@ -90,7 +90,7 @@ export default class App {
   }
 
   saveProjectsAndRender() {
-    this.projectList.sortProjects();
+    this.projectList.sortProjectsAndTasks();
     this.saveProjects();
     this.domElements.renderProjects(this.projectList.projects);
   }
