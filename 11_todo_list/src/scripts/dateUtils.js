@@ -5,6 +5,15 @@ function formatDate(date) {
   return new Date(date).toLocaleDateString(undefined, options);
 }
 
+function isOverdue(date) {
+  if (!date) return false;
+
+  const dueDate = new Date(date);
+  const today = new Date();
+
+  return dueDate < today;
+}
+
 export function createDueDateElement(
   projectId,
   task,
@@ -61,6 +70,10 @@ function createDateElements(dueDate, isComplete) {
 
   if (isComplete) {
     dateText.classList.add("task-is-complete");
+  }
+
+  if (isOverdue(dueDate)) {
+    dateText.classList.add("due-date-overdue");
   }
 
   const dateInput = createDateInputElement(dueDate, isComplete);

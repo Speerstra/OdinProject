@@ -231,6 +231,10 @@ h3,
   padding: 0;
 }
 
+.due-date-overdue {
+  color: red;
+}
+
 /* Delete task button */
 .delete-task-button {
   background-color: transparent;
