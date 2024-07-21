@@ -16,6 +16,7 @@ export default class App {
       this.updateTaskDueDate.bind(this)
     );
 
+    Storage.initialize();
     this.initializeApp();
   }
 
