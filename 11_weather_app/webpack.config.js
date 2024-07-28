@@ -1,37 +1,46 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+const fs = require("fs");
+
+// Load environment variables from .env file
+const env = dotenv.parse(fs.readFileSync(".env"));
 
 module.exports = {
-  entry: './src/scripts/main.js',
+  entry: "./src/scripts/main.js",
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
-  plugins: [
-    new HtmlWebpackPlugin({
-        template: './src/index.html',
-        filename: 'index.html',
-        favicon: './src/assets/favicon.ico' 
-    }),
-  ],
+  mode: "development",
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-      },
-    ]
-  }
-  };
-
-
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(env),
+    }),
+  ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
+    compress: true,
+    port: 8080,
+  },
+};

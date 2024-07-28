@@ -1,12 +1,9 @@
-import _ from "lodash";
+// Access the API key from the injected environment variable
+const apiKey = process.env.API_KEY;
 
-function component() {
-  const element = document.createElement("div");
+console.log(`Your API key is: ${apiKey}`);
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(["Hello", "webpack"], " ");
-
-  return element;
+const element = document.getElementById("some-element-id");
+if (element) {
+  element.innerHTML = `Your API key is: ${apiKey}`;
 }
-
-document.body.appendChild(component());
