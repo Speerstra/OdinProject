@@ -10,6 +10,10 @@
     "dropdown",
     "menu"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Speerstra/OdinProject"
+  },
   "author": "Sietske Speerstra",
   "license": "ISC"
 }
