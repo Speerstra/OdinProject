@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Library</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
-        <link rel="shortcut icon" href="assets/icon.png" />
-</head>
-<body>
-        <div class="layout">
-                <div class="header">Library</div>
-                <div class="add-button-container">
-                        <button class="button-add-book">Add book</button>
-                </div>
-                <dialog>
-                        <div class="dialog-grid">
-                                <button class="button-close-dialog">X</button>
-                                <form class="form-add-book">
-                                        <h2 id="form-header">Add a book!</h2>
-                                        <label for="input-title">Title</label>
-                                        <input id="input-title" autofocus required>
-                                        <label for="input-author">Author</label>
-                                        <input id="input-author" required>
-                                        <label for="input-pages">Number of Pages</label>
-                                        <input type="number" id="input-pages" required>
-                                        <label for="input-read-status">Read?</label>
-                                        <input type="checkbox" id="input-read-status">
-                                        <button type="submit" class="submit-button">Add</button>
-                                </form>
-                        </div>
-                </dialog>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+    <link rel="shortcut icon" href="assets/icon.png" />
+  </head>
+  <body>
+    <div class="layout">
+      <div class="header">Library</div>
+      <div class="add-button-container">
+        <button class="button-add-book">Add book</button>
+      </div>
+      <dialog>
+        <div class="dialog-grid">
+          <button class="button-close-dialog">X</button>
+          <form class="form-add-book">
+            <h2 id="form-header">Add a book!</h2>
+            <label for="input-title">Title</label>
+            <div class="input-container">
+              <input id="input-title" autofocus minlength="8" required />
+              <span class="error" id="title-error" aria-live="polite"></span>
+            </div>
+            <label for="input-author">Author</label>
+            <div class="input-container">
+              <input id="input-author" type="text" minlength="8" required />
+              <span class="error" id="author-error" aria-live="polite"></span>
+            </div>
 
-                <div class="content">
-                        <div class="book-grid">
-                        </div>
-                </div>
+            <label for="input-pages">Number of Pages</label>
+            <input type="number" id="input-pages" required />
+            <label for="input-read-status">Read?</label>
+            <input type="checkbox" id="input-read-status" />
+            <button type="submit" class="submit-button">Add</button>
+          </form>
         </div>
-</body>
+      </dialog>
+
+      <div class="content">
+        <div class="book-grid"></div>
+      </div>
+    </div>
+  </body>
 </html>
