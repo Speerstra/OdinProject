@@ -1,0 +1,15 @@
+{
+  "name": "fancy-sprs-dropdown",
+  "version": "1.0.0",
+  "description": "A customizable, stylish dropdown menu with smooth transitions and flexible positioning.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dropdown",
+    "menu"
+  ],
+  "author": "Sietske Speerstra",
+  "license": "ISC"
+}
