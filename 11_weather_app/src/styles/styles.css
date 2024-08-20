@@ -25,7 +25,10 @@
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  box-shadow: 0 4px 8px 0 #454c64;
+  box-shadow:
+    inset 1px 1px 3px rgba(255, 255, 255, 0.15),
+    /* Subtle light inner shadow */ inset -1px -1px 3px rgba(0, 0, 0, 0.15),
+    /* Subtle darker inner shadow */ 0 4px 8px 0 #454c64; /* Existing outer shadow */
 }
 
 #location {
@@ -38,6 +41,11 @@
   grid-template-columns: 1fr 1fr;
 }
 
+#current-weather-text {
+  align-self: center;
+  padding-left: 0.7rem;
+}
+
 #current-temp {
   display: flex;
   flex-direction: row;
@@ -46,11 +54,12 @@
 
 #current-temp-number {
   font-size: 8rem;
+  line-height: 0.85;
 }
 
 #current-temp-unit {
   font-size: 2rem;
-  padding-top: 1.4rem;
+  padding-top: 0.4rem;
 }
 
 #current-weather-icon {
