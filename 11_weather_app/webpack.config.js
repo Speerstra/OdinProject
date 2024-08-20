@@ -5,15 +5,16 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 
 // Load environment variables from .env file
-const env = dotenv.parse(fs.readFileSync(".env"));
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: "./src/scripts/main.js",
+  entry: "./src/index.js",
   output: {
-    filename: "bundle.js",
+    filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
   mode: "development",
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
@@ -31,16 +32,38 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      filename: "index.html",
+      favicon: "./src/assets/icons/favicon.ico",
     }),
-    new webpack.DefinePlugin({
-      "process.env": JSON.stringify(env),
-    }),
+    new Dotenv(),
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, "dist"),
-    },
-    compress: true,
-    port: 8080,
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "assets/icons",
+              publicPath: "assets/icons",
+            },
+          },
+        ],
+      },
+      // {
+      //   test: /\.(png|jpg|jpeg|gif)$/i,
+      //   type: "asset/resource",
+      // },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
+    ],
   },
 };

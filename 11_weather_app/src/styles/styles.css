@@ -1,0 +1,84 @@
+.kantumruy-pro {
+  font-family: "Kantumruy Pro";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #7a7ede, #4d67c4);
+  font-family: "Kantumruy Pro";
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#weather-card {
+  background-color: rgba(214, 213, 255, 0.55);
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 #454c64;
+}
+
+#location {
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.8);
+}
+#current-weather {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#current-temp {
+  display: flex;
+  flex-direction: row;
+  font-weight: 500;
+}
+
+#current-temp-number {
+  font-size: 8rem;
+}
+
+#current-temp-unit {
+  font-size: 2rem;
+  padding-top: 1.4rem;
+}
+
+#current-weather-icon {
+  padding: 1rem;
+}
+
+#forcasted-weather {
+  display: grid;
+  grid-template-columns: repeat(5, 5rem);
+}
+
+.forcast-container {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.forcast-day {
+  text-align: center;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.forcast-temp {
+  font-weight: 500;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
