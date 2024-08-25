@@ -1,3 +1,5 @@
+import { getDayOfWeek } from "./date.js";
+
 class DOMManager {
   static updateCurrentWeather({ location, temp, icon }) {
     // Update the current weather details in the DOM
@@ -23,7 +25,7 @@ class DOMManager {
         const iconElement = container.querySelector(".forecast-icon img");
 
         if (dayElement && tempElement && iconElement) {
-          dayElement.textContent = data.day;
+          dayElement.textContent = getDayOfWeek(data.datetime);
           tempElement.textContent = data.temp;
           iconElement.src = `../src/assets/icons/${data.icon}.svg`;
         } else {
