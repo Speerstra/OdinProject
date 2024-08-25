@@ -1,11 +1,7 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
-const dotenv = require("dotenv");
-const fs = require("fs");
-
-// Load environment variables from .env file
 const Dotenv = require("dotenv-webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const fs = require("fs");
 
 module.exports = {
   entry: "./src/main.js",
@@ -13,8 +9,8 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
+  devtool: "source-map",
   mode: "development",
-  devtool: "inline-source-map",
   module: {
     rules: [
       {
@@ -35,7 +31,10 @@ module.exports = {
       filename: "index.html",
       favicon: "./src/assets/icons/favicon.ico",
     }),
-    new Dotenv(),
+    new Dotenv({
+      path: "./.env", // Path to your .env file (this is the default)
+      safe: true, // load .env.example (defaults to "false" which does not use dotenv-safe)
+    }),
   ],
   module: {
     rules: [
