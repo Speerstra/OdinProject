@@ -11,6 +11,8 @@ class WeatherApp {
     try {
       const weatherData = await fetchWeatherData(this.location);
       if (weatherData) {
+        console.log(weatherData.currentConditions);
+        DOMManager.updateLocation(this.location);
         DOMManager.updateCurrentWeather(weatherData.currentConditions);
         DOMManager.updateForecast(weatherData.days);
       }

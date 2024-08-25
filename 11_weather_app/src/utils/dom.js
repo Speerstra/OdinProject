@@ -1,9 +1,11 @@
 import { getDayOfWeek } from "./date.js";
 
 class DOMManager {
-  static updateCurrentWeather({ location, temp, icon }) {
-    // Update the current weather details in the DOM
+  static updateLocation(location) {
     document.getElementById("location").textContent = location;
+  }
+
+  static updateCurrentWeather({ temp, icon }) {
     document.getElementById("current-temp-number").textContent =
       Math.round(temp);
     document.getElementById("current-temp-unit").textContent = "°C";
@@ -12,15 +14,12 @@ class DOMManager {
   }
 
   static updateForecast(forecastData) {
-    // Limit to the first 5 days of forecast data
     const forecastToDisplay = forecastData.slice(1, 6);
     const forecastContainers = document.querySelectorAll(".forecast-container");
 
     forecastContainers.forEach((container, index) => {
-      console.log(index);
       const data = forecastToDisplay[index];
       if (data) {
-        console.log(data);
         const dayElement = container.querySelector(".forecast-day");
         const tempElement = container.querySelector(".forecast-temp");
         const iconElement = container.querySelector(".forecast-icon img");
@@ -37,7 +36,6 @@ class DOMManager {
           );
         }
       } else {
-        // Clear out data if there's no corresponding data (e.g., hide extra containers)
         const dayElement = container.querySelector(".forecast-day");
         const tempElement = container.querySelector(".forecast-temp");
         const iconElement = container.querySelector(".forecast-icon img");
