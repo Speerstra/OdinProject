@@ -4,7 +4,8 @@ class DOMManager {
   static updateCurrentWeather({ location, temp, icon }) {
     // Update the current weather details in the DOM
     document.getElementById("location").textContent = location;
-    document.getElementById("current-temp-number").textContent = temp;
+    document.getElementById("current-temp-number").textContent =
+      Math.round(temp);
     document.getElementById("current-temp-unit").textContent = "°C";
     document.getElementById("current-weather-icon").src =
       `../src/assets/icons/${icon}.svg`;
@@ -26,7 +27,7 @@ class DOMManager {
 
         if (dayElement && tempElement && iconElement) {
           dayElement.textContent = getDayOfWeek(data.datetime);
-          tempElement.textContent = data.temp;
+          tempElement.textContent = Math.round(data.temp);
           iconElement.src = `../src/assets/icons/${data.icon}.svg`;
         } else {
           console.error(
